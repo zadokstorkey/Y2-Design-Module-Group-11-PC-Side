@@ -38,7 +38,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 _probe1Visible = value;
                 RaisePropertyChanged(nameof(Probe1Visible));
-                RaisePropertyChanged(nameof(Probe1VisibiltyString));
+                RaisePropertyChanged(nameof(Probe1VisibilityString));
                 RaisePropertyChanged(nameof(Probe1Color));
             }
         }
@@ -58,7 +58,7 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public string Probe1VisibiltyString
+        public string Probe1VisibilityString
         {
             get
             {
@@ -95,6 +95,22 @@ namespace OscilloscopePCSide.ViewModel
             _title = "Untitled Trace";
             _probe1Visible = true;
             _probe2Visible = false;
+        }
+
+        public void HandleProbe1Clicked()
+        {
+            _probe1Visible = !_probe1Visible;
+            RaisePropertyChanged(nameof(Probe1Visible));
+            RaisePropertyChanged(nameof(Probe1VisibilityString));
+            RaisePropertyChanged(nameof(Probe1Color));
+        }
+
+        public void HandleProbe2Clicked()
+        {
+            _probe2Visible = !_probe2Visible;
+            RaisePropertyChanged(nameof(Probe2Visible));
+            RaisePropertyChanged(nameof(Probe2VisibilityString));
+            RaisePropertyChanged(nameof(Probe2Color));
         }
     }
 }

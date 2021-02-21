@@ -16,12 +16,16 @@ namespace OscilloscopePCSide.ViewModel
 
         bool Probe2Visible { get; set; }
 
-        string Probe1VisibiltyString { get; }
+        string Probe1VisibilityString { get; }
 
         string Probe2VisibilityString { get; }
 
         string Probe1Color { get; }
 
         string Probe2Color { get; }
+
+        void HandleProbe1Clicked();
+
+        void HandleProbe2Clicked();
     }
 }

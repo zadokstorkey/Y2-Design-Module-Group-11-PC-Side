@@ -11,10 +11,10 @@
                     <StackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-            <ListViewItem>
+            <ListViewItem Selected="Probe1Clicked">
                 <Label Foreground="{Binding Probe1Color}">Probe 1</Label>
             </ListViewItem>
-            <ListViewItem>
+            <ListViewItem Selected="Probe2Clicked">
                 <Label Foreground="{Binding Probe2Color}">Probe 2</Label>
             </ListViewItem>
         </ListView>
