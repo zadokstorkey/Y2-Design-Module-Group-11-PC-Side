@@ -73,6 +73,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\IMainDockingViewViewModel.cs" />
+    <Compile Include="ViewModel\IMainWIndowViewModel.cs" />
+    <Compile Include="ViewModel\ISourcesTabViewModel.cs" />
+    <Compile Include="ViewModel\ITraceTabViewModel.cs" />
     <Compile Include="ViewModel\SourcesTabViewModel.cs" />
     <Compile Include="ViewModel\TraceTabViewModel.cs" />
     <Compile Include="View\SourcesTab.xaml.cs">

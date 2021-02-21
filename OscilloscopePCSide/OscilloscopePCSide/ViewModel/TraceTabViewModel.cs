@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public class TraceTabViewModel : ViewModelBase
+    public class TraceTabViewModel : ViewModelBase, ITraceTabViewModel
     {
     }
 }

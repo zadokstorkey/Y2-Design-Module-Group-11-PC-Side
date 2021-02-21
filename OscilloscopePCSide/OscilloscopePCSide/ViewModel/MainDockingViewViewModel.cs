@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using OscilloscopePCSide.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.Model
 {
-    public class MainDockingViewViewModel : ViewModelBase
+    public class MainDockingViewViewModel : ViewModelBase, IMainDockingViewViewModel
     {
     }
 }
