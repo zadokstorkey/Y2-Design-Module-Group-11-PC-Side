@@ -9,5 +9,8 @@ namespace OscilloscopePCSide.ViewModel
 {
     public interface IMainWIndowViewModel : INotifyPropertyChanged
     {
+        ISourcesTabViewModel SourcesTabViewModel { get; set; }
+
+        IMainDockingViewViewModel MainDockingViewViewModel { get; set; }
     }
 }
