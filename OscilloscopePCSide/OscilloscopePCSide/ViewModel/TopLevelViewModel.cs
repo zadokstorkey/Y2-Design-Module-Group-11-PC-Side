@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.Model
 {
-    public class MainDockingViewViewModel : ViewModelBase, IMainDockingViewViewModel
+    public class MainWindowViewModel : ViewModelBase, ITopLevelViewModel
     {
         private ITraceTabViewModelFactory _traceTabViewModelFactory;
 
@@ -38,6 +38,7 @@ namespace OscilloscopePCSide.Model
             set
             {
                 _sourcesTabViewModel = value;
+                RaisePropertyChanged(nameof(MainWindowViewModel));
             }
         }
 
@@ -53,7 +54,7 @@ namespace OscilloscopePCSide.Model
             }
         }
 
-        public MainDockingViewViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel)
+        public MainWindowViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel)
         {
             _traceTabViewModelFactory = traceTabViewModelFactory;
             _sourcesTabViewModel = sourcesTabViewModel;
