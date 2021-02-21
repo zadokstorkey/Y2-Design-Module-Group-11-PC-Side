@@ -60,8 +60,13 @@ namespace OscilloscopePCSide.ViewModel
         {
             _traceTabViewModelFactory = traceTabViewModelFactory;
             _sourcesTabViewModel = sourcesTabViewModel;
+
+            // This is temporary
             _traceTabViewModels = new ObservableCollection<ITraceTabViewModel>
             {
+                this.TraceTabViewModelFactory.Create(),
+                this.TraceTabViewModelFactory.Create(),
+                this.TraceTabViewModelFactory.Create(),
                 this.TraceTabViewModelFactory.Create()
             };
         }

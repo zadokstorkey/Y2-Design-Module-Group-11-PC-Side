@@ -12,7 +12,7 @@
             <LayoutRoot>
                 <LayoutPanel Orientation="Horizontal">
                     <LayoutAnchorablePane DockWidth="150">
-                        <LayoutAnchorable>
+                        <LayoutAnchorable Title="Sources">
                             <view:SourcesTab DataContext="{Binding SourcesTabViewModel}"></view:SourcesTab>
                         </LayoutAnchorable>
                     </LayoutAnchorablePane>
@@ -22,15 +22,11 @@
                     </LayoutDocumentPaneGroup>
                 </LayoutPanel>
             </LayoutRoot>
-            <DockingManager.DocumentHeaderTemplateSelector>
-                <viewutils:DocumentTemplateSelector>
-                    <viewutils:DocumentTemplateSelector.DocumentTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}"/>
-                        </DataTemplate>
-                    </viewutils:DocumentTemplateSelector.DocumentTemplate>
-                </viewutils:DocumentTemplateSelector>
-            </DockingManager.DocumentHeaderTemplateSelector>
+            <DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.Title}"/>
+                </DataTemplate>
+            </DockingManager.DocumentHeaderTemplate>
             <DockingManager.LayoutItemTemplateSelector>
                 <viewutils:DocumentTemplateSelector>
                     <viewutils:DocumentTemplateSelector.DocumentTemplate>
