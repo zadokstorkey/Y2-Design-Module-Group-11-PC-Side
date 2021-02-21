@@ -19,7 +19,7 @@ namespace OscilloscopePCSide.View
     /// <summary>
     /// Interaction logic for SourcesPane.xaml
     /// </summary>
-    public partial class SourcesTab : LayoutAnchorable
+    public partial class SourcesTab : ContentControl
     {
         public SourcesTab()
         {

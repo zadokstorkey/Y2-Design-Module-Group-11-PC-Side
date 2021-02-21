@@ -88,6 +88,7 @@
     <Compile Include="View\TraceTab.xaml.cs">
       <DependentUpon>TraceTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Utils\DocumentTemplateSelector.cs" />
     <Page Include="View\MainDockingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

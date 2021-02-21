@@ -19,7 +19,7 @@ namespace OscilloscopePCSide.View
     /// <summary>
     /// Interaction logic for TracePane.xaml
     /// </summary>
-    public partial class TraceTab : LayoutDocument
+    public partial class TraceTab : ContentControl
     {
         public TraceTab()
         {

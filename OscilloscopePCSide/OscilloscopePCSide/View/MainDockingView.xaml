@@ -4,24 +4,42 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:view="clr-namespace:OscilloscopePCSide.View"
-      mc:Ignorable="d" 
+      xmlns:viewmodel="clr-namespace:OscilloscopePCSide.ViewModel" xmlns:viewutils="clr-namespace:OscilloscopePCSide.View.Utils"
+                mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DockingManager AllowMixedOrientation="True">
+        <DockingManager AllowMixedOrientation="True" DocumentsSource="{Binding TraceTabViewModels}">
             <LayoutRoot>
                 <LayoutPanel Orientation="Horizontal">
                     <LayoutAnchorablePane DockWidth="150">
-                        <view:SourcesTab/>
+                        <LayoutAnchorable>
+                            <view:SourcesTab DataContext="{Binding SourcesTabViewModel}"></view:SourcesTab>
+                        </LayoutAnchorable>
                     </LayoutAnchorablePane>
                     <LayoutDocumentPaneGroup>
                         <LayoutDocumentPane>
-                            <view:TraceTab/>
-                            <view:TraceTab/>
-                            <view:TraceTab/>
                         </LayoutDocumentPane>
                     </LayoutDocumentPaneGroup>
                 </LayoutPanel>
             </LayoutRoot>
+            <DockingManager.DocumentHeaderTemplateSelector>
+                <viewutils:DocumentTemplateSelector>
+                    <viewutils:DocumentTemplateSelector.DocumentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </viewutils:DocumentTemplateSelector.DocumentTemplate>
+                </viewutils:DocumentTemplateSelector>
+            </DockingManager.DocumentHeaderTemplateSelector>
+            <DockingManager.LayoutItemTemplateSelector>
+                <viewutils:DocumentTemplateSelector>
+                    <viewutils:DocumentTemplateSelector.DocumentTemplate>
+                        <DataTemplate>
+                            <view:TraceTab></view:TraceTab>
+                        </DataTemplate>
+                    </viewutils:DocumentTemplateSelector.DocumentTemplate>
+                </viewutils:DocumentTemplateSelector>
+            </DockingManager.LayoutItemTemplateSelector>
         </DockingManager>
     </Grid>
 </ContentControl>

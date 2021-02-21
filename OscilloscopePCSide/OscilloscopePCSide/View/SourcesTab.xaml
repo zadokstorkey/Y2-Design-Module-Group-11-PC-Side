@@ -1,11 +1,10 @@
-﻿<LayoutAnchorable Title="Sources" 
-             x:Class="OscilloscopePCSide.View.SourcesTab"
+﻿<ContentControl x:Class="OscilloscopePCSide.View.SourcesTab"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d">
-    <Grid DataContext="{Binding SourcesTabViewModel}">
+    <Grid>
         <ListView BorderThickness="0">
             <ListViewItem>
                 <Label Foreground="Red">Probe 1</Label>
@@ -18,4 +17,4 @@
             </ListViewItem>
         </ListView>
     </Grid>
-</LayoutAnchorable>
+</ContentControl>
