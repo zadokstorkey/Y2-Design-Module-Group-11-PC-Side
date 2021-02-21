@@ -10,7 +10,8 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
     {
         public ITraceTabViewModel Create()
         {
-            return new TraceTabViewModel();
+            var traceTabViewModel = new TraceTabViewModel();
+            return traceTabViewModel;
         }
     }
 }
