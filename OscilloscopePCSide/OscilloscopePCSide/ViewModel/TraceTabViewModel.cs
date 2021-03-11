@@ -9,11 +9,27 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class TraceTabViewModel : ViewModelBase, ITraceTabViewModel
     {
+        private IMultiProbeDataViewModel _multiProbeDataViewModel;
+
         private string _title;
 
         private bool _probe1Visible;
 
         private bool _probe2Visible;
+
+
+        public IMultiProbeDataViewModel MultiProbeDataViewModel
+        {
+            get
+            {
+                return _multiProbeDataViewModel;
+            }
+            set
+            {
+                _multiProbeDataViewModel = value;
+                RaisePropertyChanged(nameof(MultiProbeDataViewModel));
+            }
+        }
 
         public string Title
         {
@@ -90,8 +106,9 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public TraceTabViewModel()
+        public TraceTabViewModel(IMultiProbeDataViewModel multiProbeDataViewModel)
         {
+            this._multiProbeDataViewModel = multiProbeDataViewModel;
             _title = "Untitled Trace";
             _probe1Visible = true;
             _probe2Visible = false;

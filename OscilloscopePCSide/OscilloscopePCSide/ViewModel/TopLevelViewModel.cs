@@ -17,6 +17,8 @@ namespace OscilloscopePCSide.ViewModel
 
         private ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
 
+        private IMultiProbeDataViewModel _multiProbeDataViewModel;
+
         public ITraceTabViewModelFactory TraceTabViewModelFactory
         {
             get
@@ -56,19 +58,34 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public TopLevelViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel)
+        public IMultiProbeDataViewModel MultiProbeDataViewModel
         {
-            _traceTabViewModelFactory = traceTabViewModelFactory;
-            _sourcesTabViewModel = sourcesTabViewModel;
+            get
+            {
+                return _multiProbeDataViewModel;
+            }
+            set
+            {
+                _multiProbeDataViewModel = value;
+                RaisePropertyChanged(nameof(MultiProbeDataViewModel));
+            }
+        }
+
+        public TopLevelViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel, IMultiProbeDataViewModel multiProbeDataViewModel)
+        {
+            this._traceTabViewModelFactory = traceTabViewModelFactory;
+            this._sourcesTabViewModel = sourcesTabViewModel;
 
             // This is temporary
-            _traceTabViewModels = new ObservableCollection<ITraceTabViewModel>
+            this._traceTabViewModels = new ObservableCollection<ITraceTabViewModel>
             {
-                this.TraceTabViewModelFactory.Create(),
-                this.TraceTabViewModelFactory.Create(),
-                this.TraceTabViewModelFactory.Create(),
-                this.TraceTabViewModelFactory.Create()
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel),
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel),
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel),
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel)
             };
+
+            this._multiProbeDataViewModel = multiProbeDataViewModel;
         }
     }
 }

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.Model
 {
-    public class ScopeData : ObservableObject
+    public class ProbeData : ObservableObject
     {
-        private readonly ObservableCollection<ScopeDataFrame> _frames;
+        private readonly ObservableCollection<ProbeDataFrame> _frames;
 
-        public ObservableCollection<ScopeDataFrame> Frames
+        public ObservableCollection<ProbeDataFrame> Frames
         {
             get
             {
@@ -21,7 +21,7 @@ namespace OscilloscopePCSide.Model
             }
         }
 
-        public ScopeDataFrame MostRecentFrame
+        public ProbeDataFrame MostRecentFrame
         {
             get
             {
@@ -29,9 +29,9 @@ namespace OscilloscopePCSide.Model
             }
         }
 
-        public ScopeData()
+        public ProbeData()
         {
-            this._frames = new ObservableCollection<ScopeDataFrame>();
+            this._frames = new ObservableCollection<ProbeDataFrame>();
             this._frames.CollectionChanged += OnFramesPropertyChanged;
         }
 
