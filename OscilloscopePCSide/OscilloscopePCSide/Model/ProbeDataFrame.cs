@@ -33,6 +33,14 @@ namespace OscilloscopePCSide.Model
         {
             this._timestamp = timestamp;
             this._heights = heights;
+
+            var rnd = new Random();
+
+            //temp
+            for (var i = 0; i < 256; i++)
+            {
+                this._heights.Add(rnd.Next(-4096, 4096));
+            }
         }
     }
 }
