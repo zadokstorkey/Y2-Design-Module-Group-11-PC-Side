@@ -12,5 +12,7 @@ namespace OscilloscopePCSide.ViewModel
     public interface IProbeDataViewModel : INotifyPropertyChanged
     {
         ProbeData ProbeData { get; }
+
+        string TracePath { get; }
     }
 }

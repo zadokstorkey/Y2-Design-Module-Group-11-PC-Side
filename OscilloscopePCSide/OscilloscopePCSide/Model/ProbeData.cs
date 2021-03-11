@@ -25,7 +25,15 @@ namespace OscilloscopePCSide.Model
         {
             get
             {
-                return _frames.Last();
+                if (_frames.Count > 0)
+                {
+                    return _frames.Last();
+                }
+                else
+                {
+                    // temp - replace with something better later
+                    return new ProbeDataFrame(DateTime.Now, new List<int>());
+                }
             }
         }
 
