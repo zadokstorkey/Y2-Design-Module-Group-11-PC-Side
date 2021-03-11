@@ -74,6 +74,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ProbeData.cs" />
+    <Compile Include="Services\IProbeDataParsingService.cs" />
+    <Compile Include="Services\IProbeDataReadingService.cs" />
+    <Compile Include="Services\ProbeDataParsingService.cs" />
     <Compile Include="ViewModel\IMultiProbeDataViewModel.cs" />
     <Compile Include="ViewModel\IProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ITopLevelViewModel.cs" />
@@ -108,7 +111,7 @@
     </Compile>
     <Compile Include="Model\ProbeDataFrame.cs" />
     <Compile Include="ViewModel\TopLevelViewModel.cs" />
-    <Compile Include="Services\ScopeDataReadingService.cs" />
+    <Compile Include="Services\ProbeDataReadingService.cs" />
     <Compile Include="View\MainDockingView.xaml.cs">
       <DependentUpon>MainDockingView.xaml</DependentUpon>
     </Compile>
