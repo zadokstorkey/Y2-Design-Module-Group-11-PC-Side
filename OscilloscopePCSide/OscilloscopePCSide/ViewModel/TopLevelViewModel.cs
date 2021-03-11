@@ -23,7 +23,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _traceTabViewModelFactory;
+                return this._traceTabViewModelFactory;
             }
         }
 
@@ -31,7 +31,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _sourcesTabViewModel;
+                return this._sourcesTabViewModel;
             }
         }
 
@@ -39,7 +39,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _traceTabViewModels;
+                return this._traceTabViewModels;
             }
         }
 
@@ -47,7 +47,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _multiProbeDataViewModel;
+                return this._multiProbeDataViewModel;
             }
         }
 

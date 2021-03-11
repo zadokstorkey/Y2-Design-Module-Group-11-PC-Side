@@ -16,7 +16,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _probeData;
+                return this._probeData;
             }
         }
 
