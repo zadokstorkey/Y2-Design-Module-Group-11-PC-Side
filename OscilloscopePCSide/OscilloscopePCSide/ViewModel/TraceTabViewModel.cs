@@ -9,7 +9,7 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class TraceTabViewModel : ViewModelBase, ITraceTabViewModel
     {
-        private IMultiProbeDataViewModel _multiProbeDataViewModel;
+        private readonly IMultiProbeDataViewModel _multiProbeDataViewModel;
 
         private string _title;
 

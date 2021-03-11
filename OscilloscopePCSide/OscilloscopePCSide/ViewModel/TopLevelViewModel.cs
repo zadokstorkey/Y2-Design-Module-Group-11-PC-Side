@@ -11,13 +11,13 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class TopLevelViewModel : ViewModelBase, ITopLevelViewModel
     {
-        private ITraceTabViewModelFactory _traceTabViewModelFactory;
+        private readonly ITraceTabViewModelFactory _traceTabViewModelFactory;
 
-        private ISourcesTabViewModel _sourcesTabViewModel;
+        private readonly ISourcesTabViewModel _sourcesTabViewModel;
 
-        private ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
+        private readonly ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
 
-        private IMultiProbeDataViewModel _multiProbeDataViewModel;
+        private readonly IMultiProbeDataViewModel _multiProbeDataViewModel;
 
         public ITraceTabViewModelFactory TraceTabViewModelFactory
         {
