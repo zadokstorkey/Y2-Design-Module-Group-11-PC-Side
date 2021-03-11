@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.Model
 {
-    public class ScopeDataFrame: ObservableObject
+    public class ScopeDataFrame : ObservableObject
     {
         private readonly DateTime _timestamp;
 
