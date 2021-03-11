@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.Services
 {
-    public class ScopeDataReadingService
+    public class ProbeDataReadingService
     {
     }
 }

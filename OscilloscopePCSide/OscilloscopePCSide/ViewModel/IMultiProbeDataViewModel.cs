@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public interface IMultiScopeDataViewModel : INotifyPropertyChanged
+    public interface IMultiProbeDataViewModel : INotifyPropertyChanged
     {
-        IScopeDataViewModel Probe1ScopeDataViewModel { get; }
-        IScopeDataViewModel Probe2ScopeDataViewModel { get; }
+        IProbeDataViewModel Probe1ProbeDataViewModel { get; }
+        IProbeDataViewModel Probe2ProbeDataViewModel { get; }
     }
 }

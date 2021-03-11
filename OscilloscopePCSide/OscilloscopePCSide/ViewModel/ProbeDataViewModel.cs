@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public class ScopeDataViewModel : ViewModelBase, IScopeDataViewModel
+    public class ProbeDataViewModel : ViewModelBase, IProbeDataViewModel
     {
-        private readonly ScopeData _scopeData;
+        private readonly ProbeData _probeData;
 
-        public ScopeData ScopeData
+        public ProbeData ProbeData
         {
             get
             {
-                return _scopeData;
+                return _probeData;
             }
         }
 
-        public ScopeDataViewModel(ScopeData scopeData)
+        public ProbeDataViewModel(ProbeData probeData)
         {
-            this._scopeData = scopeData;
+            this._probeData = probeData;
         }
     }
 }

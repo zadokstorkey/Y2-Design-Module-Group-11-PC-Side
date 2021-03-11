@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.Model
 {
-    public class ScopeDataFrame : ObservableObject
+    public class ProbeDataFrame : ObservableObject
     {
         private readonly DateTime _timestamp;
 
@@ -29,7 +29,7 @@ namespace OscilloscopePCSide.Model
             }
         }
 
-        public ScopeDataFrame(DateTime timestamp, List<int> heights)
+        public ProbeDataFrame(DateTime timestamp, List<int> heights)
         {
             this._timestamp = timestamp;
             this._heights = heights;

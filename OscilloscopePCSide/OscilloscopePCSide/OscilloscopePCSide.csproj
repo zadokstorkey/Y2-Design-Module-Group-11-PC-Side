@@ -73,14 +73,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\ScopeData.cs" />
-    <Compile Include="ViewModel\IMultiScopeDataViewModel.cs" />
-    <Compile Include="ViewModel\IScopeDataViewModel.cs" />
+    <Compile Include="Model\ProbeData.cs" />
+    <Compile Include="ViewModel\IMultiProbeDataViewModel.cs" />
+    <Compile Include="ViewModel\IProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ITopLevelViewModel.cs" />
     <Compile Include="ViewModel\ISourcesTabViewModel.cs" />
     <Compile Include="ViewModel\ITraceTabViewModel.cs" />
-    <Compile Include="ViewModel\MultiScopeDataViewModel.cs" />
-    <Compile Include="ViewModel\ScopeDataViewModel.cs" />
+    <Compile Include="ViewModel\MultiProbeDataViewModel.cs" />
+    <Compile Include="ViewModel\ProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITopLevelViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITraceTabViewModelFactory.cs" />
     <Compile Include="ViewModel\SourcesTabViewModel.cs" />
@@ -106,7 +106,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\ScopeDataFrame.cs" />
+    <Compile Include="Model\ProbeDataFrame.cs" />
     <Compile Include="ViewModel\TopLevelViewModel.cs" />
     <Compile Include="Services\ScopeDataReadingService.cs" />
     <Compile Include="View\MainDockingView.xaml.cs">

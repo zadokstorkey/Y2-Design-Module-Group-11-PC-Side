@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public interface IScopeDataViewModel : INotifyPropertyChanged
+    public interface IProbeDataViewModel : INotifyPropertyChanged
     {
-        ScopeData ScopeData { get; }
+        ProbeData ProbeData { get; }
     }
 }
