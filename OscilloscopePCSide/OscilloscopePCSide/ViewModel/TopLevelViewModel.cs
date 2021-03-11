@@ -17,6 +17,8 @@ namespace OscilloscopePCSide.ViewModel
 
         private ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
 
+        private IMultiScopeDataViewModel _multiScopeDataViewModel;
+
         public ITraceTabViewModelFactory TraceTabViewModelFactory
         {
             get
@@ -56,19 +58,34 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public TopLevelViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel)
+        public IMultiScopeDataViewModel MultiScopeDataViewModel
         {
-            _traceTabViewModelFactory = traceTabViewModelFactory;
-            _sourcesTabViewModel = sourcesTabViewModel;
+            get
+            {
+                return _multiScopeDataViewModel;
+            }
+            set
+            {
+                _multiScopeDataViewModel = value;
+                RaisePropertyChanged(nameof(MultiScopeDataViewModel));
+            }
+        }
+
+        public TopLevelViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel, IMultiScopeDataViewModel multiScopeDataViewModel)
+        {
+            this._traceTabViewModelFactory = traceTabViewModelFactory;
+            this._sourcesTabViewModel = sourcesTabViewModel;
 
             // This is temporary
-            _traceTabViewModels = new ObservableCollection<ITraceTabViewModel>
+            this._traceTabViewModels = new ObservableCollection<ITraceTabViewModel>
             {
                 this.TraceTabViewModelFactory.Create(),
                 this.TraceTabViewModelFactory.Create(),
                 this.TraceTabViewModelFactory.Create(),
                 this.TraceTabViewModelFactory.Create()
             };
+
+            this._multiScopeDataViewModel = multiScopeDataViewModel;
         }
     }
 }

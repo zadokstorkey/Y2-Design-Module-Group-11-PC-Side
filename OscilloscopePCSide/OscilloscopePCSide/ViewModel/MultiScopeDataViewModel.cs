@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public class MultiScopeDataViewModel : ViewModelBase
+    public class MultiScopeDataViewModel : ViewModelBase, IMultiScopeDataViewModel
     {
         private readonly IScopeDataViewModel _probe1ScopeDataViewModel;
         private readonly IScopeDataViewModel _probe2ScopeDataViewModel;

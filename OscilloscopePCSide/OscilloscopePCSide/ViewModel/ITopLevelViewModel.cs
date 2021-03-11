@@ -15,5 +15,7 @@ namespace OscilloscopePCSide.ViewModel
         ISourcesTabViewModel SourcesTabViewModel { get; set; }
 
         ObservableCollection<ITraceTabViewModel> TraceTabViewModels { get; set; }
+
+        IMultiScopeDataViewModel MultiScopeDataViewModel { get; set; }
     }
 }
