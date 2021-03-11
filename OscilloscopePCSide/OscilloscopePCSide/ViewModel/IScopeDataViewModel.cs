@@ -1,0 +1,16 @@
+﻿using GalaSoft.MvvmLight;
+using OscilloscopePCSide.Model;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OscilloscopePCSide.ViewModel
+{
+    public interface IScopeDataViewModel : INotifyPropertyChanged
+    {
+        ScopeData ScopeData { get; }
+    }
+}
