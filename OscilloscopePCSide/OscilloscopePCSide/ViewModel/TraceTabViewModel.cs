@@ -24,11 +24,6 @@ namespace OscilloscopePCSide.ViewModel
             {
                 return _multiProbeDataViewModel;
             }
-            set
-            {
-                _multiProbeDataViewModel = value;
-                RaisePropertyChanged(nameof(MultiProbeDataViewModel));
-            }
         }
 
         public string Title

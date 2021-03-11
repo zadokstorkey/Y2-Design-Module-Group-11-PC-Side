@@ -10,7 +10,7 @@ namespace OscilloscopePCSide.ViewModel
 {
     public interface ITraceTabViewModel : INotifyPropertyChanged
     {
-        IMultiProbeDataViewModel MultiProbeDataViewModel { get; set; }
+        IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
 
         string Title { get; set; }
 

@@ -25,11 +25,6 @@ namespace OscilloscopePCSide.ViewModel
             {
                 return _traceTabViewModelFactory;
             }
-            set
-            {
-                _traceTabViewModelFactory = value;
-                RaisePropertyChanged(nameof(TraceTabViewModelFactory));
-            }
         }
 
         public ISourcesTabViewModel SourcesTabViewModel
@@ -37,11 +32,6 @@ namespace OscilloscopePCSide.ViewModel
             get
             {
                 return _sourcesTabViewModel;
-            }
-            set
-            {
-                _sourcesTabViewModel = value;
-                RaisePropertyChanged(nameof(SourcesTabViewModel));
             }
         }
 
@@ -51,11 +41,6 @@ namespace OscilloscopePCSide.ViewModel
             {
                 return _traceTabViewModels;
             }
-            set
-            {
-                _traceTabViewModels = value;
-                RaisePropertyChanged(nameof(TraceTabViewModels));
-            }
         }
 
         public IMultiProbeDataViewModel MultiProbeDataViewModel
@@ -63,11 +48,6 @@ namespace OscilloscopePCSide.ViewModel
             get
             {
                 return _multiProbeDataViewModel;
-            }
-            set
-            {
-                _multiProbeDataViewModel = value;
-                RaisePropertyChanged(nameof(MultiProbeDataViewModel));
             }
         }
 
