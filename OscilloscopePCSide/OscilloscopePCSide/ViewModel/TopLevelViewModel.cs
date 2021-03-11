@@ -11,24 +11,19 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class TopLevelViewModel : ViewModelBase, ITopLevelViewModel
     {
-        private ITraceTabViewModelFactory _traceTabViewModelFactory;
+        private readonly ITraceTabViewModelFactory _traceTabViewModelFactory;
 
-        private ISourcesTabViewModel _sourcesTabViewModel;
+        private readonly ISourcesTabViewModel _sourcesTabViewModel;
 
-        private ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
+        private readonly ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
 
-        private IMultiProbeDataViewModel _multiProbeDataViewModel;
+        private readonly IMultiProbeDataViewModel _multiProbeDataViewModel;
 
         public ITraceTabViewModelFactory TraceTabViewModelFactory
         {
             get
             {
-                return _traceTabViewModelFactory;
-            }
-            set
-            {
-                _traceTabViewModelFactory = value;
-                RaisePropertyChanged(nameof(TraceTabViewModelFactory));
+                return this._traceTabViewModelFactory;
             }
         }
 
@@ -36,12 +31,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _sourcesTabViewModel;
-            }
-            set
-            {
-                _sourcesTabViewModel = value;
-                RaisePropertyChanged(nameof(SourcesTabViewModel));
+                return this._sourcesTabViewModel;
             }
         }
 
@@ -49,12 +39,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _traceTabViewModels;
-            }
-            set
-            {
-                _traceTabViewModels = value;
-                RaisePropertyChanged(nameof(TraceTabViewModels));
+                return this._traceTabViewModels;
             }
         }
 
@@ -62,12 +47,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _multiProbeDataViewModel;
-            }
-            set
-            {
-                _multiProbeDataViewModel = value;
-                RaisePropertyChanged(nameof(MultiProbeDataViewModel));
+                return this._multiProbeDataViewModel;
             }
         }
 

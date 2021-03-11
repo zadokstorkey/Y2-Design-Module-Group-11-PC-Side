@@ -9,7 +9,7 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class TraceTabViewModel : ViewModelBase, ITraceTabViewModel
     {
-        private IMultiProbeDataViewModel _multiProbeDataViewModel;
+        private readonly IMultiProbeDataViewModel _multiProbeDataViewModel;
 
         private string _title;
 
@@ -22,12 +22,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _multiProbeDataViewModel;
-            }
-            set
-            {
-                _multiProbeDataViewModel = value;
-                RaisePropertyChanged(nameof(MultiProbeDataViewModel));
+                return this._multiProbeDataViewModel;
             }
         }
 
@@ -35,11 +30,11 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _title;
+                return this._title;
             }
             set
             {
-                _title = value;
+                this._title = value;
                 RaisePropertyChanged(nameof(Title));
             }
         }
@@ -48,11 +43,11 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _probe1Visible;
+                return this._probe1Visible;
             }
             set
             {
-                _probe1Visible = value;
+                this._probe1Visible = value;
                 RaisePropertyChanged(nameof(Probe1Visible));
                 RaisePropertyChanged(nameof(Probe1VisibilityString));
                 RaisePropertyChanged(nameof(Probe1Color));
@@ -63,11 +58,11 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _probe2Visible;
+                return this._probe2Visible;
             }
             set
             {
-                _probe2Visible = value;
+                this._probe2Visible = value;
                 RaisePropertyChanged(nameof(Probe2Visible));
                 RaisePropertyChanged(nameof(Probe2VisibilityString));
                 RaisePropertyChanged(nameof(Probe2Color));
@@ -78,7 +73,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return Probe1Visible ? "Visible" : "Hidden";
+                return this._probe1Visible ? "Visible" : "Hidden";
             }
         }
 
@@ -86,7 +81,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return Probe2Visible ? "Visible" : "Hidden";
+                return this._probe2Visible ? "Visible" : "Hidden";
             }
         }
 
@@ -94,7 +89,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return Probe1Visible ? "Red" : "Gray";
+                return this._probe1Visible ? "Red" : "Gray";
             }
         }
 
@@ -102,21 +97,21 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return Probe2Visible ? "Blue" : "Gray";
+                return this._probe2Visible ? "Blue" : "Gray";
             }
         }
 
         public TraceTabViewModel(IMultiProbeDataViewModel multiProbeDataViewModel)
         {
             this._multiProbeDataViewModel = multiProbeDataViewModel;
-            _title = "Untitled Trace";
-            _probe1Visible = true;
-            _probe2Visible = false;
+            this._title = "Untitled Trace";
+            this._probe1Visible = true;
+            this._probe2Visible = false;
         }
 
         public void HandleProbe1Clicked()
         {
-            _probe1Visible = !_probe1Visible;
+            this._probe1Visible = !_probe1Visible;
             RaisePropertyChanged(nameof(Probe1Visible));
             RaisePropertyChanged(nameof(Probe1VisibilityString));
             RaisePropertyChanged(nameof(Probe1Color));
@@ -124,7 +119,7 @@ namespace OscilloscopePCSide.ViewModel
 
         public void HandleProbe2Clicked()
         {
-            _probe2Visible = !_probe2Visible;
+            this._probe2Visible = !_probe2Visible;
             RaisePropertyChanged(nameof(Probe2Visible));
             RaisePropertyChanged(nameof(Probe2VisibilityString));
             RaisePropertyChanged(nameof(Probe2Color));
