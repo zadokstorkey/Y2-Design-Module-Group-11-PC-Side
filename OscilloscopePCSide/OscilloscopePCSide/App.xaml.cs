@@ -1,4 +1,5 @@
-﻿using OscilloscopePCSide.ViewModel.ViewModelFactories;
+﻿using OscilloscopePCSide.Services;
+using OscilloscopePCSide.ViewModel.ViewModelFactories;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
