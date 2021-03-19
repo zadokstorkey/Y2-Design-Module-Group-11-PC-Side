@@ -8,5 +8,9 @@ namespace OscilloscopePCSide.Services
 {
     public interface IProbeDataReadingService
     {
+        IProbeDataParsingService ProbeDataParsingService { get; }
+        ISerialPortConnectionService SerialPortConnectionService { get; }
+
+        void Start();
     }
 }

@@ -16,6 +16,8 @@ namespace OscilloscopePCSide.Services
 
         private string _currentSerialPortMessage;
 
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+
         public SerialPortConnectionService()
         {
             _serialPort = new SerialPort();
@@ -44,14 +46,11 @@ namespace OscilloscopePCSide.Services
 
             _serialPort.PortName = stm32DeviceID;
             _serialPort.BaudRate = 115200;
-            _serialPort.NewLine = "\r\n";
             _serialPort.DataBits = 8;
             _serialPort.StopBits = StopBits.One;
             _serialPort.Parity = Parity.None;
             _serialPort.Encoding = Encoding.UTF8;
             _serialPort.Handshake = Handshake.XOnXOff;
-            //_serialPort.DtrEnable = true;
-            //_serialPort.RtsEnable = true;
             _serialPort.DataReceived += OnDataReceived;
             _serialPort.ErrorReceived += OnErrorOccured;
             _serialPort.Disposed += OnDisposed;
@@ -59,13 +58,6 @@ namespace OscilloscopePCSide.Services
             try
             {
                 _serialPort.Open();
-                while (true)
-                {
-                    _serialPort.Write("A");
-                    Trace.WriteLine("Sent: " + "A");
-
-                    Thread.Sleep(4000);
-                }
             }
             catch (Exception e)
             {
@@ -73,7 +65,13 @@ namespace OscilloscopePCSide.Services
             }
         }
 
-        public void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void SendMessage(string message)
+        {
+            _serialPort.Write(message);
+            Trace.WriteLine("Sent: " + message);
+        }
+
+        private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             this._currentSerialPortMessage = this._currentSerialPortMessage + _serialPort.ReadExisting();
             if (this._currentSerialPortMessage.Contains('>'))
@@ -82,16 +80,17 @@ namespace OscilloscopePCSide.Services
                 Trace.Write("Received: " + completeMessage);
                 Trace.WriteLine("");
                 this._currentSerialPortMessage = this._currentSerialPortMessage.Substring(completeMessage.Length+1);
+                MessageReceived.Invoke(this, new MessageReceivedEventArgs(completeMessage));
             }
         }
 
-        public void OnErrorOccured(object sender, SerialErrorReceivedEventArgs e)
+        private void OnErrorOccured(object sender, SerialErrorReceivedEventArgs e)
         {
             _serialPort.Close();
             throw new ApplicationException("An unknown error occured.");
         }
 
-        public void OnDisposed(object sender, EventArgs e)
+        private void OnDisposed(object sender, EventArgs e)
         {
             throw new ApplicationException("Serial port was closed unexpectedly.");
         }
