@@ -10,10 +10,12 @@ namespace OscilloscopePCSide.ViewModel
 {
     public interface ITopLevelViewModel : INotifyPropertyChanged
     {
-        ITraceTabViewModelFactory TraceTabViewModelFactory { get; set; }
+        ITraceTabViewModelFactory TraceTabViewModelFactory { get; }
 
-        ISourcesTabViewModel SourcesTabViewModel { get; set; }
+        ISourcesTabViewModel SourcesTabViewModel { get; }
 
-        ObservableCollection<ITraceTabViewModel> TraceTabViewModels { get; set; }
+        ObservableCollection<ITraceTabViewModel> TraceTabViewModels { get; }
+
+        IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
     }
 }

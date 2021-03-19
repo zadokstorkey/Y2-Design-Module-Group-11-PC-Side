@@ -52,6 +52,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -73,9 +74,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ProbeData.cs" />
+    <Compile Include="Services\IProbeDataParsingService.cs" />
+    <Compile Include="Services\IProbeDataReadingService.cs" />
+    <Compile Include="Services\ISerialPortConnectionService.cs" />
+    <Compile Include="Services\ProbeDataParsingService.cs" />
+    <Compile Include="Services\SerialPortConnectionService.cs" />
+    <Compile Include="ViewModel\IMultiProbeDataViewModel.cs" />
+    <Compile Include="ViewModel\IProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ITopLevelViewModel.cs" />
     <Compile Include="ViewModel\ISourcesTabViewModel.cs" />
     <Compile Include="ViewModel\ITraceTabViewModel.cs" />
+    <Compile Include="ViewModel\MultiProbeDataViewModel.cs" />
+    <Compile Include="ViewModel\ProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITopLevelViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITraceTabViewModelFactory.cs" />
     <Compile Include="ViewModel\SourcesTabViewModel.cs" />
@@ -101,9 +112,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\ScopeDataFrame.cs" />
+    <Compile Include="Model\ProbeDataFrame.cs" />
     <Compile Include="ViewModel\TopLevelViewModel.cs" />
-    <Compile Include="Services\ScopeDataReadingService.cs" />
+    <Compile Include="Services\ProbeDataReadingService.cs" />
     <Compile Include="View\MainDockingView.xaml.cs">
       <DependentUpon>MainDockingView.xaml</DependentUpon>
     </Compile>

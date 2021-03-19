@@ -8,6 +8,6 @@ namespace OscilloscopePCSide.ViewModel
 {
     public interface ITraceTabViewModelFactory
     {
-        ITraceTabViewModel Create();
+        ITraceTabViewModel Create(IMultiProbeDataViewModel multiProbeDataViewModel);
     }
 }

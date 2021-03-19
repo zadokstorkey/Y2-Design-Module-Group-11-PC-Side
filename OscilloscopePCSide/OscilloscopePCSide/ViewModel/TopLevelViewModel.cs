@@ -11,22 +11,19 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class TopLevelViewModel : ViewModelBase, ITopLevelViewModel
     {
-        private ITraceTabViewModelFactory _traceTabViewModelFactory;
+        private readonly ITraceTabViewModelFactory _traceTabViewModelFactory;
 
-        private ISourcesTabViewModel _sourcesTabViewModel;
+        private readonly ISourcesTabViewModel _sourcesTabViewModel;
 
-        private ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
+        private readonly ObservableCollection<ITraceTabViewModel> _traceTabViewModels;
+
+        private readonly IMultiProbeDataViewModel _multiProbeDataViewModel;
 
         public ITraceTabViewModelFactory TraceTabViewModelFactory
         {
             get
             {
-                return _traceTabViewModelFactory;
-            }
-            set
-            {
-                _traceTabViewModelFactory = value;
-                RaisePropertyChanged(nameof(TraceTabViewModelFactory));
+                return this._traceTabViewModelFactory;
             }
         }
 
@@ -34,12 +31,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _sourcesTabViewModel;
-            }
-            set
-            {
-                _sourcesTabViewModel = value;
-                RaisePropertyChanged(nameof(SourcesTabViewModel));
+                return this._sourcesTabViewModel;
             }
         }
 
@@ -47,28 +39,33 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _traceTabViewModels;
-            }
-            set
-            {
-                _traceTabViewModels = value;
-                RaisePropertyChanged(nameof(TraceTabViewModels));
+                return this._traceTabViewModels;
             }
         }
 
-        public TopLevelViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel)
+        public IMultiProbeDataViewModel MultiProbeDataViewModel
         {
-            _traceTabViewModelFactory = traceTabViewModelFactory;
-            _sourcesTabViewModel = sourcesTabViewModel;
+            get
+            {
+                return this._multiProbeDataViewModel;
+            }
+        }
+
+        public TopLevelViewModel(ITraceTabViewModelFactory traceTabViewModelFactory, ISourcesTabViewModel sourcesTabViewModel, IMultiProbeDataViewModel multiProbeDataViewModel)
+        {
+            this._traceTabViewModelFactory = traceTabViewModelFactory;
+            this._sourcesTabViewModel = sourcesTabViewModel;
 
             // This is temporary
-            _traceTabViewModels = new ObservableCollection<ITraceTabViewModel>
+            this._traceTabViewModels = new ObservableCollection<ITraceTabViewModel>
             {
-                this.TraceTabViewModelFactory.Create(),
-                this.TraceTabViewModelFactory.Create(),
-                this.TraceTabViewModelFactory.Create(),
-                this.TraceTabViewModelFactory.Create()
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel),
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel),
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel),
+                this.TraceTabViewModelFactory.Create(multiProbeDataViewModel)
             };
+
+            this._multiProbeDataViewModel = multiProbeDataViewModel;
         }
     }
 }

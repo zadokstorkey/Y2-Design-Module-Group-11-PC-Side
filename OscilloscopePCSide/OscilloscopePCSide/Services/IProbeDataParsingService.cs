@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.Services
 {
-    public class ScopeDataReadingService
+    public interface IProbeDataParsingService
     {
+        List<int> ParseProbeData(string message);
     }
 }

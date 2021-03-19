@@ -8,9 +8,9 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
 {
     public class TraceTabViewModelFactory : ITraceTabViewModelFactory
     {
-        public ITraceTabViewModel Create()
+        public ITraceTabViewModel Create(IMultiProbeDataViewModel multiProbeDataViewModel)
         {
-            var traceTabViewModel = new TraceTabViewModel();
+            var traceTabViewModel = new TraceTabViewModel(multiProbeDataViewModel);
             return traceTabViewModel;
         }
     }
