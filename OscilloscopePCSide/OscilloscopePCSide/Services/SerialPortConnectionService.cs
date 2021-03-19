@@ -14,6 +14,7 @@ namespace OscilloscopePCSide.Services
     {
         private SerialPort _serialPort;
 
+        private string _currentSerialPortMessage;
 
         public SerialPortConnectionService()
         {
@@ -42,11 +43,15 @@ namespace OscilloscopePCSide.Services
             Trace.WriteLine(stm32DeviceID);
 
             _serialPort.PortName = stm32DeviceID;
-            _serialPort.BaudRate = 1115200;
+            _serialPort.BaudRate = 115200;
+            _serialPort.NewLine = "\r\n";
             _serialPort.DataBits = 8;
             _serialPort.StopBits = StopBits.One;
             _serialPort.Parity = Parity.None;
             _serialPort.Encoding = Encoding.UTF8;
+            _serialPort.Handshake = Handshake.XOnXOff;
+            //_serialPort.DtrEnable = true;
+            //_serialPort.RtsEnable = true;
             _serialPort.DataReceived += OnDataReceived;
             _serialPort.ErrorReceived += OnErrorOccured;
             _serialPort.Disposed += OnDisposed;
@@ -56,10 +61,10 @@ namespace OscilloscopePCSide.Services
                 _serialPort.Open();
                 while (true)
                 {
-                    //_serialPort.Write(new Byte[] { 97 }, 0, 1);
-                    //Trace.WriteLine("Sent: " + "A");
+                    _serialPort.Write("A");
+                    Trace.WriteLine("Sent: " + "A");
 
-                    //Thread.Sleep(4000);
+                    Thread.Sleep(4000);
                 }
             }
             catch (Exception e)
@@ -70,30 +75,25 @@ namespace OscilloscopePCSide.Services
 
         public void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var temp = _serialPort.ReadExisting();
-            
-            Trace.Write("Received: " + temp);
-            Trace.WriteLine("");
-
-            if (temp.Replace("\0", "").Length == 0)
+            this._currentSerialPortMessage = this._currentSerialPortMessage + _serialPort.ReadExisting();
+            if (this._currentSerialPortMessage.Contains('>'))
             {
-                return;
+                var completeMessage = this._currentSerialPortMessage.Split('>')[0];
+                Trace.Write("Received: " + completeMessage);
+                Trace.WriteLine("");
+                this._currentSerialPortMessage = this._currentSerialPortMessage.Substring(completeMessage.Length+1);
             }
-
-            _serialPort.Close();
-            throw new ApplicationException("Test exception: Response");
         }
 
         public void OnErrorOccured(object sender, SerialErrorReceivedEventArgs e)
         {
             _serialPort.Close();
-            throw new ApplicationException("Test exception: Error");
+            throw new ApplicationException("An unknown error occured.");
         }
 
         public void OnDisposed(object sender, EventArgs e)
         {
-            _serialPort.Close();
-            throw new ApplicationException("Test exception: Disposed");
+            throw new ApplicationException("Serial port was closed unexpectedly.");
         }
     }
 }
