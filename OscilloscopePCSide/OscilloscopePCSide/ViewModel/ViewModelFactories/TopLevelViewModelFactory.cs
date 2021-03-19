@@ -1,4 +1,5 @@
 ﻿using OscilloscopePCSide.Model;
+using OscilloscopePCSide.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,12 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
             var probe2ProbeDataViewModel = new ProbeDataViewModel(probe2ProbeData);
             var multiProbeDataViewModel = new MultiProbeDataViewModel(probe1ProbeDataViewModel, probe2ProbeDataViewModel);
             var topLevelViewModel = new TopLevelViewModel(traceTabViewModelFactory, sourcesTabViewModel, multiProbeDataViewModel);
+
+            var probeDataParsingService = new ProbeDataParsingService();
+            var serialPortConnectionService = new SerialPortConnectionService();
+            var probeDataReadingService = new ProbeDataReadingService(probeDataParsingService, serialPortConnectionService, multiProbeDataViewModel);
+            probeDataReadingService.Start();
+
             return topLevelViewModel;
         }
     }

@@ -29,8 +29,6 @@ namespace OscilloscopePCSide
 
             // Show the window
             mainWindow.Show();
-
-            new SerialPortConnectionService().Connect();
 		}
 	}
 }
