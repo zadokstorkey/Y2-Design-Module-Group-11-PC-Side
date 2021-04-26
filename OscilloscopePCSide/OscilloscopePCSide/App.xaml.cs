@@ -17,6 +17,19 @@ namespace OscilloscopePCSide
     {
 		private void Application_Startup(object sender, StartupEventArgs e)
         {
+            try
+            {
+                Setup();
+            }
+            catch (ApplicationException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Shutdown();
+            }
+		}
+
+        private void Setup()
+        {
             // Create the top level view and its children
             var mainWindow = new MainWindow();
 
@@ -29,6 +42,6 @@ namespace OscilloscopePCSide
 
             // Show the window
             mainWindow.Show();
-		}
+        }
 	}
 }
