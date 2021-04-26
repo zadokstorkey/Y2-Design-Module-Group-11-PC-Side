@@ -154,11 +154,11 @@ namespace OscilloscopePCSide.ViewModel
             set
             {
                 this._voltageOffset = value;
-                RaisePropertyChanged(nameof(this._voltageOffset));
+                RaisePropertyChanged(nameof(VoltageOffset));
                 this._offset = value / 6.6;
-                RaisePropertyChanged(nameof(this._offset));
-                this._voltageOffsetString = value.ToString();
-                RaisePropertyChanged(nameof(this._voltageOffsetString));
+                RaisePropertyChanged(nameof(Offset));
+                this._voltageOffsetString = value.ToString("0.#V");
+                RaisePropertyChanged(nameof(VoltageOffsetString));
 
                 RaisePropertyChanged(nameof(ScaledOffset));
             }

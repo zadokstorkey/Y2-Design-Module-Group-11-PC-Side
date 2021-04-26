@@ -83,5 +83,29 @@ namespace OscilloscopePCSide.View
             var viewModel = DataContext as ITraceTabViewModel;
             viewModel.TraceHeight = e.NewSize.Height;
         }
+
+        private void IncreaseScaleButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as ITraceTabViewModel;
+            viewModel.VoltageScale++;
+        }
+
+        private void DecreaseScaleButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as ITraceTabViewModel;
+            viewModel.VoltageScale--;
+        }
+
+        private void IncreaseOffsetButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as ITraceTabViewModel;
+            viewModel.VoltageOffset++;
+        }
+
+        private void DecreaseOffsetButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as ITraceTabViewModel;
+            viewModel.VoltageOffset--;
+        }
     }
 }

@@ -21,13 +21,28 @@
             </ListView>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                 <Label Height="20" Padding="10, 2, 10, 0">Scale: </Label>
-                <TextBox Height="20" Margin="10, 2, 10, 0" Width="50" Text="{Binding VoltageScaleString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
+                <TextBox Height="23" Width="40" Margin="10, 2, 0, 0" VerticalContentAlignment="Center" Text="{Binding VoltageScaleString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
+                <Grid Height="23" Width="20" Margin="0, 2, 10, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Padding="0" Grid.Row="0" Content="+" FontSize="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="IncreaseScaleButton_Click"></Button>
+                    <Button Padding="0" Grid.Row="1" Content="-" FontSize="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="DecreaseScaleButton_Click"></Button>
+                </Grid>
             </StackPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                 <Label Height="20" Padding="10, 2, 10, 0">Offset:</Label>
-                <TextBox Height="20" Margin="10, 2, 10, 0" Width="50" Text="{Binding VoltageOffsetString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
+                <TextBox Height="23" Width="40" Margin="10, 2, 0, 0" VerticalContentAlignment="Center" Text="{Binding VoltageOffsetString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
+                <Grid Height="23" Width="20" Margin="0, 2, 10, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Padding="0" Grid.Row="0" Content="+" FontSize="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="IncreaseOffsetButton_Click"></Button>
+                    <Button Padding="0" Grid.Row="1" Content="-" FontSize="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="DecreaseOffsetButton_Click"></Button>
+                </Grid>
             </StackPanel>
-            <Label DockPanel.Dock="Left" Content="{Binding Offset}"/>
         </DockPanel>
         <Border ClipToBounds="True" Background="WhiteSmoke" Loaded="Border_Loaded" SizeChanged="Border_SizeChanged">
             <Grid>
