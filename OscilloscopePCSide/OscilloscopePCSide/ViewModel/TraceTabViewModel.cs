@@ -13,11 +13,19 @@ namespace OscilloscopePCSide.ViewModel
 
         private string _title;
 
+        private double _traceHeight;
+
         private double _scale;
 
         private double _voltageScale;
 
         private string _voltageScaleString;
+
+        private double _offset;
+
+        private double _voltageOffset;
+
+        private string _voltageOffsetString;
 
         private bool _probe1Visible;
 
@@ -44,6 +52,21 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
+        public double TraceHeight
+        { 
+            get
+            {
+                return _traceHeight;
+            }
+            set
+            {
+                _traceHeight = value;
+                RaisePropertyChanged(nameof(TraceHeight));
+                RaisePropertyChanged(nameof(ScaledOffset));
+            }
+        }
+
+
         public double Scale
         {
             get
@@ -58,6 +81,8 @@ namespace OscilloscopePCSide.ViewModel
                 RaisePropertyChanged(nameof(VoltageScale));
                 this._voltageScaleString = this._voltageScale.ToString("0.#V");
                 RaisePropertyChanged(nameof(VoltageScaleString));
+
+                RaisePropertyChanged(nameof(ScaledOffset));
             }
         }
 
@@ -75,6 +100,8 @@ namespace OscilloscopePCSide.ViewModel
                 RaisePropertyChanged(nameof(Scale));
                 this._voltageScaleString = value.ToString("0.#V");
                 RaisePropertyChanged(nameof(VoltageScaleString));
+
+                RaisePropertyChanged(nameof(ScaledOffset));
             }
         }
 
@@ -93,7 +120,76 @@ namespace OscilloscopePCSide.ViewModel
                     RaisePropertyChanged(nameof(VoltageScale));
                     this._scale =  3.3 / this._voltageScale;
                     RaisePropertyChanged(nameof(Scale));
+
+                    RaisePropertyChanged(nameof(ScaledOffset));
                 }
+            }
+        }
+
+        public double Offset
+        {
+            get
+            {
+                return this._offset;
+            }
+            set
+            {
+                this._offset = value;
+                RaisePropertyChanged(nameof(Offset));
+                this._voltageOffset = value * 6.6;
+                RaisePropertyChanged(nameof(VoltageOffset));
+                this._voltageOffsetString = _voltageOffset.ToString("0.#V");
+                RaisePropertyChanged(nameof(VoltageOffsetString));
+
+                RaisePropertyChanged(nameof(ScaledOffset));
+            }
+        }
+
+        public double VoltageOffset
+        { 
+            get
+            {
+                return this._voltageOffset;
+            }
+            set
+            {
+                this._voltageOffset = value;
+                RaisePropertyChanged(nameof(this._voltageOffset));
+                this._offset = value / 6.6;
+                RaisePropertyChanged(nameof(this._offset));
+                this._voltageOffsetString = value.ToString();
+                RaisePropertyChanged(nameof(this._voltageOffsetString));
+
+                RaisePropertyChanged(nameof(ScaledOffset));
+            }
+        }
+
+        public string VoltageOffsetString
+        {
+            get
+            {
+                return this._voltageOffsetString;
+            }
+            set
+            {
+                this._voltageOffsetString = value;
+                RaisePropertyChanged(nameof(VoltageOffsetString));
+                if (double.TryParse(value.Replace("V", ""), out this._voltageOffset))
+                {
+                    RaisePropertyChanged(nameof(VoltageOffset));
+                    this._offset = this._voltageOffset / 6.6;
+                    RaisePropertyChanged(nameof(Offset));
+
+                    RaisePropertyChanged(nameof(ScaledOffset));
+                }
+            }
+        }
+
+        public double ScaledOffset
+        {
+            get
+            {
+                return -(this._offset * this._scale * this._traceHeight);
             }
         }
 
@@ -166,6 +262,9 @@ namespace OscilloscopePCSide.ViewModel
             this._scale = 1;
             this._voltageScale = 3.3;
             this._voltageScaleString = "3.3V";
+            this._offset = 0;
+            this._voltageOffset = 0;
+            this._voltageOffsetString = "0V";
             this._probe1Visible = true;
             this._probe2Visible = false;
         }
