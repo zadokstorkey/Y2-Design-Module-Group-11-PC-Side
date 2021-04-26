@@ -24,5 +24,12 @@ namespace OscilloscopePCSide
         {
             InitializeComponent();
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // if you click on the window and not anything else, remove the focus from the other things
+            DependencyObject scope = FocusManager.GetFocusScope(this);
+            FocusManager.SetFocusedElement(scope, this as IInputElement);
+        }
     }
 }
