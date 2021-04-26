@@ -21,7 +21,7 @@
             </ListView>
             <StackPanel Orientation="Horizontal">
                 <Label Height="20" Padding="10, 2, 10, 0">Scale: </Label>
-                <TextBox Height="20" Margin="10, 2, 10, 0" Width="50" Text="{Binding MaxVoltageString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
+                <TextBox Height="20" Margin="10, 2, 10, 0" Width="50" Text="{Binding VoltageScaleString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
             </StackPanel>
         </DockPanel>
         <Border ClipToBounds="True" Background="WhiteSmoke">

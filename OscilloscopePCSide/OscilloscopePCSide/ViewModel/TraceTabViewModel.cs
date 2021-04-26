@@ -15,9 +15,9 @@ namespace OscilloscopePCSide.ViewModel
 
         private double _scale;
 
-        private double _maxVoltage;
+        private double _voltageScale;
 
-        private string _maxVoltageString;
+        private string _voltageScaleString;
 
         private bool _probe1Visible;
 
@@ -54,44 +54,44 @@ namespace OscilloscopePCSide.ViewModel
             {
                 this._scale = value;
                 RaisePropertyChanged(nameof(Scale));
-                this._maxVoltage = 3.3 / value;
-                RaisePropertyChanged(nameof(MaxVoltage));
-                this._maxVoltageString = this._maxVoltage.ToString("0.#V");
-                RaisePropertyChanged(nameof(MaxVoltageString));
+                this._voltageScale = 3.3 / value;
+                RaisePropertyChanged(nameof(VoltageScale));
+                this._voltageScaleString = this._voltageScale.ToString("0.#V");
+                RaisePropertyChanged(nameof(VoltageScaleString));
             }
         }
 
-        public double MaxVoltage
+        public double VoltageScale
         {
             get
             {
-                return this._maxVoltage;
+                return this._voltageScale;
             }
             set
             {
-                this._maxVoltage = value;
-                RaisePropertyChanged(nameof(MaxVoltage));
+                this._voltageScale = value;
+                RaisePropertyChanged(nameof(VoltageScale));
                 this._scale = 3.3 / value;
                 RaisePropertyChanged(nameof(Scale));
-                this._maxVoltageString = value.ToString("0.#V");
-                RaisePropertyChanged(nameof(MaxVoltageString));
+                this._voltageScaleString = value.ToString("0.#V");
+                RaisePropertyChanged(nameof(VoltageScaleString));
             }
         }
 
-        public string MaxVoltageString
+        public string VoltageScaleString
         {
             get
             {
-                return this._maxVoltageString;
+                return this._voltageScaleString;
             }
             set
             {
-                this._maxVoltageString = value;
-                RaisePropertyChanged(nameof(MaxVoltageString));
-                if (double.TryParse(value.Replace("V", ""), out this._maxVoltage))
+                this._voltageScaleString = value;
+                RaisePropertyChanged(nameof(VoltageScaleString));
+                if (double.TryParse(value.Replace("V", ""), out this._voltageScale))
                 {
-                    RaisePropertyChanged(nameof(MaxVoltage));
-                    this._scale =  3.3 / this._maxVoltage;
+                    RaisePropertyChanged(nameof(VoltageScale));
+                    this._scale =  3.3 / this._voltageScale;
                     RaisePropertyChanged(nameof(Scale));
                 }
             }
@@ -164,8 +164,8 @@ namespace OscilloscopePCSide.ViewModel
             this._multiProbeDataViewModel = multiProbeDataViewModel;
             this._title = "Untitled Trace";
             this._scale = 1;
-            this._maxVoltage = 3.3;
-            this._maxVoltageString = "3.3V";
+            this._voltageScale = 3.3;
+            this._voltageScaleString = "3.3V";
             this._probe1Visible = true;
             this._probe2Visible = false;
         }

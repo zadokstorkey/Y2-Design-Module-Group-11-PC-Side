@@ -68,7 +68,7 @@ namespace OscilloscopePCSide.View
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var viewModel = DataContext as ITraceTabViewModel;
-            viewModel.MaxVoltage = viewModel.MaxVoltage;
+            viewModel.VoltageScale = viewModel.VoltageScale;
         }
     }
 }
