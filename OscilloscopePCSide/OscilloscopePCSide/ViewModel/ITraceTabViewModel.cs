@@ -14,6 +14,12 @@ namespace OscilloscopePCSide.ViewModel
 
         string Title { get; set; }
 
+        double Scale { get; set; }
+
+        double MaxVoltage { get; set; }
+
+        string MaxVoltageString { get; set; }
+
         bool Probe1Visible { get; set; }
 
         bool Probe2Visible { get; set; }
