@@ -13,8 +13,6 @@ namespace OscilloscopePCSide.Services
         void Connect();
 
         void SendMessage(string message);
-
-        Task WaitUntilMessageReceived();
     }
 
     public class MessageReceivedEventArgs : EventArgs

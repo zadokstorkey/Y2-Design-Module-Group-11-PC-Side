@@ -53,7 +53,7 @@ namespace OscilloscopePCSide.Services
             Trace.WriteLine(stm32DeviceID);
 
             _serialPort.PortName = stm32DeviceID;
-            _serialPort.BaudRate = 1843200;
+            _serialPort.BaudRate = 115200;
             _serialPort.DataBits = 8;
             _serialPort.StopBits = StopBits.One;
             _serialPort.Parity = Parity.None;
@@ -62,6 +62,7 @@ namespace OscilloscopePCSide.Services
             _serialPort.DataReceived += OnDataReceived;
             _serialPort.ErrorReceived += OnErrorOccured;
             _serialPort.Disposed += OnDisposed;
+            _serialPort.NewLine = "\r\n";
 
             try
             {
@@ -88,21 +89,6 @@ namespace OscilloscopePCSide.Services
                 MessageBox.Show("Error when trying to send a message to the device over a serial port. This may be because the device has disconnected or it could be for another reason.", "Error sending message to device", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw new ApplicationException("Error when trying to send a message to the device over a serial port.", e);
             }
-        }
-
-        public Task WaitUntilMessageReceived()
-        {
-            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
-
-            EventHandler<MessageReceivedEventArgs> messageReceivedEventHandler = null;
-            messageReceivedEventHandler = (object sender, MessageReceivedEventArgs e) =>
-            {
-                MessageReceived -= messageReceivedEventHandler;
-                tcs.SetResult(true);
-            };
-            MessageReceived += messageReceivedEventHandler;
-
-            return tcs.Task;
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
