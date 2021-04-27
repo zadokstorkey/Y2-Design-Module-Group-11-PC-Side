@@ -73,7 +73,9 @@ namespace OscilloscopePCSide.Services
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            this._currentSerialPortMessage = this._currentSerialPortMessage + _serialPort.ReadExisting();
+            var newChars = _serialPort.ReadExisting();
+            Trace.Write(newChars);
+            this._currentSerialPortMessage = this._currentSerialPortMessage + newChars;
             if (this._currentSerialPortMessage.Contains('>'))
             {
                 var completeMessage = this._currentSerialPortMessage.Split('>')[0];
