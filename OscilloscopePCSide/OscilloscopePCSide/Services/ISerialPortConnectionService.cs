@@ -13,6 +13,8 @@ namespace OscilloscopePCSide.Services
         void Connect();
 
         void SendMessage(string message);
+
+        void RunOnMessageReceived(Action action);
     }
 
     public class MessageReceivedEventArgs : EventArgs

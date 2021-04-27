@@ -53,9 +53,16 @@ namespace OscilloscopePCSide.Services
         public void Start()
         {
             this._serialPortConnectionService.Connect();
-            this._serialPortConnectionService.SendMessage("S afg_freq 0.01");
-            this._serialPortConnectionService.SendMessage("S afg_amplitude 3300");
-            this._serialPortConnectionService.SendMessage("S afg_waveform square");
+            this._serialPortConnectionService.SendMessage("S" + "afg_freq" + "\n" + "0.5");
+            this._serialPortConnectionService.RunOnMessageReceived(() =>
+            {
+                this._serialPortConnectionService.SendMessage("S" + "afg_amplitude" + "\n" + "3300");
+                this._serialPortConnectionService.RunOnMessageReceived(() =>
+                {
+                    this._serialPortConnectionService.SendMessage("S" + "afg_waveform" + "\n" + "square");
+                });
+            });
+
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
             this._timer = new Timer(this.OnTimerTick, null, 0, 1000);

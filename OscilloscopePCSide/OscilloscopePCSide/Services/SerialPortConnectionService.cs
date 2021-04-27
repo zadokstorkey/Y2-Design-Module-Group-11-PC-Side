@@ -71,10 +71,21 @@ namespace OscilloscopePCSide.Services
             Trace.WriteLine("Sent: " + message);
         }
 
+        public void RunOnMessageReceived(Action action)
+        {
+            EventHandler<MessageReceivedEventArgs> messageReceivedEventHandler = null;
+            messageReceivedEventHandler = (object sender, MessageReceivedEventArgs e) =>
+            {
+                action();
+                MessageReceived -= messageReceivedEventHandler;
+            };
+            MessageReceived += messageReceivedEventHandler;
+
+        }
+
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var newChars = _serialPort.ReadExisting();
-            Trace.Write(newChars);
             this._currentSerialPortMessage = this._currentSerialPortMessage + newChars;
             if (this._currentSerialPortMessage.Contains('>'))
             {
