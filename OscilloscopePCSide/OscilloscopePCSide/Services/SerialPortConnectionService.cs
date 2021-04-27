@@ -53,7 +53,7 @@ namespace OscilloscopePCSide.Services
             Trace.WriteLine(stm32DeviceID);
 
             _serialPort.PortName = stm32DeviceID;
-            _serialPort.BaudRate = 115200;
+            _serialPort.BaudRate = 1843200;
             _serialPort.DataBits = 8;
             _serialPort.StopBits = StopBits.One;
             _serialPort.Parity = Parity.None;
