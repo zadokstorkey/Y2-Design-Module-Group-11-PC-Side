@@ -62,7 +62,7 @@ namespace OscilloscopePCSide.Services
             this._serialPortConnectionService.SendMessage("0.5");
             this._serialPortConnectionService.SendMessage("\n");
 
-            //await this._serialPortConnectionService.WaitUntilMessageReceived();
+            await this._serialPortConnectionService.WaitUntilMessageReceived();
 
             this._serialPortConnectionService.SendMessage("S");
             this._serialPortConnectionService.SendMessage("afg_amplitude");
@@ -70,7 +70,7 @@ namespace OscilloscopePCSide.Services
             this._serialPortConnectionService.SendMessage("3300");
             this._serialPortConnectionService.SendMessage("\n");
 
-            //await this._serialPortConnectionService.WaitUntilMessageReceived();
+            await this._serialPortConnectionService.WaitUntilMessageReceived();
 
             this._serialPortConnectionService.SendMessage("S");
             this._serialPortConnectionService.SendMessage("afg_waveform");
@@ -78,7 +78,7 @@ namespace OscilloscopePCSide.Services
             this._serialPortConnectionService.SendMessage("square");
             this._serialPortConnectionService.SendMessage("\n");
 
-            //await this._serialPortConnectionService.WaitUntilMessageReceived();
+            await this._serialPortConnectionService.WaitUntilMessageReceived();
 
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
