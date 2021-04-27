@@ -10,7 +10,7 @@ namespace OscilloscopePCSide.Services
     {
         public List<int> ParseProbeData(string message)
         {
-            return message.Split('|').Where(numstr => numstr != "").Select(numstr => Int32.Parse(numstr) * 4 /* note, the multiplication by 4 is temporary for demonstration purposes*/).ToList();
+            return message.Split('|').Where(numstr => numstr != "").Select(numstr => Int32.Parse(numstr)).ToList();
         }
     }
 }

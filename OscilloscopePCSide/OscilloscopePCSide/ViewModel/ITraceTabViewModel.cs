@@ -14,6 +14,22 @@ namespace OscilloscopePCSide.ViewModel
 
         string Title { get; set; }
 
+        double TraceHeight { get; set; }
+
+        double Scale { get; set; }
+
+        double VoltageScale { get; set; }
+
+        string VoltageScaleString { get; set; }
+
+        double ScaledOffset { get; }
+
+        double Offset { get; set; }
+
+        double VoltageOffset { get; set; }
+
+        string VoltageOffsetString { get; set; }
+
         bool Probe1Visible { get; set; }
 
         bool Probe2Visible { get; set; }
