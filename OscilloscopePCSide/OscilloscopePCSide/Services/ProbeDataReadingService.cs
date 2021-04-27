@@ -15,6 +15,8 @@ namespace OscilloscopePCSide.Services
 
         private Timer _timer;
 
+        private Queue<string> _priorityMessageQueue;
+
         private readonly IProbeDataParsingService _probeDataParsingService;
         
         private readonly ISerialPortConnectionService _serialPortConnectionService;
@@ -50,11 +52,17 @@ namespace OscilloscopePCSide.Services
             this._probeDataParsingService = probeDataParsingService;
             this._serialPortConnectionService = serialPortConnectionService;
             this._multiProbeDataViewModel = multiProbeDataViewModel;
+            _priorityMessageQueue = new Queue<string>();
         }
 
         public void Start()
         {
             this._serialPortConnectionService.Connect();
+
+            //this._priorityMessageQueue.Enqueue("S" + "afg_freq" + "\r\n" + "0.5" + "\r\n");
+            //this._priorityMessageQueue.Enqueue("S" + "afg_amplitude" + "\r\n" + "3300" + "\r\n");
+            //this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + "\r\n" + "square" + "\r\n");
+
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
             this._timer = new Timer(this.OnTimerTick, null, 0, 5000);
@@ -65,16 +73,23 @@ namespace OscilloscopePCSide.Services
             // Only request data if we haven't recieved any data recently
             if (!_successfullyReceivingData)
             {
-                SendDataRequest();
+                SendNextMessage();
             }
 
             // reset the variable so that we can track if anything is received in the next 5 seconds
             _successfullyReceivingData = false;
         }
 
-        public void SendDataRequest()
+        public void SendNextMessage()
         {
-            this._serialPortConnectionService.SendMessage("A");
+            if (_priorityMessageQueue.Count > 0)
+            {
+                this._serialPortConnectionService.SendMessage(_priorityMessageQueue.Dequeue());
+            }
+            else
+            {
+                this._serialPortConnectionService.SendMessage("A");
+            }
         }
 
         public void OnSerialPortMessageReceived(object sender, MessageReceivedEventArgs e)
@@ -82,19 +97,23 @@ namespace OscilloscopePCSide.Services
             this._successfullyReceivingData = true;
 
             var message = e.Message;
-            var heights = _probeDataParsingService.ParseProbeData(message);
-            var probeDataFrame = new ProbeDataFrame(DateTime.Now, heights);
 
-            var temp = "";
-            probeDataFrame.Heights.ForEach(h => temp += h.ToString() + ", ");
-            Trace.Write(temp);
-            Trace.WriteLine("");
+            if (message.Contains("|"))
+            {
+                var heights = _probeDataParsingService.ParseProbeData(message);
+                var probeDataFrame = new ProbeDataFrame(DateTime.Now, heights);
 
-            // Next two lines are temporary until we start differentiating between the two
-            this._multiProbeDataViewModel.Probe1ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
-            this._multiProbeDataViewModel.Probe2ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
+                var temp = "";
+                probeDataFrame.Heights.ForEach(h => temp += h.ToString() + ", ");
+                Trace.Write(temp);
+                Trace.WriteLine("");
 
-            this.SendDataRequest();
+                // Next two lines are temporary until we start differentiating between the two
+                this._multiProbeDataViewModel.Probe1ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
+                this._multiProbeDataViewModel.Probe2ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
+            }
+
+            this.SendNextMessage();
         }
     }
 }

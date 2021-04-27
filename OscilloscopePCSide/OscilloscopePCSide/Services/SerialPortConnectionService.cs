@@ -53,7 +53,7 @@ namespace OscilloscopePCSide.Services
             Trace.WriteLine(stm32DeviceID);
 
             _serialPort.PortName = stm32DeviceID;
-            _serialPort.BaudRate = 1843200;
+            _serialPort.BaudRate = 115200;
             _serialPort.DataBits = 8;
             _serialPort.StopBits = StopBits.One;
             _serialPort.Parity = Parity.None;
@@ -62,6 +62,7 @@ namespace OscilloscopePCSide.Services
             _serialPort.DataReceived += OnDataReceived;
             _serialPort.ErrorReceived += OnErrorOccured;
             _serialPort.Disposed += OnDisposed;
+            _serialPort.NewLine = "\r\n";
 
             try
             {
@@ -95,6 +96,7 @@ namespace OscilloscopePCSide.Services
             var additionalMessagepart = _serialPort.ReadExisting();
             _rawCommunicationLogger.Write(additionalMessagepart);
             this._currentSerialPortMessage = this._currentSerialPortMessage + additionalMessagepart;
+
             if (this._currentSerialPortMessage.Contains('>'))
             {
                 var completeMessage = this._currentSerialPortMessage.Split('>')[0];
