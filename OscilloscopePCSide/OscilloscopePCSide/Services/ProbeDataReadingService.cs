@@ -59,9 +59,9 @@ namespace OscilloscopePCSide.Services
         {
             this._serialPortConnectionService.Connect();
 
-            //this._priorityMessageQueue.Enqueue("S" + "afg_freq" + "\r\n" + "0.5" + "\r\n");
-            //this._priorityMessageQueue.Enqueue("S" + "afg_amplitude" + "\r\n" + "3300" + "\r\n");
-            //this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + "\r\n" + "square" + "\r\n");
+            this._priorityMessageQueue.Enqueue("S" + "afg_freq" + " " + "800" + " ");
+            this._priorityMessageQueue.Enqueue("S" + "afg_amplitude" + " " + "3300" + " ");
+            this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + " " + "sine" + " ");
 
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
