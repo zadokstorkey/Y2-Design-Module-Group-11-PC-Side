@@ -11,6 +11,8 @@ namespace OscilloscopePCSide.Services
 {
     public class ProbeDataReadingService : IProbeDataReadingService
     {
+        private bool _successfullyReceivingData;
+
         private Timer _timer;
 
         private readonly IProbeDataParsingService _probeDataParsingService;
@@ -80,12 +82,19 @@ namespace OscilloscopePCSide.Services
 
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
-            this._timer = new Timer(this.OnTimerTick, null, 0, 1000);
+            this._timer = new Timer(this.OnTimerTick, null, 0, 5000);
         }
 
         private void OnTimerTick(object state)
         {
-            this.SendDataRequest();
+            // Only request data if we haven't recieved any data recently
+            if (!_successfullyReceivingData)
+            {
+                SendDataRequest();
+            }
+
+            // reset the variable so that we can track if anything is received in the next 5 seconds
+            _successfullyReceivingData = false;
         }
 
         public void SendDataRequest()
@@ -95,6 +104,8 @@ namespace OscilloscopePCSide.Services
 
         public void OnSerialPortMessageReceived(object sender, MessageReceivedEventArgs e)
         {
+            this._successfullyReceivingData = true;
+
             var message = e.Message;
             var heights = _probeDataParsingService.ParseProbeData(message);
             var probeDataFrame = new ProbeDataFrame(DateTime.Now, heights);
@@ -107,6 +118,8 @@ namespace OscilloscopePCSide.Services
             // Next two lines are temporary until we start differentiating between the two
             this._multiProbeDataViewModel.Probe1ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
             this._multiProbeDataViewModel.Probe2ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
+
+            this.SendDataRequest();
         }
     }
 }
