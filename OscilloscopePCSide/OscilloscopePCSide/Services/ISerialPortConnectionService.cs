@@ -14,7 +14,7 @@ namespace OscilloscopePCSide.Services
 
         void SendMessage(string message);
 
-        void RunOnMessageReceived(Action action);
+        Task WaitUntilMessageReceived();
     }
 
     public class MessageReceivedEventArgs : EventArgs

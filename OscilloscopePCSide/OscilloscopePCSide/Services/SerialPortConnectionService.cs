@@ -71,16 +71,19 @@ namespace OscilloscopePCSide.Services
             Trace.WriteLine("Sent: " + message);
         }
 
-        public void RunOnMessageReceived(Action action)
+        public Task WaitUntilMessageReceived()
         {
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+
             EventHandler<MessageReceivedEventArgs> messageReceivedEventHandler = null;
             messageReceivedEventHandler = (object sender, MessageReceivedEventArgs e) =>
             {
-                action();
                 MessageReceived -= messageReceivedEventHandler;
+                tcs.SetResult(true);
             };
             MessageReceived += messageReceivedEventHandler;
 
+            return tcs.Task;
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
