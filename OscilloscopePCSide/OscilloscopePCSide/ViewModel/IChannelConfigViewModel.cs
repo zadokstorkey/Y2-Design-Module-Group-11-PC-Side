@@ -19,9 +19,21 @@ namespace OscilloscopePCSide.ViewModel
 
         string NewColorString { get; set; }
 
+        string NewCOMPort { get; set; }
+
+        int NewSampleTime { get; set; }
+
+        int NewXResolution { get; set; }
+
+        int NewYResolution { get; set; }
+
         string NewProbeType { get; set; }
 
         string NewTriggerStatus { get; set; }
+
+        string NewTriggerType { get; set; }
+
+        int NewTriggerLevel { get; set; }
 
         string NewAFGStatus { get; set; }
 
@@ -39,9 +51,21 @@ namespace OscilloscopePCSide.ViewModel
 
         string ColorString { get; set; }
 
+        string COMPort { get; set; }
+
+        int SampleTime { get; set; }
+
+        int XResolution { get; set; }
+
+        int YResolution { get; set; }
+
         string ProbeType { get; set; }
 
         string TriggerStatus { get; set; }
+
+        string TriggerType { get; set; }
+
+        int TriggerLevel { get; set; }
 
         string AFGStatus { get; set; }
 

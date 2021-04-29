@@ -23,7 +23,6 @@ namespace OscilloscopePCSide
             }
             catch (ApplicationException ex)
             {
-                MessageBox.Show(ex.Message);
                 Shutdown();
             }
 		}
