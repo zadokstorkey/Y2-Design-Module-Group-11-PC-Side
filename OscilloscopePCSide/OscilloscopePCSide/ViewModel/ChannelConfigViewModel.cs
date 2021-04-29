@@ -326,6 +326,10 @@ namespace OscilloscopePCSide.ViewModel
             {
                 _probeDataReadingService.SetAFGSettings(_newAFGStatus == "AFG On" ? _afgFrequency : 0, _afgAmplitude, _afgWaveform.Replace(" Wave", "").ToLower());
             }
+            if (_probeType != _newProbeType)
+            {
+                _probeDataReadingService.SetProbeSetting(_newProbeType == "x10");
+            }
 
             _name = _newName;
             _color = _newColor;

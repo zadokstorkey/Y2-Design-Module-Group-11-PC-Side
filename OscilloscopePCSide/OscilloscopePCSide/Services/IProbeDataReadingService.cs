@@ -20,6 +20,8 @@ namespace OscilloscopePCSide.Services
 
         void SetAFGSettings(int freq, int amplitude, string waveformType);
 
+        void SetProbeSetting(bool x10);
+
         void SendNextMessage();
     }
 }

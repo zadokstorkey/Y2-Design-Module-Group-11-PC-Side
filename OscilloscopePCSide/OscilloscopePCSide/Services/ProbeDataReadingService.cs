@@ -81,6 +81,11 @@ namespace OscilloscopePCSide.Services
             this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + " " + waveformType.ToString() + " ");
         }
 
+        public void SetProbeSetting(bool x10)
+        {
+            this._priorityMessageQueue.Enqueue("S" + "amplifier_x10" + " " + (x10 ? 1 : 0).ToString() + " ");
+        }
+
         public void SendNextMessage()
         {
             if (_priorityMessageQueue.Count > 0)
