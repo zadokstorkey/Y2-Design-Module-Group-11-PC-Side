@@ -22,6 +22,16 @@ namespace OscilloscopePCSide.Services
 
         void SetProbeSetting(bool x10);
 
+        void SetSampleTime(int sampleTime);
+
+        void SetXResolution(int xResolution);
+
+        void SetYResolution(int xResolution);
+
+        void SetTriggerType(bool risingTrigger);
+
+        void SetTriggerLevel(int triggerLevel);
+
         void SendNextMessage();
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OscilloscopePCSide.View"
         mc:Ignorable="d"
-        Title="ChannelConfigWindow" Height="400" Width="500" Loaded="Window_Loaded">
+        Title="ChannelConfigWindow" Height="400" Width="600" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -18,21 +18,21 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Name:</Label>
             <TextBox Grid.Column="1" Text="{Binding NewName}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Colour:</Label>
             <ComboBox Grid.Column="1" Text="{Binding NewColorString}" Margin="0 3 0 3">
@@ -45,40 +45,40 @@
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">COM Port:</Label>
             <ComboBox Grid.Column="1" Text="{Binding COMPort}" Margin="0 3 0 3"/>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" HorizontalContentAlignment="Center">Sample Time:</Label>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">Sample Time (ms):</Label>
             <TextBox Grid.Column="1" Text="{Binding NewSampleTime}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="4" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">X Resolution:</Label>
             <TextBox Grid.Column="1" Text="{Binding NewXResolution}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Y Resolution:</Label>
             <TextBox Grid.Column="1" Text="{Binding NewYResolution}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="6" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Probe Type:</Label>
             <ComboBox Grid.Column="1" Text="{Binding NewProbeType}" Margin="0 3 0 3">
@@ -88,8 +88,8 @@
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Trigger Status:</Label>
             <ComboBox Grid.Column="1" Text="{Binding NewTriggerStatus}" Margin="0 3 0 3">
@@ -97,21 +97,10 @@
                 <ComboBoxItem>Trigger On</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="1" Margin="8">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="8" IsEnabled="{Binding NewTriggerStatusIsTriggerOn}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" HorizontalContentAlignment="Center">Trigger Status:</Label>
-            <ComboBox Grid.Column="1" Text="{Binding NewTriggerStatus}" Margin="0 3 0 3">
-                <ComboBoxItem>Trigger Off</ComboBoxItem>
-                <ComboBoxItem>Trigger On</ComboBoxItem>
-            </ComboBox>
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="1" Margin="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Trigger Type:</Label>
             <ComboBox Grid.Column="1" Text="{Binding NewTriggerType}" Margin="0 3 0 3">
@@ -119,18 +108,18 @@
                 <ComboBoxItem>Falling Edge</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="1" Margin="8">
+        <Grid Grid.Row="2" Grid.Column="1" Margin="8" IsEnabled="{Binding NewTriggerStatusIsTriggerOn}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" HorizontalContentAlignment="Center">Trigger Level:</Label>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">Trigger Level (mV):</Label>
             <TextBox Grid.Column="1" Text="{Binding NewTriggerLevel}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1" Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Status:</Label>
             <ComboBox Grid.Column="1" Text="{Binding NewAFGStatus}" Margin="0 3 0 3">
@@ -140,24 +129,24 @@
         </Grid>
         <Grid Grid.Row="4" Grid.Column="1" Margin="8" IsEnabled="{Binding NewAFGStatusIsAFGOn}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Frequency:</Label>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Frequency (Hz):</Label>
             <TextBox Grid.Column="1" Text="{Binding NewAFGFrequency}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="1" Margin="8" IsEnabled="{Binding NewAFGStatusIsAFGOn}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Amplitude:</Label>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Amplitude (mV):</Label>
             <TextBox Grid.Column="1" Text="{Binding NewAFGAmplitude}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="6" Grid.Column="1" Margin="8" IsEnabled="{Binding NewAFGStatusIsAFGOn}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Waveform:</Label>
             <ComboBox Grid.Column="1" Text="{Binding NewAFGWaveform}" Margin="0 3 0 3">

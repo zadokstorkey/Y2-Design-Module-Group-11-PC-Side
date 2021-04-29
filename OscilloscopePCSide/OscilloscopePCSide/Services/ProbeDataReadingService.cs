@@ -76,14 +76,39 @@ namespace OscilloscopePCSide.Services
 
         public void SetAFGSettings(int freq, int amplitude, string waveformType)
         {
-            this._priorityMessageQueue.Enqueue("S" + "afg_freq" + " " + freq.ToString() + " ");
-            this._priorityMessageQueue.Enqueue("S" + "afg_amplitude" + " " + amplitude.ToString() + " ");
-            this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + " " + waveformType.ToString() + " ");
+            SetValue("afg_freq", waveformType.ToString());
+            SetValue("afg_amplitude", waveformType.ToString());
+            SetValue("afg_waveform", waveformType.ToString());
         }
 
         public void SetProbeSetting(bool x10)
         {
-            this._priorityMessageQueue.Enqueue("S" + "amplifier_x10" + " " + (x10 ? 1 : 0).ToString() + " ");
+            SetValue("amplifier_x10", (x10 ? 1 : 0).ToString());
+        }
+
+        public void SetSampleTime(int sampleTime)
+        {
+            SetValue("sample_time", sampleTime.ToString());
+        }
+
+        public void SetXResolution(int xResolution)
+        {
+            SetValue("resolution_x", xResolution.ToString());
+        }
+
+        public void SetYResolution(int yResolution)
+        {
+            SetValue("resolution_y", yResolution.ToString());
+        }
+
+        public void SetTriggerType(bool risingTrigger)
+        {
+            SetValue("trigger_rising", (risingTrigger ? 1 : 0).ToString());
+        }
+
+        public void SetTriggerLevel(int triggerLevel)
+        {
+            SetValue("trigger_level", triggerLevel.ToString());
         }
 
         public void SendNextMessage()
@@ -103,6 +128,11 @@ namespace OscilloscopePCSide.Services
                     this._serialPortConnectionService.SendMessage("A");
                 }
             }
+        }
+
+        private void SetValue(string variable, string value)
+        {
+            this._priorityMessageQueue.Enqueue("S" + variable + " " + value + " ");
         }
 
         private void OnTimerTick(object state)

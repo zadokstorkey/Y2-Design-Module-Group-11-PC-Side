@@ -19,9 +19,21 @@ namespace OscilloscopePCSide.ViewModel
 
         private string _newColorString;
 
+        private string _newCOMPort;
+
+        private int _newSampleTime;
+
+        private int _newXResolution;
+
+        private int _newYResolution;
+
         private string _newProbeType;
 
         private string _newTriggerStatus;
+
+        private string _newTriggerType;
+
+        private int _newTriggerLevel;
 
         private string _newAFGStatus;
 
@@ -37,9 +49,21 @@ namespace OscilloscopePCSide.ViewModel
 
         private string _colorString;
 
+        private string _comPort;
+
+        private int _sampleTime;
+
+        private int _xResolution;
+
+        private int _yResolution;
+
         private string _probeType;
 
         private string _triggerStatus;
+
+        private string _triggerType;
+
+        private int _triggerLevel;
 
         private string _afgStatus;
 
@@ -93,6 +117,58 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
+        public string NewCOMPort
+        {
+            get
+            {
+                return _newCOMPort;
+            }
+            set
+            {
+                _newCOMPort = value;
+                RaisePropertyChanged(nameof(NewCOMPort));
+            }
+        }
+
+        public int NewSampleTime
+        {
+            get
+            {
+                return _newSampleTime;
+            }
+            set
+            {
+                _newSampleTime = value;
+                RaisePropertyChanged(nameof(NewSampleTime));
+            }
+        }
+
+        public int NewXResolution
+        {
+            get
+            {
+                return _newXResolution;
+            }
+            set
+            {
+                _newXResolution = value;
+                RaisePropertyChanged(nameof(NewSampleTime));
+            }
+        }
+
+        public int NewYResolution
+        {
+            get
+            {
+                return _newYResolution;
+            }
+            set
+            {
+                _newYResolution = value;
+                RaisePropertyChanged(nameof(NewSampleTime));
+            }
+        }
+
         public string NewProbeType
         {
             get
@@ -116,6 +192,41 @@ namespace OscilloscopePCSide.ViewModel
             {
                 _newTriggerStatus = value;
                 RaisePropertyChanged(nameof(NewTriggerStatus));
+                RaisePropertyChanged(nameof(NewTriggerStatusIsTriggerOn));
+            }
+        }
+
+        public bool NewTriggerStatusIsTriggerOn
+        {
+            get
+            {
+                return _newTriggerStatus == "Trigger On";
+            }
+        }
+
+        public string NewTriggerType
+        {
+            get
+            {
+                return _newTriggerType;
+            }
+            set
+            {
+                _newTriggerType = value;
+                RaisePropertyChanged(nameof(NewTriggerType));
+            }
+        }
+
+        public int NewTriggerLevel
+        {
+            get
+            {
+                return _newTriggerLevel;
+            }
+            set
+            {
+                _newTriggerLevel = value;
+                RaisePropertyChanged(nameof(NewTriggerLevel));
             }
         }
 
@@ -216,6 +327,58 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
+        public string COMPort
+        {
+            get
+            {
+                return _comPort;
+            }
+            set
+            {
+                _comPort = value;
+                RaisePropertyChanged(nameof(COMPort));
+            }
+        }
+
+        public int SampleTime
+        {
+            get
+            {
+                return _sampleTime;
+            }
+            set
+            {
+                _sampleTime = value;
+                RaisePropertyChanged(nameof(SampleTime));
+            }
+        }
+
+        public int XResolution
+        {
+            get
+            {
+                return _xResolution;
+            }
+            set
+            {
+                _xResolution = value;
+                RaisePropertyChanged(nameof(XResolution));
+            }
+        }
+
+        public int YResolution
+        {
+            get
+            {
+                return _yResolution;
+            }
+            set
+            {
+                _yResolution = value;
+                RaisePropertyChanged(nameof(YResolution));
+            }
+        }
+
         public string ProbeType
         {
             get
@@ -239,6 +402,32 @@ namespace OscilloscopePCSide.ViewModel
             {
                 _triggerStatus = value;
                 RaisePropertyChanged(nameof(TriggerStatus));
+            }
+        }
+
+        public string TriggerType
+        {
+            get
+            {
+                return _triggerType;
+            }
+            set
+            {
+                _triggerType = value;
+                RaisePropertyChanged(nameof(TriggerType));
+            }
+        }
+
+        public int TriggerLevel
+        {
+            get
+            {
+                return _triggerLevel;
+            }
+            set
+            {
+                _triggerLevel = value;
+                RaisePropertyChanged(nameof(TriggerLevel));
             }
         }
 
@@ -294,15 +483,21 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public ChannelConfigViewModel(IProbeDataReadingService probeDataReadingService, string name, string colorName)
+        public ChannelConfigViewModel(IProbeDataReadingService probeDataReadingService, string name, string colorName, string comPort)
         {
             _probeDataReadingService = probeDataReadingService;
 
             _name = name;
             _color = (Color)ColorConverter.ConvertFromString(colorName);
             _colorString = colorName;
+            _comPort = comPort;
+            _sampleTime = 2;
+            _xResolution = 1920;
+            _yResolution = 1080;
             _probeType = "x1";
             _triggerStatus = "Trigger Off";
+            _triggerType = "Rising Edge";
+            _triggerLevel = 2048;
             _afgStatus = "AFG Off";
             _afgFrequency = 800;
             _afgAmplitude = 3300;
@@ -311,8 +506,14 @@ namespace OscilloscopePCSide.ViewModel
             _newName = _name;
             _newColor = _color;
             _newColorString = _colorString;
+            _newCOMPort = _comPort;
+            _newSampleTime = _sampleTime;
+            _newXResolution = _xResolution;
+            _newYResolution = _yResolution;
             _newProbeType = _probeType;
             _newTriggerStatus = _triggerStatus;
+            _newTriggerType = _triggerType;
+            _newTriggerLevel = _triggerLevel;
             _newAFGStatus = _afgStatus;
             _newAFGFrequency = _afgFrequency;
             _newAFGAmplitude = _afgAmplitude;
@@ -321,7 +522,10 @@ namespace OscilloscopePCSide.ViewModel
 
         public void ApplyChanges()
         {
-            _probeDataReadingService.SetReadTriggeredData(_newTriggerStatus == "Trigger On");
+            if (_triggerStatus != _newTriggerStatus)
+            {
+                _probeDataReadingService.SetReadTriggeredData(_newTriggerStatus == "Trigger On");
+            }
             if (_afgStatus != _newAFGStatus || _afgFrequency != _newAFGFrequency || _afgAmplitude != _newAFGAmplitude || _afgWaveform != _newAFGWaveform)
             {
                 _probeDataReadingService.SetAFGSettings(_newAFGStatus == "AFG On" ? _afgFrequency : 0, _afgAmplitude, _afgWaveform.Replace(" Wave", "").ToLower());
@@ -330,12 +534,38 @@ namespace OscilloscopePCSide.ViewModel
             {
                 _probeDataReadingService.SetProbeSetting(_newProbeType == "x10");
             }
+            if (_sampleTime != _newSampleTime)
+            {
+                _probeDataReadingService.SetSampleTime(_newSampleTime);
+            }
+            if (_xResolution != _newXResolution)
+            {
+                _probeDataReadingService.SetXResolution(_newXResolution);
+            }
+            if (_yResolution != _newYResolution)
+            {
+                _probeDataReadingService.SetYResolution(_newYResolution);
+            }
+            if (_triggerType != _newTriggerType)
+            {
+                _probeDataReadingService.SetTriggerType(_newTriggerType == "Rising Edge");
+            }
+            if (_triggerLevel != _newTriggerLevel)
+            {
+                _probeDataReadingService.SetTriggerLevel((int)Math.Round(_newTriggerLevel * 4096 / 3.3));
+            }
 
             _name = _newName;
             _color = _newColor;
             _colorString = _newColorString;
+            _comPort = _newCOMPort;
+            _sampleTime = _newSampleTime;
+            _xResolution = _newXResolution;
+            _yResolution = _newYResolution;
             _probeType = _newProbeType;
             _triggerStatus = _newTriggerStatus;
+            _triggerType = _newTriggerType;
+            _triggerLevel = _newTriggerLevel;
             _afgStatus = _newAFGStatus;
             _afgFrequency = _newAFGFrequency;
             _afgAmplitude = _newAFGAmplitude;
@@ -343,8 +573,14 @@ namespace OscilloscopePCSide.ViewModel
             RaisePropertyChanged(nameof(Name));
             RaisePropertyChanged(nameof(Color));
             RaisePropertyChanged(nameof(ColorString));
+            RaisePropertyChanged(nameof(COMPort));
+            RaisePropertyChanged(nameof(SampleTime));
+            RaisePropertyChanged(nameof(XResolution));
+            RaisePropertyChanged(nameof(YResolution));
             RaisePropertyChanged(nameof(ProbeType));
             RaisePropertyChanged(nameof(TriggerStatus));
+            RaisePropertyChanged(nameof(TriggerType));
+            RaisePropertyChanged(nameof(TriggerLevel));
             RaisePropertyChanged(nameof(AFGStatus));
             RaisePropertyChanged(nameof(AFGFrequency));
             RaisePropertyChanged(nameof(AFGAmplitude));
@@ -356,8 +592,14 @@ namespace OscilloscopePCSide.ViewModel
             _newName = _name;
             _newColor = _color;
             _newColorString = _colorString;
+            _newCOMPort = _comPort;
+            _newSampleTime = _sampleTime;
+            _newXResolution = _xResolution;
+            _newYResolution = _yResolution;
             _newProbeType = _probeType;
             _newTriggerStatus = _triggerStatus;
+            _newTriggerType = _triggerType;
+            _newTriggerLevel = _triggerLevel;
             _newAFGStatus = _afgStatus;
             _newAFGFrequency = _afgFrequency;
             _newAFGAmplitude = _afgAmplitude;
@@ -365,8 +607,14 @@ namespace OscilloscopePCSide.ViewModel
             RaisePropertyChanged(nameof(NewName));
             RaisePropertyChanged(nameof(NewColor));
             RaisePropertyChanged(nameof(NewColorString));
+            RaisePropertyChanged(nameof(NewCOMPort));
+            RaisePropertyChanged(nameof(NewSampleTime));
+            RaisePropertyChanged(nameof(NewXResolution));
+            RaisePropertyChanged(nameof(NewYResolution));
             RaisePropertyChanged(nameof(NewProbeType));
             RaisePropertyChanged(nameof(NewTriggerStatus));
+            RaisePropertyChanged(nameof(NewTriggerType));
+            RaisePropertyChanged(nameof(NewTriggerLevel));
             RaisePropertyChanged(nameof(NewAFGStatus));
             RaisePropertyChanged(nameof(NewAFGFrequency));
             RaisePropertyChanged(nameof(NewAFGAmplitude));
