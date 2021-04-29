@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OscilloscopePCSide.View"
         mc:Ignorable="d"
-        Title="ChannelConfigWindow" Height="250" Width="500">
+        Title="ChannelConfigWindow" Height="250" Width="500" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Name:</Label>
-            <TextBox Grid.Column="1" Text="{Binding Name}" Margin="0 3 0 3"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding NewName}" Margin="0 3 0 3"></TextBox>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>
@@ -32,9 +32,9 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Colour:</Label>
-            <ComboBox Grid.Column="1" Text="{Binding ColorString}" Margin="0 3 0 3">
+            <ComboBox Grid.Column="1" Text="{Binding NewColorString}" Margin="0 3 0 3">
                 <ComboBox.Foreground>
-                    <SolidColorBrush Color="{Binding Color}"/>
+                    <SolidColorBrush Color="{Binding NewColor}"/>
                 </ComboBox.Foreground>
                 <ComboBoxItem Foreground="Red">Red</ComboBoxItem>
                 <ComboBoxItem Foreground="Blue">Blue</ComboBoxItem>
@@ -46,7 +46,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Probe Type:</Label>
-            <ComboBox Grid.Column="1" Text="{Binding ProbeType}" Margin="0 3 0 3">
+            <ComboBox Grid.Column="1" Text="{Binding NewProbeType}" Margin="0 3 0 3">
                 <ComboBoxItem>x1</ComboBoxItem>
                 <ComboBoxItem>x10</ComboBoxItem>
             </ComboBox>
@@ -57,7 +57,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">Trigger Status:</Label>
-            <ComboBox Grid.Column="1" Text="{Binding TriggerStatus}" Margin="0 3 0 3">
+            <ComboBox Grid.Column="1" Text="{Binding NewTriggerStatus}" Margin="0 3 0 3">
                 <ComboBoxItem>Trigger Off</ComboBoxItem>
                 <ComboBoxItem>Trigger On</ComboBoxItem>
             </ComboBox>
@@ -68,34 +68,34 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Status:</Label>
-            <ComboBox Grid.Column="1" Text="{Binding AFGStatus}" Margin="0 3 0 3">
+            <ComboBox Grid.Column="1" Text="{Binding NewAFGStatus}" Margin="0 3 0 3">
                 <ComboBoxItem>AFG Off</ComboBoxItem>
                 <ComboBoxItem>AFG On</ComboBoxItem>
             </ComboBox>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1" Margin="8">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="8" IsEnabled="{Binding NewAFGStatusIsAFGOn}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Frequency:</Label>
-            <TextBox Grid.Column="1" Text="{Binding AFGFrequency}" Margin="0 3 0 3"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding NewAFGFrequency}" Margin="0 3 0 3"></TextBox>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="1" Margin="8">
+        <Grid Grid.Row="2" Grid.Column="1" Margin="8" IsEnabled="{Binding NewAFGStatusIsAFGOn}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Amplitude:</Label>
-            <TextBox Grid.Column="1" Text="{Binding AFGAmplitude}" Margin="0 3 0 3"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding NewAFGAmplitude}" Margin="0 3 0 3"></TextBox>
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="1" Margin="8">
+        <Grid Grid.Row="3" Grid.Column="1" Margin="8" IsEnabled="{Binding NewAFGStatusIsAFGOn}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">AFG Waveform:</Label>
-            <ComboBox Grid.Column="1" Text="{Binding AFGWaveform}" Margin="0 3 0 3">
+            <ComboBox Grid.Column="1" Text="{Binding NewAFGWaveform}" Margin="0 3 0 3">
                 <ComboBoxItem>Sine Wave</ComboBoxItem>
                 <ComboBoxItem>Square Wave</ComboBoxItem>
                 <ComboBoxItem>Sawtooth Wave</ComboBoxItem>
@@ -103,8 +103,8 @@
             </ComboBox>
         </Grid>
         <DockPanel Grid.Row="4" Grid.ColumnSpan="2" LastChildFill="False" Margin="10">
-            <Button DockPanel.Dock="Left" Width="80">Apply</Button>
-            <Button DockPanel.Dock="Right" Width="80">Cancel</Button>
+            <Button DockPanel.Dock="Left" Width="80" Click="Apply_Clicked">Apply</Button>
+            <Button DockPanel.Dock="Right" Width="80" Click="Cancel_Clicked">Cancel</Button>
         </DockPanel>
     </Grid>
 </Window>

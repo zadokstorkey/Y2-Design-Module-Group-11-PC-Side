@@ -11,6 +11,8 @@ namespace OscilloscopePCSide.Services
 {
     public class ProbeDataReadingService : IProbeDataReadingService
     {
+        private bool _readTriggeredData;
+
         private bool _successfullyReceivingData;
 
         private Timer _timer;
@@ -52,7 +54,8 @@ namespace OscilloscopePCSide.Services
             this._probeDataParsingService = probeDataParsingService;
             this._serialPortConnectionService = serialPortConnectionService;
             this._multiProbeDataViewModel = multiProbeDataViewModel;
-            _priorityMessageQueue = new Queue<string>();
+            this._priorityMessageQueue = new Queue<string>();
+            this._readTriggeredData = false;
         }
 
         public void Start()
@@ -64,6 +67,11 @@ namespace OscilloscopePCSide.Services
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
             this._timer = new Timer(this.OnTimerTick, null, 0, 20000);
+        }
+
+        public void SetReadTriggeredData(bool readTriggeredData)
+        {
+            this._readTriggeredData = readTriggeredData;
         }
 
         public void SetAFGSettings(int freq, int amplitude, string waveformType)
@@ -81,7 +89,14 @@ namespace OscilloscopePCSide.Services
             }
             else
             {
-                this._serialPortConnectionService.SendMessage("A");
+                if (this._readTriggeredData)
+                {
+                    this._serialPortConnectionService.SendMessage("T");
+                }
+                else
+                {
+                    this._serialPortConnectionService.SendMessage("A");
+                }
             }
         }
 

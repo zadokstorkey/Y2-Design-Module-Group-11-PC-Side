@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OscilloscopePCSide.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,22 @@ namespace OscilloscopePCSide.View
         public ChannelConfigWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ChannelConfigViewModel)DataContext).CancelChanges();
+        }
+
+        private void Apply_Clicked(object sender, RoutedEventArgs e)
+        {
+            ((ChannelConfigViewModel)DataContext).ApplyChanges();
+            this.Close();
+        }
+
+        private void Cancel_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -16,6 +16,8 @@ namespace OscilloscopePCSide.Services
 
         void Start();
 
+        void SetReadTriggeredData(bool readTriggeredData);
+
         void SetAFGSettings(int freq, int amplitude, string waveformType);
 
         void SendNextMessage();
