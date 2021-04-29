@@ -27,18 +27,39 @@ namespace OscilloscopePCSide.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ChannelConfigViewModel)DataContext).CancelChanges();
+            try
+            {
+                ((SourceConfigViewModel)DataContext).CancelChanges();
+            }
+            catch (ApplicationException ex)
+            {
+
+            }
         }
 
         private void Apply_Clicked(object sender, RoutedEventArgs e)
         {
-            ((ChannelConfigViewModel)DataContext).ApplyChanges();
-            this.Close();
+            try
+            {
+                ((SourceConfigViewModel)DataContext).ApplyChanges();
+                this.Close();
+            }
+            catch (ApplicationException ex)
+            {
+
+            }
         }
 
         private void Cancel_Clicked(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            try
+            {
+                this.Close();
+            }
+            catch (ApplicationException ex)
+            {
+
+            }
         }
     }
 }

@@ -41,6 +41,10 @@
                 </ComboBox.Foreground>
                 <ComboBoxItem Foreground="Red">Red</ComboBoxItem>
                 <ComboBoxItem Foreground="Blue">Blue</ComboBoxItem>
+                <ComboBoxItem Foreground="Green">Green</ComboBoxItem>
+                <ComboBoxItem Foreground="Magenta">Magenta</ComboBoxItem>
+                <ComboBoxItem Foreground="Cyan">Cyan</ComboBoxItem>
+                <ComboBoxItem Foreground="Yellow">Yellow</ComboBoxItem>
             </ComboBox>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" Margin="8">
@@ -49,7 +53,7 @@
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" HorizontalContentAlignment="Center">COM Port:</Label>
-            <ComboBox Grid.Column="1" Text="{Binding COMPort}" Margin="0 3 0 3"/>
+            <ComboBox Grid.Column="1" ItemsSource="{Binding COMPortOptions}" Text="{Binding NewCOMPort}" Margin="0 3 0 3"/>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="0" Margin="8">
             <Grid.ColumnDefinitions>

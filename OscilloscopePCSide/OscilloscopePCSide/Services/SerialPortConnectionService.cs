@@ -14,45 +14,32 @@ namespace OscilloscopePCSide.Services
 {
     public class SerialPortConnectionService : ISerialPortConnectionService
     {
+        private ILoggingService _loggingService;
+
         private SerialPort _serialPort;
 
         private string _currentSerialPortMessage;
 
-        private StreamWriter _rawCommunicationLogger;
-        private StreamWriter _communicationLogger;
+        public ILoggingService LoggingService
+        {
+            get
+            {
+                return _loggingService;
+            }
+        }
 
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
-        public SerialPortConnectionService()
+        public SerialPortConnectionService(ILoggingService loggingService)
         {
             _serialPort = new SerialPort();
-            _communicationLogger = new StreamWriter("communication.log", false);
-            _rawCommunicationLogger = new StreamWriter("rawcommunication.log", false);
+            _loggingService = loggingService;
         }
 
-        public void Connect()
+        public void Connect(string deviceID)
         {
-            var stm32DeviceID = "";
 
-            ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * From Win32_SerialPort");
-            ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
-            foreach (ManagementObject managementObject in managementObjectCollection)
-            {
-                if (managementObject["Description"].ToString() == "STMicroelectronics STLink Virtual COM Port")
-                {
-                    stm32DeviceID = managementObject["DeviceID"] as string;
-                }
-            }
-
-            if (stm32DeviceID == "")
-            {
-                MessageBox.Show("The device was not found. Please make sure the device is plugged in before staring the application. The application currently looks for the serial port with the description 'STMicroelectronics STLink Virtual COM Port'.", "Device not found.", MessageBoxButton.OK, MessageBoxImage.Error);
-                throw new ApplicationException("Oscilloscope is not connected to computer, please connect the oscilloscope and try again.");
-            }
-
-            Trace.WriteLine(stm32DeviceID);
-
-            _serialPort.PortName = stm32DeviceID;
+            _serialPort.PortName = deviceID;
             _serialPort.BaudRate = 1843200;
             _serialPort.DataBits = 8;
             _serialPort.StopBits = StopBits.One;
@@ -75,6 +62,11 @@ namespace OscilloscopePCSide.Services
             }
         }
 
+        public void Disconnect()
+        {
+            _serialPort.Close();
+        }
+
         public void SendMessage(string message)
         {
             try
@@ -84,13 +76,12 @@ namespace OscilloscopePCSide.Services
                 {
                     _serialPort.Write(c.ToString());
                 }
-                _rawCommunicationLogger.Write(message);
-                _communicationLogger.WriteLine("Sent: " + message);
-                Trace.WriteLine("Sent: " + message);
+                _loggingService.LogRawCommunication(message);
+                _loggingService.LogCommunication("Sent: " + message);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error when trying to send a message to the device over a serial port. This may be because the device has disconnected or it could be for another reason.", "Error sending message to device", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error when trying to send a message to the device over a serial port. This may be because the device has disconnected or it could be because the device is the wrong type of device.", "Error sending message to device", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw new ApplicationException("Error when trying to send a message to the device over a serial port.", e);
             }
         }
@@ -98,13 +89,13 @@ namespace OscilloscopePCSide.Services
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var additionalMessagepart = _serialPort.ReadExisting();
-            _rawCommunicationLogger.Write(additionalMessagepart);
+            _loggingService.LogRawCommunication(additionalMessagepart);
             this._currentSerialPortMessage = this._currentSerialPortMessage + additionalMessagepart;
 
             if (this._currentSerialPortMessage.Contains('>'))
             {
                 var completeMessage = this._currentSerialPortMessage.Split('>')[0];
-                _communicationLogger.WriteLine("Received: " + completeMessage);
+                _loggingService.LogCommunication("Received: " + completeMessage);
                 Trace.WriteLine("Received: " + completeMessage);
                 this._currentSerialPortMessage = this._currentSerialPortMessage.Substring(completeMessage.Length+1);
                 MessageReceived.Invoke(this, new MessageReceivedEventArgs(completeMessage));
@@ -120,8 +111,7 @@ namespace OscilloscopePCSide.Services
 
         private void OnDisposed(object sender, EventArgs e)
         {
-            MessageBox.Show("Serial port was closed unexpectedly.", "Serial port was closed unexpectedly", MessageBoxButton.OK, MessageBoxImage.Error);
-            throw new ApplicationException("Serial port was closed unexpectedly.");
+            // no-op
         }
     }
 }

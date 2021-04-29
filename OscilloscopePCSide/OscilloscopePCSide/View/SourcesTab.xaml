@@ -23,7 +23,7 @@
                 </ListView.ItemContainerStyle>
             </ListView>
             <ListView BorderThickness="0">
-                <ListViewItem Selected="AddNewSourceListViewItem_Selected">
+                <ListViewItem MouseDoubleClick="AddNewSourceListViewItem_MouseDoubleClick">
                     <Label>Add new Source</Label>
                 </ListViewItem>
             </ListView>

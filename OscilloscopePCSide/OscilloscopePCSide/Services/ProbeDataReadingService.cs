@@ -11,6 +11,8 @@ namespace OscilloscopePCSide.Services
 {
     public class ProbeDataReadingService : IProbeDataReadingService
     {
+        private bool _currentlyConnected;
+
         private bool _readTriggeredData;
 
         private bool _successfullyReceivingData;
@@ -18,6 +20,8 @@ namespace OscilloscopePCSide.Services
         private Timer _timer;
 
         private Queue<string> _priorityMessageQueue;
+
+        private ProbeData _probeData;
 
         private readonly IProbeDataParsingService _probeDataParsingService;
         
@@ -49,24 +53,47 @@ namespace OscilloscopePCSide.Services
             }
         }
 
-        public ProbeDataReadingService(IProbeDataParsingService probeDataParsingService, ISerialPortConnectionService serialPortConnectionService, IMultiProbeDataViewModel multiProbeDataViewModel)
+        public ProbeData ProbeData
+        {
+            get
+            {
+                return _probeData;
+            }
+        }
+
+        public ProbeDataReadingService(IProbeDataParsingService probeDataParsingService, ISerialPortConnectionService serialPortConnectionService)
         {
             this._probeDataParsingService = probeDataParsingService;
             this._serialPortConnectionService = serialPortConnectionService;
-            this._multiProbeDataViewModel = multiProbeDataViewModel;
             this._priorityMessageQueue = new Queue<string>();
             this._readTriggeredData = false;
+            this._currentlyConnected = false;
+            this._probeData = new ProbeData();
         }
 
-        public void Start()
+        public void Start(string comPort)
         {
-            this._serialPortConnectionService.Connect();
-
-            //this.SetAFGSettings(800, 3300, "sine");
-
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
             this._timer = new Timer(this.OnTimerTick, null, 0, 20000);
+
+            SetCOMPort(comPort);
+        }
+
+        public void SetCOMPort(string comPort)
+        {
+            if (_currentlyConnected)
+            {
+                this._serialPortConnectionService.Disconnect();
+                _currentlyConnected = false;
+            }
+            if (comPort != "")
+            {
+                this._serialPortConnectionService.Connect(comPort);
+                _currentlyConnected = true;
+                _successfullyReceivingData = true;
+                SendNextMessage();
+            }
         }
 
         public void SetReadTriggeredData(bool readTriggeredData)
@@ -113,6 +140,10 @@ namespace OscilloscopePCSide.Services
 
         public void SendNextMessage()
         {
+            if (!_currentlyConnected)
+            {
+                return;
+            }
             if (_priorityMessageQueue.Count > 0)
             {
                 this._serialPortConnectionService.SendMessage(_priorityMessageQueue.Dequeue());
@@ -163,9 +194,7 @@ namespace OscilloscopePCSide.Services
                 Trace.Write(temp);
                 Trace.WriteLine("");
 
-                // Next two lines are temporary until we start differentiating between the two
-                this._multiProbeDataViewModel.Probe1ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
-                this._multiProbeDataViewModel.Probe2ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
+                this.ProbeData.Frames.Add(new ProbeDataFrame(DateTime.Now, heights));
             }
 
             this.SendNextMessage();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,8 @@ namespace OscilloscopePCSide.ViewModel
 {
     public interface IMultiProbeDataViewModel : INotifyPropertyChanged
     {
-        IProbeDataViewModel Probe1ProbeDataViewModel { get; }
-        IProbeDataViewModel Probe2ProbeDataViewModel { get; }
+        ISourcesTabViewModel SourcesTabViewModel { get; }
+
+        ObservableCollection<IProbeDataViewModel> ProbeDataViewModels { get; }
     }
 }

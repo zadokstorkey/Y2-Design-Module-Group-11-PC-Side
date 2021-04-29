@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace OscilloscopePCSide.ViewModel
     public interface ITraceTabViewModel : INotifyPropertyChanged
     {
         IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
+
+        ObservableCollection<ITraceSourceViewModel> TraceSourceViewModels { get; }
 
         string Title { get; set; }
 
@@ -29,21 +32,5 @@ namespace OscilloscopePCSide.ViewModel
         double VoltageOffset { get; set; }
 
         string VoltageOffsetString { get; set; }
-
-        bool Probe1Visible { get; set; }
-
-        bool Probe2Visible { get; set; }
-
-        string Probe1VisibilityString { get; }
-
-        string Probe2VisibilityString { get; }
-
-        string Probe1Color { get; }
-
-        string Probe2Color { get; }
-
-        void HandleProbe1Clicked();
-
-        void HandleProbe2Clicked();
     }
 }
