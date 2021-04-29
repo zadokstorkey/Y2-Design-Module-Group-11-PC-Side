@@ -29,7 +29,7 @@ namespace OscilloscopePCSide.View
         {
             try
             {
-                ((ChannelConfigViewModel)DataContext).CancelChanges();
+                ((SourceConfigViewModel)DataContext).CancelChanges();
             }
             catch (ApplicationException ex)
             {
@@ -41,7 +41,7 @@ namespace OscilloscopePCSide.View
         {
             try
             {
-                ((ChannelConfigViewModel)DataContext).ApplyChanges();
+                ((SourceConfigViewModel)DataContext).ApplyChanges();
                 this.Close();
             }
             catch (ApplicationException ex)

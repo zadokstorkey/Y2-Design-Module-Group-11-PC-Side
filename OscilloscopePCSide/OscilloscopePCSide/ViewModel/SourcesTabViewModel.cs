@@ -10,11 +10,11 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class SourcesTabViewModel : ViewModelBase, ISourcesTabViewModel
     {
-        public ObservableCollection<ChannelConfigViewModel> Sources { get; }
+        public ObservableCollection<ISourceConfigViewModel> Sources { get; }
 
-        public SourcesTabViewModel(IEnumerable<ChannelConfigViewModel> sources)
+        public SourcesTabViewModel(IEnumerable<ISourceConfigViewModel> sources)
         {
-            this.Sources = new ObservableCollection<ChannelConfigViewModel>(sources);
+            this.Sources = new ObservableCollection<ISourceConfigViewModel>(sources);
         }
     }
 }

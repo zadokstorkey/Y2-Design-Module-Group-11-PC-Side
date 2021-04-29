@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public interface IChannelConfigViewModel : INotifyPropertyChanged
+    public interface ISourceConfigViewModel : INotifyPropertyChanged
     {
         IProbeDataReadingService ProbeDataReadingService { get; }
 

@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public class ChannelConfigViewModel : ViewModelBase, IChannelConfigViewModel
+    public class SourceConfigViewModel : ViewModelBase, ISourceConfigViewModel
     {
         private readonly IProbeDataReadingService _probeDataReadingService;
 
@@ -503,7 +503,7 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public ChannelConfigViewModel(IProbeDataReadingService probeDataReadingService, ISerialPortListProviderService serialPortListProviderService, string name, string colorName, string comPort)
+        public SourceConfigViewModel(IProbeDataReadingService probeDataReadingService, ISerialPortListProviderService serialPortListProviderService, string name, string colorName, string comPort)
         {
             _probeDataReadingService = probeDataReadingService;
             _serialPortListProviderService = serialPortListProviderService;
