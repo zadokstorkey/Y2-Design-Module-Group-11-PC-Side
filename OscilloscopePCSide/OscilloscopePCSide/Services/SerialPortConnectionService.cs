@@ -60,6 +60,9 @@ namespace OscilloscopePCSide.Services
                 MessageBox.Show("Error when trying to open serial port with device. This means that the device was detected but the serial port didn't open successfully. This may be because something else, like a terminal, is already connected to the device's serial port.", "Error opening serial port with device", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw new ApplicationException("Error opening serial port with device.", e);
             }
+
+            // Clear any irrelevant previous messages
+            _serialPort.ReadExisting();
         }
 
         public void Disconnect()
