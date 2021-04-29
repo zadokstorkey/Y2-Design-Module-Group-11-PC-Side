@@ -11,6 +11,8 @@ namespace OscilloscopePCSide.Services
 {
     public class ProbeDataReadingService : IProbeDataReadingService
     {
+        private bool _readTriggeredData;
+
         private bool _successfullyReceivingData;
 
         private Timer _timer;
@@ -52,20 +54,85 @@ namespace OscilloscopePCSide.Services
             this._probeDataParsingService = probeDataParsingService;
             this._serialPortConnectionService = serialPortConnectionService;
             this._multiProbeDataViewModel = multiProbeDataViewModel;
-            _priorityMessageQueue = new Queue<string>();
+            this._priorityMessageQueue = new Queue<string>();
+            this._readTriggeredData = false;
         }
 
         public void Start()
         {
             this._serialPortConnectionService.Connect();
 
-            //this._priorityMessageQueue.Enqueue("S" + "afg_freq" + "\r\n" + "0.5" + "\r\n");
-            //this._priorityMessageQueue.Enqueue("S" + "afg_amplitude" + "\r\n" + "3300" + "\r\n");
-            //this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + "\r\n" + "square" + "\r\n");
+            //this.SetAFGSettings(800, 3300, "sine");
 
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
-            this._timer = new Timer(this.OnTimerTick, null, 0, 5000);
+            this._timer = new Timer(this.OnTimerTick, null, 0, 20000);
+        }
+
+        public void SetReadTriggeredData(bool readTriggeredData)
+        {
+            this._readTriggeredData = readTriggeredData;
+        }
+
+        public void SetAFGSettings(int freq, int amplitude, string waveformType)
+        {
+            SetValue("afg_freq", waveformType.ToString());
+            SetValue("afg_amplitude", waveformType.ToString());
+            SetValue("afg_waveform", waveformType.ToString());
+        }
+
+        public void SetProbeSetting(bool x10)
+        {
+            SetValue("amplifier_x10", (x10 ? 1 : 0).ToString());
+        }
+
+        public void SetSampleTime(int sampleTime)
+        {
+            SetValue("sample_time", sampleTime.ToString());
+        }
+
+        public void SetXResolution(int xResolution)
+        {
+            SetValue("resolution_x", xResolution.ToString());
+        }
+
+        public void SetYResolution(int yResolution)
+        {
+            SetValue("resolution_y", yResolution.ToString());
+        }
+
+        public void SetTriggerType(bool risingTrigger)
+        {
+            SetValue("trigger_rising", (risingTrigger ? 1 : 0).ToString());
+        }
+
+        public void SetTriggerLevel(int triggerLevel)
+        {
+            SetValue("trigger_level", triggerLevel.ToString());
+        }
+
+        public void SendNextMessage()
+        {
+            if (_priorityMessageQueue.Count > 0)
+            {
+                this._serialPortConnectionService.SendMessage(_priorityMessageQueue.Dequeue());
+            }
+            else
+            {
+                if (this._readTriggeredData)
+                {
+                    this._serialPortConnectionService.SendMessage("T");
+                }
+                else
+                {
+                    this._serialPortConnectionService.SendMessage("A");
+                }
+            }
+        }
+
+        private void SetValue(string variable, string value)
+        {
+            this._priorityMessageQueue.Enqueue("S" + variable + " " + value + " ");
         }
 
         private void OnTimerTick(object state)
@@ -80,19 +147,7 @@ namespace OscilloscopePCSide.Services
             _successfullyReceivingData = false;
         }
 
-        public void SendNextMessage()
-        {
-            if (_priorityMessageQueue.Count > 0)
-            {
-                this._serialPortConnectionService.SendMessage(_priorityMessageQueue.Dequeue());
-            }
-            else
-            {
-                this._serialPortConnectionService.SendMessage("A");
-            }
-        }
-
-        public void OnSerialPortMessageReceived(object sender, MessageReceivedEventArgs e)
+        private void OnSerialPortMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             this._successfullyReceivingData = true;
 

@@ -15,5 +15,23 @@ namespace OscilloscopePCSide.Services
         IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
 
         void Start();
+
+        void SetReadTriggeredData(bool readTriggeredData);
+
+        void SetAFGSettings(int freq, int amplitude, string waveformType);
+
+        void SetProbeSetting(bool x10);
+
+        void SetSampleTime(int sampleTime);
+
+        void SetXResolution(int xResolution);
+
+        void SetYResolution(int xResolution);
+
+        void SetTriggerType(bool risingTrigger);
+
+        void SetTriggerLevel(int triggerLevel);
+
+        void SendNextMessage();
     }
 }

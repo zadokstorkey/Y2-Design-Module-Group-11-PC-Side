@@ -25,5 +25,17 @@ namespace OscilloscopePCSide.View
         {
             InitializeComponent();
         }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var channelConfigWindow = new ChannelConfigWindow();
+            channelConfigWindow.DataContext = ((ListViewItem)sender).DataContext;
+            channelConfigWindow.ShowDialog();
+        }
+
+        private void AddNewSourceListViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+            ((ListViewItem)sender).IsSelected = false;
+        }
     }
 }

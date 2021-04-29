@@ -79,7 +79,11 @@ namespace OscilloscopePCSide.Services
         {
             try
             {
-                _serialPort.Write(message);
+                // send characters one at a time so that it isn't to fast for the board to handle
+                foreach (char c in message)
+                {
+                    _serialPort.Write(c.ToString());
+                }
                 _rawCommunicationLogger.Write(message);
                 _communicationLogger.WriteLine("Sent: " + message);
                 Trace.WriteLine("Sent: " + message);

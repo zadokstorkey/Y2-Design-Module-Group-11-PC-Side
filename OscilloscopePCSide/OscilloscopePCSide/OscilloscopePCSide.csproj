@@ -80,6 +80,8 @@
     <Compile Include="Services\ISerialPortConnectionService.cs" />
     <Compile Include="Services\ProbeDataParsingService.cs" />
     <Compile Include="Services\SerialPortConnectionService.cs" />
+    <Compile Include="ViewModel\ChannelConfigViewModel.cs" />
+    <Compile Include="ViewModel\IChannelConfigViewModel.cs" />
     <Compile Include="ViewModel\IMultiProbeDataViewModel.cs" />
     <Compile Include="ViewModel\IProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ITopLevelViewModel.cs" />
@@ -93,6 +95,9 @@
     <Compile Include="ViewModel\TraceTabViewModel.cs" />
     <Compile Include="ViewModel\ViewModelFactories\TopLevelViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\TraceTabViewModelFactory.cs" />
+    <Compile Include="View\ChannelConfigWindow.xaml.cs">
+      <DependentUpon>ChannelConfigWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SourcesTab.xaml.cs">
       <DependentUpon>SourcesTab.xaml</DependentUpon>
     </Compile>
@@ -100,6 +105,10 @@
       <DependentUpon>TraceTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Utils\DocumentTemplateSelector.cs" />
+    <Page Include="View\ChannelConfigWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainDockingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
