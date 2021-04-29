@@ -84,6 +84,7 @@
     <Compile Include="Services\ProbeDataParsingService.cs" />
     <Compile Include="Services\SerialPortConnectionService.cs" />
     <Compile Include="Services\SerialPortListProviderService.cs" />
+    <Compile Include="ViewModel\ITraceSourceViewModel.cs" />
     <Compile Include="ViewModel\SourceConfigViewModel.cs" />
     <Compile Include="ViewModel\ISourceConfigViewModel.cs" />
     <Compile Include="ViewModel\IMultiProbeDataViewModel.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="ViewModel\ITraceTabViewModel.cs" />
     <Compile Include="ViewModel\MultiProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ProbeDataViewModel.cs" />
+    <Compile Include="ViewModel\TraceSourceViewModel.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITopLevelViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITraceTabViewModelFactory.cs" />
     <Compile Include="ViewModel\SourcesTabViewModel.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="View\ChannelConfigWindow.xaml.cs">
       <DependentUpon>ChannelConfigWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Converter\MultiTransformConverter.cs" />
     <Compile Include="View\SourcesTab.xaml.cs">
       <DependentUpon>SourcesTab.xaml</DependentUpon>
     </Compile>

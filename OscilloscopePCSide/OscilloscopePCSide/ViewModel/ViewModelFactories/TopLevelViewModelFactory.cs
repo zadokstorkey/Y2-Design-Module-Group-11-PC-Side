@@ -14,20 +14,16 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
         {
             var traceTabViewModelFactory = new TraceTabViewModelFactory();
 
-            // Replace below with scopedata created from services, or just pass the services them selves to the scopedataviewmodels
-            var probe1ProbeData = new ProbeData();
-            var probe2ProbeData = new ProbeData();
-            var probe1ProbeDataViewModel = new ProbeDataViewModel(probe1ProbeData);
-            var probe2ProbeDataViewModel = new ProbeDataViewModel(probe2ProbeData);
-            var multiProbeDataViewModel = new MultiProbeDataViewModel(probe1ProbeDataViewModel, probe2ProbeDataViewModel);
-
             var serialPortListProviderService = new SerialPortListProviderService();
+
             serialPortListProviderService.Start();
 
             var loggingService = new LoggingService();
 
-            var sourceConfigViewModelFactory = new SourceConfigViewModelFactory(serialPortListProviderService, multiProbeDataViewModel, loggingService);
+            var sourceConfigViewModelFactory = new SourceConfigViewModelFactory(serialPortListProviderService, loggingService);
             var sourcesTabViewModel = new SourcesTabViewModel(sourceConfigViewModelFactory, serialPortListProviderService);
+
+            var multiProbeDataViewModel = new MultiProbeDataViewModel(sourcesTabViewModel);
 
             var topLevelViewModel = new TopLevelViewModel(traceTabViewModelFactory, sourcesTabViewModel, multiProbeDataViewModel);
 

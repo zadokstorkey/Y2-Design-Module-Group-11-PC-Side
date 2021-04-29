@@ -11,7 +11,17 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class ProbeDataViewModel : ViewModelBase, IProbeDataViewModel
     {
+        private ISourceConfigViewModel _source;
+
         private readonly ProbeData _probeData;
+
+        public ISourceConfigViewModel Source
+        {
+            get
+            {
+                return this._source;
+            }
+        }
 
         public ProbeData ProbeData
         {
@@ -36,8 +46,9 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public ProbeDataViewModel(ProbeData probeData)
+        public ProbeDataViewModel(ProbeData probeData, ISourceConfigViewModel source)
         {
+            this._source = source;
             this._probeData = probeData;
             probeData.PropertyChanged += OnProbeDataChanged;
         }

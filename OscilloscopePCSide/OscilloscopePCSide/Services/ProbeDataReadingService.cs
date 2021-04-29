@@ -21,6 +21,8 @@ namespace OscilloscopePCSide.Services
 
         private Queue<string> _priorityMessageQueue;
 
+        private ProbeData _probeData;
+
         private readonly IProbeDataParsingService _probeDataParsingService;
         
         private readonly ISerialPortConnectionService _serialPortConnectionService;
@@ -51,14 +53,22 @@ namespace OscilloscopePCSide.Services
             }
         }
 
-        public ProbeDataReadingService(IProbeDataParsingService probeDataParsingService, ISerialPortConnectionService serialPortConnectionService, IMultiProbeDataViewModel multiProbeDataViewModel)
+        public ProbeData ProbeData
+        {
+            get
+            {
+                return _probeData;
+            }
+        }
+
+        public ProbeDataReadingService(IProbeDataParsingService probeDataParsingService, ISerialPortConnectionService serialPortConnectionService)
         {
             this._probeDataParsingService = probeDataParsingService;
             this._serialPortConnectionService = serialPortConnectionService;
-            this._multiProbeDataViewModel = multiProbeDataViewModel;
             this._priorityMessageQueue = new Queue<string>();
             this._readTriggeredData = false;
             this._currentlyConnected = false;
+            this._probeData = new ProbeData();
         }
 
         public void Start(string comPort)
@@ -184,9 +194,7 @@ namespace OscilloscopePCSide.Services
                 Trace.Write(temp);
                 Trace.WriteLine("");
 
-                // Next two lines are temporary until we start differentiating between the two
-                this._multiProbeDataViewModel.Probe1ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
-                this._multiProbeDataViewModel.Probe2ProbeDataViewModel.ProbeData.Frames.Add(probeDataFrame);
+                this.ProbeData.Frames.Add(new ProbeDataFrame(DateTime.Now, heights));
             }
 
             this.SendNextMessage();

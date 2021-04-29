@@ -1,4 +1,5 @@
-﻿using OscilloscopePCSide.ViewModel;
+﻿using OscilloscopePCSide.Model;
+using OscilloscopePCSide.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,13 @@ namespace OscilloscopePCSide.Services
     public interface IProbeDataReadingService
     {
         IProbeDataParsingService ProbeDataParsingService { get; }
+
         ISerialPortConnectionService SerialPortConnectionService { get; }
 
         IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
+
+        
+        ProbeData ProbeData { get; }
 
         void Start(string comPort);
 

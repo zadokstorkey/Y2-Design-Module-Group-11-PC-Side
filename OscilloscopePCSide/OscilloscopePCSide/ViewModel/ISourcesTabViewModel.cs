@@ -11,5 +11,7 @@ namespace OscilloscopePCSide.ViewModel
     public interface ISourcesTabViewModel : INotifyPropertyChanged
     {
         ObservableCollection<ISourceConfigViewModel> Sources { get; }
+
+        void AddNewSource(string comPort = "");
     }
 }

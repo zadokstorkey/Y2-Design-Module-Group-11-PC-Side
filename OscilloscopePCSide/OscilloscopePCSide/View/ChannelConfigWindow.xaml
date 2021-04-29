@@ -41,6 +41,10 @@
                 </ComboBox.Foreground>
                 <ComboBoxItem Foreground="Red">Red</ComboBoxItem>
                 <ComboBoxItem Foreground="Blue">Blue</ComboBoxItem>
+                <ComboBoxItem Foreground="Green">Green</ComboBoxItem>
+                <ComboBoxItem Foreground="Magenta">Magenta</ComboBoxItem>
+                <ComboBoxItem Foreground="Cyan">Cyan</ComboBoxItem>
+                <ComboBoxItem Foreground="Yellow">Yellow</ComboBoxItem>
             </ComboBox>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" Margin="8">
