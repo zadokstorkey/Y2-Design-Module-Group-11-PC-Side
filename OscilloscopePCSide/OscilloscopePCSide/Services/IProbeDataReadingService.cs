@@ -14,7 +14,9 @@ namespace OscilloscopePCSide.Services
 
         IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
 
-        void Start();
+        void Start(string comPort);
+
+        void SetCOMPort(string comPort);
 
         void SetReadTriggeredData(bool readTriggeredData);
 

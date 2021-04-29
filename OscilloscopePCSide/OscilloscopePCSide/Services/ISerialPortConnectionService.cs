@@ -10,7 +10,9 @@ namespace OscilloscopePCSide.Services
     {
         event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
-        void Connect();
+        void Connect(string deviceID);
+
+        void Disconnect();
 
         void SendMessage(string message);
     }

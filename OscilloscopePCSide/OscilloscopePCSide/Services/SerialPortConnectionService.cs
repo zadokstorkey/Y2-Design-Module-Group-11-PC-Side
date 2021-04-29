@@ -30,9 +30,9 @@ namespace OscilloscopePCSide.Services
             _rawCommunicationLogger = new StreamWriter("rawcommunication.log", false);
         }
 
-        public void Connect()
+        public void Connect(string deviceID)
         {
-            var stm32DeviceID = "";
+            /*var stm32DeviceID = "";
 
             ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * From Win32_SerialPort");
             ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
@@ -50,9 +50,9 @@ namespace OscilloscopePCSide.Services
                 throw new ApplicationException("Oscilloscope is not connected to computer, please connect the oscilloscope and try again.");
             }
 
-            Trace.WriteLine(stm32DeviceID);
+            Trace.WriteLine(stm32DeviceID);*/
 
-            _serialPort.PortName = stm32DeviceID;
+            _serialPort.PortName = deviceID;
             _serialPort.BaudRate = 1843200;
             _serialPort.DataBits = 8;
             _serialPort.StopBits = StopBits.One;
@@ -73,6 +73,11 @@ namespace OscilloscopePCSide.Services
                 MessageBox.Show("Error when trying to open serial port with device. This means that the device was detected but the serial port didn't open successfully. This may be because something else, like a terminal, is already connected to the device's serial port.", "Error opening serial port with device", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw new ApplicationException("Error opening serial port with device.", e);
             }
+        }
+
+        public void Disconnect()
+        {
+            _serialPort.Close();
         }
 
         public void SendMessage(string message)
