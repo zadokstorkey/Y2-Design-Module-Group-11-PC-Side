@@ -23,7 +23,7 @@ namespace OscilloscopePCSide
             }
             catch (ApplicationException ex)
             {
-                Shutdown();
+
             }
 		}
 

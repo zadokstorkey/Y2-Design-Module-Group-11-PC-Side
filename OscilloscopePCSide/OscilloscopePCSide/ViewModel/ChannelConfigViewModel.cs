@@ -13,6 +13,10 @@ namespace OscilloscopePCSide.ViewModel
     {
         private readonly IProbeDataReadingService _probeDataReadingService;
 
+        private readonly ISerialPortListProviderService _serialPortListProviderService;
+
+        private IList<string> _comPortOptions;
+
         private string _newName;
 
         private Color _newColor;
@@ -78,6 +82,22 @@ namespace OscilloscopePCSide.ViewModel
             get
             {
                 return _probeDataReadingService;
+            }
+        }
+
+        public ISerialPortListProviderService SerialPortListProviderService
+        {
+            get
+            {
+                return _serialPortListProviderService;
+            }
+        }
+
+        public IList<string> COMPortOptions
+        {
+            get
+            {
+                return _comPortOptions;
             }
         }
 
@@ -483,9 +503,12 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public ChannelConfigViewModel(IProbeDataReadingService probeDataReadingService, string name, string colorName, string comPort)
+        public ChannelConfigViewModel(IProbeDataReadingService probeDataReadingService, ISerialPortListProviderService serialPortListProviderService, string name, string colorName, string comPort)
         {
             _probeDataReadingService = probeDataReadingService;
+            _serialPortListProviderService = serialPortListProviderService;
+            _serialPortListProviderService.SerialPortListUpdated += SerialPortListProviderService_SerialPortListUpdated;
+            _comPortOptions = serialPortListProviderService.GetSerialPortInfos().Select(spi => spi.NameAndDescription).ToList();
 
             _name = name;
             _color = (Color)ColorConverter.ConvertFromString(colorName);
@@ -522,6 +545,17 @@ namespace OscilloscopePCSide.ViewModel
 
         public void ApplyChanges()
         {
+            if (_comPort != _newCOMPort)
+            {
+                if (_newCOMPort != "")
+                {
+                    _probeDataReadingService.SetCOMPort(_serialPortListProviderService.GetSerialPortInfos().First(spi => spi.NameAndDescription == _newCOMPort).Name);
+                }
+                else
+                {
+                    _probeDataReadingService.SetCOMPort("");
+                }
+            }
             if (_triggerStatus != _newTriggerStatus)
             {
                 _probeDataReadingService.SetReadTriggeredData(_newTriggerStatus == "Trigger On");
@@ -619,6 +653,12 @@ namespace OscilloscopePCSide.ViewModel
             RaisePropertyChanged(nameof(NewAFGFrequency));
             RaisePropertyChanged(nameof(NewAFGAmplitude));
             RaisePropertyChanged(nameof(NewAFGWaveform));
+        }
+
+        private void SerialPortListProviderService_SerialPortListUpdated(object sender, EventArgs e)
+        {
+            _comPortOptions = _serialPortListProviderService.GetSerialPortInfos().Select(spi => spi.NameAndDescription).ToList();
+            RaisePropertyChanged(nameof(COMPortOptions));
         }
     }
 }

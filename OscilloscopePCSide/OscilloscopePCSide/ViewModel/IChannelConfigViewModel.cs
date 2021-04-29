@@ -13,6 +13,8 @@ namespace OscilloscopePCSide.ViewModel
     {
         IProbeDataReadingService ProbeDataReadingService { get; }
 
+        ISerialPortListProviderService SerialPortListProviderService { get; }
+
         string NewName { get; set; }
 
         Color NewColor { get; }

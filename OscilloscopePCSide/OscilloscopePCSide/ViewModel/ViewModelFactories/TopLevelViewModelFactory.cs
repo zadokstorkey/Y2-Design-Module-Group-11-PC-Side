@@ -26,8 +26,11 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
             var probeDataReadingService = new ProbeDataReadingService(probeDataParsingService, serialPortConnectionService, multiProbeDataViewModel);
             probeDataReadingService.Start("");
 
-            var sourceConfigViewModel1 = new ChannelConfigViewModel(probeDataReadingService, "Source 1", "Red", "");
-            var sourceConfigViewModel2 = new ChannelConfigViewModel(probeDataReadingService, "Source 2", "Blue", "");
+            var serialPortListProviderService = new SerialPortListProviderService();
+            serialPortListProviderService.Start();
+
+            var sourceConfigViewModel1 = new ChannelConfigViewModel(probeDataReadingService, serialPortListProviderService, "Source 1", "Red", "");
+            var sourceConfigViewModel2 = new ChannelConfigViewModel(probeDataReadingService, serialPortListProviderService, "Source 2", "Blue", "");
             var sources = new List<ChannelConfigViewModel> { sourceConfigViewModel1, sourceConfigViewModel2 };
             var sourcesTabViewModel = new SourcesTabViewModel(sources);
 

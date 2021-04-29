@@ -32,25 +32,6 @@ namespace OscilloscopePCSide.Services
 
         public void Connect(string deviceID)
         {
-            /*var stm32DeviceID = "";
-
-            ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * From Win32_SerialPort");
-            ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
-            foreach (ManagementObject managementObject in managementObjectCollection)
-            {
-                if (managementObject["Description"].ToString() == "STMicroelectronics STLink Virtual COM Port")
-                {
-                    stm32DeviceID = managementObject["DeviceID"] as string;
-                }
-            }
-
-            if (stm32DeviceID == "")
-            {
-                MessageBox.Show("The device was not found. Please make sure the device is plugged in before staring the application. The application currently looks for the serial port with the description 'STMicroelectronics STLink Virtual COM Port'.", "Device not found.", MessageBoxButton.OK, MessageBoxImage.Error);
-                throw new ApplicationException("Oscilloscope is not connected to computer, please connect the oscilloscope and try again.");
-            }
-
-            Trace.WriteLine(stm32DeviceID);*/
 
             _serialPort.PortName = deviceID;
             _serialPort.BaudRate = 1843200;
@@ -95,7 +76,7 @@ namespace OscilloscopePCSide.Services
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error when trying to send a message to the device over a serial port. This may be because the device has disconnected or it could be for another reason.", "Error sending message to device", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error when trying to send a message to the device over a serial port. This may be because the device has disconnected or it could be because the device is the wrong type of device.", "Error sending message to device", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw new ApplicationException("Error when trying to send a message to the device over a serial port.", e);
             }
         }
@@ -125,8 +106,8 @@ namespace OscilloscopePCSide.Services
 
         private void OnDisposed(object sender, EventArgs e)
         {
-            MessageBox.Show("Serial port was closed unexpectedly.", "Serial port was closed unexpectedly", MessageBoxButton.OK, MessageBoxImage.Error);
-            throw new ApplicationException("Serial port was closed unexpectedly.");
+            //MessageBox.Show("Serial port was closed unexpectedly.", "Serial port was closed unexpectedly", MessageBoxButton.OK, MessageBoxImage.Error);
+            //throw new ApplicationException("Serial port was closed unexpectedly.");
         }
     }
 }
