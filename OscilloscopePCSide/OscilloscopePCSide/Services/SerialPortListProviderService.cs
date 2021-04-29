@@ -26,7 +26,6 @@ namespace OscilloscopePCSide.Services
             ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
             foreach (ManagementObject managementObject in managementObjectCollection)
             {
-                //"STMicroelectronics STLink Virtual COM Port" - correct name
                 serialPortInfos.Add(new SerialPortInfo((string)managementObject["DeviceID"], (string)managementObject["Description"]));
             }
             return serialPortInfos;
