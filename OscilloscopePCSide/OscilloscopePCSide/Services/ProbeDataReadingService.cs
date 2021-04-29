@@ -59,25 +59,18 @@ namespace OscilloscopePCSide.Services
         {
             this._serialPortConnectionService.Connect();
 
-            this._priorityMessageQueue.Enqueue("S" + "afg_freq" + " " + "800" + " ");
-            this._priorityMessageQueue.Enqueue("S" + "afg_amplitude" + " " + "3300" + " ");
-            this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + " " + "sine" + " ");
+            this.SetAFGSettings(800, 3300, "sine");
 
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
-            this._timer = new Timer(this.OnTimerTick, null, 0, 5000);
+            this._timer = new Timer(this.OnTimerTick, null, 0, 20000);
         }
 
-        private void OnTimerTick(object state)
+        public void SetAFGSettings(int freq, int amplitude, string waveformType)
         {
-            // Only request data if we haven't recieved any data recently
-            if (!_successfullyReceivingData)
-            {
-                SendNextMessage();
-            }
-
-            // reset the variable so that we can track if anything is received in the next 5 seconds
-            _successfullyReceivingData = false;
+            this._priorityMessageQueue.Enqueue("S" + "afg_freq" + " " + freq.ToString() + " ");
+            this._priorityMessageQueue.Enqueue("S" + "afg_amplitude" + " " + amplitude.ToString() + " ");
+            this._priorityMessageQueue.Enqueue("S" + "afg_waveform" + " " + waveformType.ToString() + " ");
         }
 
         public void SendNextMessage()
@@ -92,7 +85,19 @@ namespace OscilloscopePCSide.Services
             }
         }
 
-        public void OnSerialPortMessageReceived(object sender, MessageReceivedEventArgs e)
+        private void OnTimerTick(object state)
+        {
+            // Only request data if we haven't recieved any data recently
+            if (!_successfullyReceivingData)
+            {
+                SendNextMessage();
+            }
+
+            // reset the variable so that we can track if anything is received in the next 5 seconds
+            _successfullyReceivingData = false;
+        }
+
+        private void OnSerialPortMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             this._successfullyReceivingData = true;
 
