@@ -205,6 +205,17 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
+        public string AveragingMode
+        {
+            set
+            {
+                foreach (var tsvm in this._traceSourceViewModels)
+                {
+                    tsvm.AveragingMode = value;
+                }
+            }
+        }
+
         public TraceTabViewModel(IMultiProbeDataViewModel multiProbeDataViewModel)
         {
             this._multiProbeDataViewModel = multiProbeDataViewModel;

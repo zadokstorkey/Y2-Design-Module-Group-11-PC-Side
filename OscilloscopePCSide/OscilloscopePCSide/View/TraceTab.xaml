@@ -28,7 +28,7 @@
                 </ListView.ItemContainerStyle>
             </ListView>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Label Height="20" Padding="10, 2, 10, 0">Scale: </Label>
+                <Label Height="20" Padding="10, 2, 10, 0">Scale:</Label>
                 <TextBox Height="23" Width="40" Margin="10, 2, 0, 0" VerticalContentAlignment="Center" Text="{Binding VoltageScaleString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
                 <Grid Height="23" Width="20" Margin="0, 2, 10, 0">
                     <Grid.RowDefinitions>
@@ -51,6 +51,14 @@
                     <Button Padding="0" Grid.Row="1" Content="-" FontSize="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="DecreaseOffsetButton_Click"></Button>
                 </Grid>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <Label Height="20" Padding="10, 2, 10, 0">Averaging:</Label>
+                <ComboBox Height="23" Width="90" Margin="10, 2, 0, 0" VerticalContentAlignment="Center" Text="{Binding AveragingMode, Mode=OneWayToSource}">
+                    <ComboBoxItem IsSelected="True">None</ComboBoxItem>
+                    <ComboBoxItem>Average 10</ComboBoxItem>
+                    <ComboBoxItem>Average 50</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
         </DockPanel>
         <Border ClipToBounds="True" Background="WhiteSmoke" Loaded="Border_Loaded" SizeChanged="Border_SizeChanged">
             <Grid>
@@ -66,7 +74,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding VisibilityString}" Data="{Binding ProbeDataViewModel.TracePath}" Stroke="{Binding Color}" StrokeThickness="0.75">
+                                <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding VisibilityString}" Data="{Binding TracePath}" Stroke="{Binding Color}" StrokeThickness="0.75">
                                     <Path.RenderTransform>
                                         <MultiBinding Converter="{StaticResource MultiTransformConverter}">
                                             <Binding Path="DataContext.Scale" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}"/>
