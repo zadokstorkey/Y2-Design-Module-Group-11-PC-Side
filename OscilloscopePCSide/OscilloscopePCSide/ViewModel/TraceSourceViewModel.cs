@@ -14,6 +14,8 @@ namespace OscilloscopePCSide.ViewModel
 
         private bool _visible;
 
+        private string _averagingMode;
+
         public IProbeDataViewModel ProbeDataViewModel
         {
             get
@@ -61,15 +63,57 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
+        public string AveragingMode
+        {
+            get
+            {
+                return _averagingMode;
+            }
+            set
+            {
+                _averagingMode = value;
+                RaisePropertyChanged(nameof(AveragingMode));
+                RaisePropertyChanged(nameof(TracePath));
+            }
+        }
+
+        public string TracePath
+        {
+            get
+            {
+                if (_averagingMode == "Average 10")
+                {
+                    return ProbeDataViewModel.TracePathAverageOf10;
+                }
+                else if (_averagingMode == "Average 50")
+                {
+                    return ProbeDataViewModel.TracePathAverageOf50;
+                }
+                else
+                {
+                    return ProbeDataViewModel.TracePath;
+                }
+            }
+        }
+
         public TraceSourceViewModel(IProbeDataViewModel probeDataViewModel)
         {
             this._probeDataViewModel = probeDataViewModel;
+            ProbeDataViewModel.PropertyChanged += ProbeDataViewModel_PropertyChanged;
             ProbeDataViewModel.Source.PropertyChanged += Source_PropertyChanged;
         }
 
         public void HandleToggleVisibility()
         {
             this.Visible = !this.Visible;
+        }
+
+        private void ProbeDataViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ProbeDataViewModel.TracePath))
+            {
+                RaisePropertyChanged(nameof(TracePath));
+            }
         }
 
         private void Source_PropertyChanged(object sender, PropertyChangedEventArgs e)

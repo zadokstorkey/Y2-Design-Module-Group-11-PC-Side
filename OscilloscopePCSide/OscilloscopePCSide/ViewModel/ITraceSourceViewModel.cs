@@ -19,6 +19,8 @@ namespace OscilloscopePCSide.ViewModel
 
         string Color { get; }
 
+        string AveragingMode { get; set; }
+
         void HandleToggleVisibility();
     }
 }

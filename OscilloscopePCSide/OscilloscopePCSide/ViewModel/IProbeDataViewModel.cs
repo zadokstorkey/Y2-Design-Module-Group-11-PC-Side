@@ -16,5 +16,9 @@ namespace OscilloscopePCSide.ViewModel
         ProbeData ProbeData { get; }
 
         string TracePath { get; }
+
+        string TracePathAverageOf10 { get; }
+
+        string TracePathAverageOf50 { get; }
     }
 }
