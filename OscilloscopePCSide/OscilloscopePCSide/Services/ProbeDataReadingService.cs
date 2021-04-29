@@ -59,7 +59,7 @@ namespace OscilloscopePCSide.Services
         {
             this._serialPortConnectionService.Connect();
 
-            this.SetAFGSettings(800, 3300, "sine");
+            //this.SetAFGSettings(800, 3300, "sine");
 
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 

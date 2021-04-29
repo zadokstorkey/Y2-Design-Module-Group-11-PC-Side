@@ -15,5 +15,9 @@ namespace OscilloscopePCSide.Services
         IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
 
         void Start();
+
+        void SetAFGSettings(int freq, int amplitude, string waveformType);
+
+        void SendNextMessage();
     }
 }

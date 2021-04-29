@@ -13,7 +13,11 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
         public ITopLevelViewModel Create()
         {
             var traceTabViewModelFactory = new TraceTabViewModelFactory();
-            var sourcesTabViewModel = new SourcesTabViewModel();
+
+            var sourceConfigViewModel1 = new ChannelConfigViewModel("Source 1", "Red");
+            var sourceConfigViewModel2 = new ChannelConfigViewModel("Source 2", "Blue");
+            var sources = new List<ChannelConfigViewModel> { sourceConfigViewModel1, sourceConfigViewModel2 };
+            var sourcesTabViewModel = new SourcesTabViewModel(sources);
 
             // Replace below with scopedata created from services, or just pass the services them selves to the scopedataviewmodels
             var probe1ProbeData = new ProbeData();
