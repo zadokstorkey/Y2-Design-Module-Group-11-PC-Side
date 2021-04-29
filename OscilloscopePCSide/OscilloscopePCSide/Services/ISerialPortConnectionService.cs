@@ -8,6 +8,8 @@ namespace OscilloscopePCSide.Services
 {
     public interface ISerialPortConnectionService
     {
+        ILoggingService LoggingService { get; }
+
         event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
         void Connect(string deviceID);

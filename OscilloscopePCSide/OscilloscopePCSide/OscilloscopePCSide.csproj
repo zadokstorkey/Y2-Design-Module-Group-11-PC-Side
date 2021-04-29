@@ -75,10 +75,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ProbeData.cs" />
+    <Compile Include="Services\ILoggingService.cs" />
     <Compile Include="Services\IProbeDataParsingService.cs" />
     <Compile Include="Services\IProbeDataReadingService.cs" />
     <Compile Include="Services\ISerialPortConnectionService.cs" />
     <Compile Include="Services\ISerialPortListProviderService.cs" />
+    <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\ProbeDataParsingService.cs" />
     <Compile Include="Services\SerialPortConnectionService.cs" />
     <Compile Include="Services\SerialPortListProviderService.cs" />

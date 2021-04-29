@@ -24,7 +24,9 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
             var serialPortListProviderService = new SerialPortListProviderService();
             serialPortListProviderService.Start();
 
-            var sourceConfigViewModelFactory = new SourceConfigViewModelFactory(serialPortListProviderService, multiProbeDataViewModel);
+            var loggingService = new LoggingService();
+
+            var sourceConfigViewModelFactory = new SourceConfigViewModelFactory(serialPortListProviderService, multiProbeDataViewModel, loggingService);
             var sourceConfigViewModel1 = sourceConfigViewModelFactory.Create("Source 1", "Red", "");
             var sourceConfigViewModel2 = sourceConfigViewModelFactory.Create("Source 2", "Blue", "");
             var sources = new List<ISourceConfigViewModel> { sourceConfigViewModel1, sourceConfigViewModel2 };

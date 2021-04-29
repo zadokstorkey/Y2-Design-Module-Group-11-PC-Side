@@ -14,20 +14,26 @@ namespace OscilloscopePCSide.Services
 {
     public class SerialPortConnectionService : ISerialPortConnectionService
     {
+        private ILoggingService _loggingService;
+
         private SerialPort _serialPort;
 
         private string _currentSerialPortMessage;
 
-        private StreamWriter _rawCommunicationLogger;
-        private StreamWriter _communicationLogger;
+        public ILoggingService LoggingService
+        {
+            get
+            {
+                return _loggingService;
+            }
+        }
 
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
 
-        public SerialPortConnectionService()
+        public SerialPortConnectionService(ILoggingService loggingService)
         {
             _serialPort = new SerialPort();
-            _communicationLogger = new StreamWriter("communication.log", false);
-            _rawCommunicationLogger = new StreamWriter("rawcommunication.log", false);
+            _loggingService = loggingService;
         }
 
         public void Connect(string deviceID)
@@ -70,9 +76,8 @@ namespace OscilloscopePCSide.Services
                 {
                     _serialPort.Write(c.ToString());
                 }
-                _rawCommunicationLogger.Write(message);
-                _communicationLogger.WriteLine("Sent: " + message);
-                Trace.WriteLine("Sent: " + message);
+                _loggingService.LogRawCommunication(message);
+                _loggingService.LogCommunication("Sent: " + message);
             }
             catch (Exception e)
             {
@@ -84,13 +89,13 @@ namespace OscilloscopePCSide.Services
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var additionalMessagepart = _serialPort.ReadExisting();
-            _rawCommunicationLogger.Write(additionalMessagepart);
+            _loggingService.LogRawCommunication(additionalMessagepart);
             this._currentSerialPortMessage = this._currentSerialPortMessage + additionalMessagepart;
 
             if (this._currentSerialPortMessage.Contains('>'))
             {
                 var completeMessage = this._currentSerialPortMessage.Split('>')[0];
-                _communicationLogger.WriteLine("Received: " + completeMessage);
+                _loggingService.LogCommunication("Received: " + completeMessage);
                 Trace.WriteLine("Received: " + completeMessage);
                 this._currentSerialPortMessage = this._currentSerialPortMessage.Substring(completeMessage.Length+1);
                 MessageReceived.Invoke(this, new MessageReceivedEventArgs(completeMessage));
@@ -106,8 +111,7 @@ namespace OscilloscopePCSide.Services
 
         private void OnDisposed(object sender, EventArgs e)
         {
-            //MessageBox.Show("Serial port was closed unexpectedly.", "Serial port was closed unexpectedly", MessageBoxButton.OK, MessageBoxImage.Error);
-            //throw new ApplicationException("Serial port was closed unexpectedly.");
+            // no-op
         }
     }
 }
