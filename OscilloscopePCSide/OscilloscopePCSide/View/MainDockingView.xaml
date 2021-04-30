@@ -13,12 +13,12 @@
                 <LayoutPanel Orientation="Horizontal">
                     <LayoutAnchorablePaneGroup DockWidth="150" Orientation="Vertical">
                         <LayoutAnchorablePane>
-                            <LayoutAnchorable Title="Sources">
+                            <LayoutAnchorable Title="Sources" CanClose="False" CanHide="False">
                                 <view:SourcesTab DataContext="{Binding SourcesTabViewModel}"></view:SourcesTab>
                             </LayoutAnchorable>
                         </LayoutAnchorablePane>
                         <LayoutAnchorablePane>
-                            <LayoutAnchorable Title="VirtualSources">
+                            <LayoutAnchorable Title="VirtualSources" CanClose="False" CanHide="False">
                                 <view:DerivedSourcesTab DataContext="{Binding SourcesTabViewModel}"></view:DerivedSourcesTab>
                             </LayoutAnchorable>
                         </LayoutAnchorablePane>
