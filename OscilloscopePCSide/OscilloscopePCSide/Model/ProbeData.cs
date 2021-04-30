@@ -31,7 +31,6 @@ namespace OscilloscopePCSide.Model
                 }
                 else
                 {
-                    // temp - replace with something better later
                     return new ProbeDataFrame(DateTime.Now, new List<int>());
                 }
             }

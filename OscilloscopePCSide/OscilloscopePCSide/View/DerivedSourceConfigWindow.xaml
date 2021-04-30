@@ -1,0 +1,100 @@
+﻿<Window x:Class="OscilloscopePCSide.View.DerivedSourceConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OscilloscopePCSide.View"
+        mc:Ignorable="d"
+        Title="ChannelConfigWindow" Height="210" Width="600" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">Name:</Label>
+            <TextBox Grid.Column="1" Text="{Binding NewName}" Margin="0 3 0 3"></TextBox>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">Colour:</Label>
+            <ComboBox Grid.Column="1" Text="{Binding NewColorString}" Margin="0 3 0 3">
+                <ComboBox.Foreground>
+                    <SolidColorBrush Color="{Binding NewColor}"/>
+                </ComboBox.Foreground>
+                <ComboBoxItem Foreground="Red">Red</ComboBoxItem>
+                <ComboBoxItem Foreground="Blue">Blue</ComboBoxItem>
+                <ComboBoxItem Foreground="Green">Green</ComboBoxItem>
+                <ComboBoxItem Foreground="Magenta">Magenta</ComboBoxItem>
+                <ComboBoxItem Foreground="Cyan">Cyan</ComboBoxItem>
+                <ComboBoxItem Foreground="Yellow">Yellow</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">X Resolution:</Label>
+            <TextBox Grid.Column="1" Text="{Binding NewXResolution}" Margin="0 3 0 3"></TextBox>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">Operation:</Label>
+            <ComboBox Grid.Column="1" Text="{Binding NewOperation}" Margin="0 3 0 3">
+                <ComboBoxItem>Add</ComboBoxItem>
+                <ComboBoxItem>Subtract</ComboBoxItem>
+                <ComboBoxItem>Average</ComboBoxItem>
+                <ComboBoxItem>Invert</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">First Source:</Label>
+            <ComboBox Grid.Column="1" SelectedItem="{Binding NewSourceConfigViewModel1}" ItemsSource="{Binding SourcesTabViewModel.Sources}" Margin="0 3 0 3">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1" Margin="8" IsEnabled="{Binding NewOperationRequiresTwoSources}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" HorizontalContentAlignment="Center">Second Source:</Label>
+            <ComboBox Grid.Column="1" SelectedItem="{Binding NewSourceConfigViewModel2}" ItemsSource="{Binding SourcesTabViewModel.Sources}" Margin="0 3 0 3">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <DockPanel Grid.Row="7" Grid.ColumnSpan="2" LastChildFill="False" Margin="10">
+            <Button DockPanel.Dock="Left" Width="80" Click="Apply_Clicked">Apply</Button>
+            <Button DockPanel.Dock="Right" Width="80" Click="Cancel_Clicked">Cancel</Button>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -9,7 +9,7 @@ namespace OscilloscopePCSide.ViewModel
 {
     public interface ITraceSourceViewModel : INotifyPropertyChanged
     {
-        IProbeDataViewModel ProbeDataViewModel { get; }
+        IProbeDataViewModelBase ProbeDataViewModel { get; }
 
         string Name { get; }
 

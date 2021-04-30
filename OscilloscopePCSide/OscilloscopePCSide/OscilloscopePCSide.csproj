@@ -84,6 +84,12 @@
     <Compile Include="Services\ProbeDataParsingService.cs" />
     <Compile Include="Services\SerialPortConnectionService.cs" />
     <Compile Include="Services\SerialPortListProviderService.cs" />
+    <Compile Include="ViewModel\DerivedProbeDataViewModel.cs" />
+    <Compile Include="ViewModel\DerivedSourceConfigViewModel.cs" />
+    <Compile Include="ViewModel\IDerivedProbeDataViewModel.cs" />
+    <Compile Include="ViewModel\IDerivedSourceConfigViewModel.cs" />
+    <Compile Include="ViewModel\IProbeDataViewModelBase.cs" />
+    <Compile Include="ViewModel\ISourceConfigViewModelBase.cs" />
     <Compile Include="ViewModel\ITraceSourceViewModel.cs" />
     <Compile Include="ViewModel\SourceConfigViewModel.cs" />
     <Compile Include="ViewModel\ISourceConfigViewModel.cs" />
@@ -95,6 +101,8 @@
     <Compile Include="ViewModel\MultiProbeDataViewModel.cs" />
     <Compile Include="ViewModel\ProbeDataViewModel.cs" />
     <Compile Include="ViewModel\TraceSourceViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelFactories\DerivedSourceConfigViewModelFactory.cs" />
+    <Compile Include="ViewModel\ViewModelFactories\IDerivedSourceConfigViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITopLevelViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\ITraceTabViewModelFactory.cs" />
     <Compile Include="ViewModel\SourcesTabViewModel.cs" />
@@ -103,8 +111,14 @@
     <Compile Include="ViewModel\ViewModelFactories\SourceConfigViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\TopLevelViewModelFactory.cs" />
     <Compile Include="ViewModel\ViewModelFactories\TraceTabViewModelFactory.cs" />
-    <Compile Include="View\ChannelConfigWindow.xaml.cs">
-      <DependentUpon>ChannelConfigWindow.xaml</DependentUpon>
+    <Compile Include="View\DerivedSourceConfigWindow.xaml.cs">
+      <DependentUpon>DerivedSourceConfigWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DerivedSourcesTab.xaml.cs">
+      <DependentUpon>DerivedSourcesTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SourceConfigWindow.xaml.cs">
+      <DependentUpon>SourceConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Converter\MultiTransformConverter.cs" />
     <Compile Include="View\SourcesTab.xaml.cs">
@@ -114,7 +128,15 @@
       <DependentUpon>TraceTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Utils\DocumentTemplateSelector.cs" />
-    <Page Include="View\ChannelConfigWindow.xaml">
+    <Page Include="View\DerivedSourceConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DerivedSourcesTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SourceConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

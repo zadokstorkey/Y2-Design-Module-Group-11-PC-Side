@@ -11,11 +11,18 @@
         <DockingManager AllowMixedOrientation="True" DocumentsSource="{Binding TraceTabViewModels}">
             <LayoutRoot>
                 <LayoutPanel Orientation="Horizontal">
-                    <LayoutAnchorablePane DockWidth="150">
-                        <LayoutAnchorable Title="Sources">
-                            <view:SourcesTab DataContext="{Binding SourcesTabViewModel}"></view:SourcesTab>
-                        </LayoutAnchorable>
-                    </LayoutAnchorablePane>
+                    <LayoutAnchorablePaneGroup DockWidth="150" Orientation="Vertical">
+                        <LayoutAnchorablePane>
+                            <LayoutAnchorable Title="Sources">
+                                <view:SourcesTab DataContext="{Binding SourcesTabViewModel}"></view:SourcesTab>
+                            </LayoutAnchorable>
+                        </LayoutAnchorablePane>
+                        <LayoutAnchorablePane>
+                            <LayoutAnchorable Title="VirtualSources">
+                                <view:DerivedSourcesTab DataContext="{Binding SourcesTabViewModel}"></view:DerivedSourcesTab>
+                            </LayoutAnchorable>
+                        </LayoutAnchorablePane>
+                    </LayoutAnchorablePaneGroup>
                     <LayoutDocumentPaneGroup>
                         <LayoutDocumentPane>
                         </LayoutDocumentPane>

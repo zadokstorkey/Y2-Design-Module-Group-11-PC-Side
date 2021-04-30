@@ -9,16 +9,8 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public interface IProbeDataViewModel : INotifyPropertyChanged
+    public interface IProbeDataViewModel : IProbeDataViewModelBase
     {
-        ISourceConfigViewModel Source { get; }
-
         ProbeData ProbeData { get; }
-
-        string TracePath { get; }
-
-        string TracePathAverageOf10 { get; }
-
-        string TracePathAverageOf50 { get; }
     }
 }
