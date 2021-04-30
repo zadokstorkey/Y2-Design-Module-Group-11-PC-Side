@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 using OscilloscopePCSide.Services;
 using OscilloscopePCSide.ViewModel.ViewModelFactories;
 using System;
@@ -68,13 +69,17 @@ namespace OscilloscopePCSide.ViewModel
             this._serialPortListProviderService = serialPortListProviderService;
             this.Sources = new ObservableCollection<ISourceConfigViewModel>();
             this.DerivedSources = new ObservableCollection<IDerivedSourceConfigViewModel>();
-            foreach (SerialPortInfo spi in _serialPortListProviderService.GetSerialPortInfos())
+            new Task(() =>
             {
-                if (spi.Description == "STMicroelectronics STLink Virtual COM Port")
+                foreach (SerialPortInfo spi in _serialPortListProviderService.GetSerialPortInfos())
                 {
-                    AddNewSource(spi.Name);
+                    if (spi.Description == "STMicroelectronics STLink Virtual COM Port")
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => AddNewSource(spi.Name));
+                    }
                 }
-            }
+            }).Start();
+            this._serialPortListProviderService.SerialPortListUpdated += SerialPortListProviderService_SerialPortListUpdated;
         }
 
         public void AddNewSource(string comPort = "")
@@ -87,6 +92,20 @@ namespace OscilloscopePCSide.ViewModel
         {
             this.DerivedSources.Add(_derivedSourceConfigViewModelFactory.Create(this, "Source " + this._sourceCount, this._colorList[(this._sourceCount - 1) % this._colorList.Count]));
             this._sourceCount++;
+        }
+
+        private void SerialPortListProviderService_SerialPortListUpdated(object sender, EventArgs e)
+        {
+            new Task(() =>
+            {
+                foreach (SerialPortInfo spi in _serialPortListProviderService.GetSerialPortInfos())
+                {
+                    if (spi.Description == "STMicroelectronics STLink Virtual COM Port" && !this.Sources.Any(s => s.Name == spi.Name))
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => AddNewSource(spi.Name));
+                    }
+                }
+            }).Start();
         }
     }
 }

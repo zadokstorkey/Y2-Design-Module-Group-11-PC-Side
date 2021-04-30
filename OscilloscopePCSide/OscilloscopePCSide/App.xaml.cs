@@ -1,4 +1,5 @@
-﻿using OscilloscopePCSide.Services;
+﻿using GalaSoft.MvvmLight.Threading;
+using OscilloscopePCSide.Services;
 using OscilloscopePCSide.ViewModel.ViewModelFactories;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace OscilloscopePCSide
     {
 		private void Application_Startup(object sender, StartupEventArgs e)
         {
+            DispatcherHelper.Initialize();
             try
             {
                 Setup();

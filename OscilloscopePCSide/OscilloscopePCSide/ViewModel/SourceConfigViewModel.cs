@@ -510,37 +510,23 @@ namespace OscilloscopePCSide.ViewModel
             _serialPortListProviderService.SerialPortListUpdated += SerialPortListProviderService_SerialPortListUpdated;
             _comPortOptions = serialPortListProviderService.GetSerialPortInfos().Select(spi => spi.NameAndDescription).ToList();
 
-            _name = name;
-            _color = (Color)ColorConverter.ConvertFromString(colorName);
-            _colorString = colorName;
-            _comPort = comPort;
-            _sampleTime = 2;
-            _xResolution = 1920;
-            _yResolution = 1080;
-            _probeType = "x1";
-            _triggerStatus = "Trigger Off";
-            _triggerType = "Rising Edge";
-            _triggerLevel = 2048;
-            _afgStatus = "AFG Off";
-            _afgFrequency = 800;
-            _afgAmplitude = 3300;
-            _afgWaveform = "Sine Wave";
+            _newName = name;
+            _newColor = (Color)ColorConverter.ConvertFromString(colorName);
+            _newColorString = colorName;
+            _newCOMPort = _serialPortListProviderService.GetSerialPortInfos().First(spi => spi.Name == comPort).NameAndDescription;
+            _newSampleTime = 2;
+            _newXResolution = 1920;
+            _newYResolution = 1080;
+            _newProbeType = "x1";
+            _newTriggerStatus = "Trigger Off";
+            _newTriggerType = "Rising Edge";
+            _newTriggerLevel = 2048;
+            _newAFGStatus = "AFG Off";
+            _newAFGFrequency = 800;
+            _newAFGAmplitude = 3300;
+            _newAFGWaveform = "Sine Wave";
 
-            _newName = _name;
-            _newColor = _color;
-            _newColorString = _colorString;
-            _newCOMPort = _comPort;
-            _newSampleTime = _sampleTime;
-            _newXResolution = _xResolution;
-            _newYResolution = _yResolution;
-            _newProbeType = _probeType;
-            _newTriggerStatus = _triggerStatus;
-            _newTriggerType = _triggerType;
-            _newTriggerLevel = _triggerLevel;
-            _newAFGStatus = _afgStatus;
-            _newAFGFrequency = _afgFrequency;
-            _newAFGAmplitude = _afgAmplitude;
-            _newAFGWaveform = _afgWaveform;
+            ApplyChanges();
         }
 
         public void ApplyChanges()
@@ -562,7 +548,7 @@ namespace OscilloscopePCSide.ViewModel
             }
             if (_afgStatus != _newAFGStatus || _afgFrequency != _newAFGFrequency || _afgAmplitude != _newAFGAmplitude || _afgWaveform != _newAFGWaveform)
             {
-                _probeDataReadingService.SetAFGSettings(_newAFGStatus == "AFG On" ? _afgFrequency : 0, _afgAmplitude, _afgWaveform.Replace(" Wave", "").ToLower());
+                _probeDataReadingService.SetAFGSettings(_newAFGStatus == "AFG On" ? _newAFGFrequency : 0, _newAFGAmplitude, _newAFGWaveform.Replace(" Wave", "").ToLower());
             }
             if (_probeType != _newProbeType)
             {
