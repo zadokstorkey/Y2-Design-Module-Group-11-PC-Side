@@ -110,6 +110,9 @@
     <Compile Include="View\DerivedSourceConfigWindow.xaml.cs">
       <DependentUpon>DerivedSourceConfigWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DerivedSourcesTab.xaml.cs">
+      <DependentUpon>DerivedSourcesTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SourceConfigWindow.xaml.cs">
       <DependentUpon>SourceConfigWindow.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
     <Page Include="View\DerivedSourceConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DerivedSourcesTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SourceConfigWindow.xaml">
       <SubType>Designer</SubType>

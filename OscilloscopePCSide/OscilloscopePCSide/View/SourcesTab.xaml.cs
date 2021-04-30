@@ -35,23 +35,10 @@ namespace OscilloscopePCSide.View
             sourceConfigWindow.ShowDialog();
         }
 
-        private void DerivedSourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var derivedSourceConfigWindow = new DerivedSourceConfigWindow();
-            derivedSourceConfigWindow.DataContext = ((ListViewItem)sender).DataContext;
-            derivedSourceConfigWindow.ShowDialog();
-        }
-
         private void AddNewSourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((ListViewItem)sender).IsSelected = false;
             (this.DataContext as ISourcesTabViewModel).AddNewSource();
-        }
-
-        private void AddNewDerivedSourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ((ListViewItem)sender).IsSelected = false;
-            (this.DataContext as ISourcesTabViewModel).AddNewDerivedSource();
         }
     }
 }
