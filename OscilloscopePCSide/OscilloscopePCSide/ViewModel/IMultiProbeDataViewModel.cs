@@ -13,5 +13,7 @@ namespace OscilloscopePCSide.ViewModel
         ISourcesTabViewModel SourcesTabViewModel { get; }
 
         ObservableCollection<IProbeDataViewModel> ProbeDataViewModels { get; }
+
+        ObservableCollection<IDerivedProbeDataViewModel> DerivedProbeDataViewModels { get; }
     }
 }

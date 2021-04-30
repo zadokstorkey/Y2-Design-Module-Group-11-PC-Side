@@ -84,8 +84,12 @@
     <Compile Include="Services\ProbeDataParsingService.cs" />
     <Compile Include="Services\SerialPortConnectionService.cs" />
     <Compile Include="Services\SerialPortListProviderService.cs" />
+    <Compile Include="ViewModel\DerivedProbeDataViewModel.cs" />
     <Compile Include="ViewModel\DerivedSourceConfigViewModel.cs" />
+    <Compile Include="ViewModel\IDerivedProbeDataViewModel.cs" />
     <Compile Include="ViewModel\IDerivedSourceConfigViewModel.cs" />
+    <Compile Include="ViewModel\IProbeDataViewModelBase.cs" />
+    <Compile Include="ViewModel\ISourceConfigViewModelBase.cs" />
     <Compile Include="ViewModel\ITraceSourceViewModel.cs" />
     <Compile Include="ViewModel\SourceConfigViewModel.cs" />
     <Compile Include="ViewModel\ISourceConfigViewModel.cs" />

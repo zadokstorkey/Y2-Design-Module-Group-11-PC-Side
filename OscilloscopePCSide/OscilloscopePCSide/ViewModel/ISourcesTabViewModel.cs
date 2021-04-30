@@ -12,6 +12,8 @@ namespace OscilloscopePCSide.ViewModel
     {
         ObservableCollection<ISourceConfigViewModel> Sources { get; }
 
+        ObservableCollection<IDerivedSourceConfigViewModel> DerivedSources { get; }
+
         void AddNewSource(string comPort = "");
 
         void AddNewDerivedSource();

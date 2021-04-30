@@ -237,6 +237,7 @@ namespace OscilloscopePCSide.ViewModel
             }
 
             this._multiProbeDataViewModel.ProbeDataViewModels.CollectionChanged += ProbeDataViewModels_CollectionChanged;
+            this._multiProbeDataViewModel.DerivedProbeDataViewModels.CollectionChanged += DerivedProbeDataViewModels_CollectionChanged;
         }
 
         private void ProbeDataViewModels_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -244,6 +245,22 @@ namespace OscilloscopePCSide.ViewModel
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 this._traceSourceViewModels.Add(new TraceSourceViewModel((IProbeDataViewModel)e.NewItems[0]));
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                this._traceSourceViewModels.Remove(this._traceSourceViewModels.First(tsvm => tsvm.ProbeDataViewModel == e.OldItems[0]));
+            }
+            else
+            {
+                throw new NotImplementedException("CollectionChanged event handler not implemented for this change type as it should never occur.");
+            }
+        }
+
+        private void DerivedProbeDataViewModels_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                this._traceSourceViewModels.Add(new TraceSourceViewModel((IDerivedProbeDataViewModel)e.NewItems[0]));
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {

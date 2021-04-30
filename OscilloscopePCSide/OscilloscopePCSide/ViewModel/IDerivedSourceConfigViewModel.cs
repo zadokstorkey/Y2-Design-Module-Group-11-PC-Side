@@ -8,13 +8,9 @@ using System.Windows.Media;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public interface IDerivedSourceConfigViewModel : INotifyPropertyChanged
+    public interface IDerivedSourceConfigViewModel : ISourceConfigViewModelBase
     {
-        string Name { get; set; }
-
-        Color Color { get; }
-
-        string ColorString { get; set; }
+        int XResolution { get; set; }
 
         string Operation { get; set; }
 

@@ -10,13 +10,13 @@ namespace OscilloscopePCSide.ViewModel
 {
     public class TraceSourceViewModel : ViewModelBase, ITraceSourceViewModel
     {
-        private IProbeDataViewModel _probeDataViewModel;
+        private IProbeDataViewModelBase _probeDataViewModel;
 
         private bool _visible;
 
         private string _averagingMode;
 
-        public IProbeDataViewModel ProbeDataViewModel
+        public IProbeDataViewModelBase ProbeDataViewModel
         {
             get
             {
@@ -28,7 +28,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _probeDataViewModel.Source.Name;
+                return _probeDataViewModel.SourceConfig.Name;
             }
         }
 
@@ -59,7 +59,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                return _visible ? ProbeDataViewModel.Source.ColorString : "Gray";
+                return _visible ? ProbeDataViewModel.SourceConfig.ColorString : "Gray";
             }
         }
 
@@ -96,11 +96,11 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public TraceSourceViewModel(IProbeDataViewModel probeDataViewModel)
+        public TraceSourceViewModel(IProbeDataViewModelBase probeDataViewModel)
         {
             this._probeDataViewModel = probeDataViewModel;
             ProbeDataViewModel.PropertyChanged += ProbeDataViewModel_PropertyChanged;
-            ProbeDataViewModel.Source.PropertyChanged += Source_PropertyChanged;
+            ProbeDataViewModel.SourceConfig.PropertyChanged += Source_PropertyChanged;
         }
 
         public void HandleToggleVisibility()
