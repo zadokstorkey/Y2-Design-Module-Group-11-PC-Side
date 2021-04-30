@@ -6,7 +6,7 @@
         xmlns:view="clr-namespace:OscilloscopePCSide.View"
         mc:Ignorable="d"
         MouseDown="Window_MouseDown"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Oscilloscope" Height="450" Width="800" WindowState="Maximized">
     <Grid>
         <view:MainDockingView/>
     </Grid>

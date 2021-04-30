@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OscilloscopePCSide.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace OscilloscopePCSide.View
         public MainDockingView()
         {
             InitializeComponent();
+        }
+
+        private void NewTraceMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ((TopLevelViewModel)this.DataContext).AddTraceTabViewModel();
+        }
+
+        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

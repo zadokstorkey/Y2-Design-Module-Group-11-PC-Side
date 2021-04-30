@@ -8,34 +8,49 @@
                 mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DockingManager AllowMixedOrientation="True" DocumentsSource="{Binding TraceTabViewModels}">
-            <LayoutRoot>
-                <LayoutPanel Orientation="Horizontal">
-                    <LayoutAnchorablePane DockWidth="150">
-                        <LayoutAnchorable Title="Sources">
-                            <view:SourcesTab DataContext="{Binding SourcesTabViewModel}"></view:SourcesTab>
-                        </LayoutAnchorable>
-                    </LayoutAnchorablePane>
-                    <LayoutDocumentPaneGroup>
-                        <LayoutDocumentPane>
-                        </LayoutDocumentPane>
-                    </LayoutDocumentPaneGroup>
-                </LayoutPanel>
-            </LayoutRoot>
-            <DockingManager.DocumentHeaderTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Content.Title}"/>
-                </DataTemplate>
-            </DockingManager.DocumentHeaderTemplate>
-            <DockingManager.LayoutItemTemplateSelector>
-                <viewutils:DocumentTemplateSelector>
-                    <viewutils:DocumentTemplateSelector.DocumentTemplate>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="New Trace" Click="NewTraceMenuItem_Click"/>
+                <MenuItem Header="Exit" Click="CloseMenuItem_Click"/>
+            </Menu>
+            <Grid>
+                <DockingManager AllowMixedOrientation="True" DocumentsSource="{Binding TraceTabViewModels}">
+                    <LayoutRoot>
+                        <LayoutPanel Orientation="Horizontal">
+                            <LayoutAnchorablePaneGroup DockWidth="150" Orientation="Vertical">
+                                <LayoutAnchorablePane>
+                                    <LayoutAnchorable Title="Sources" CanClose="False" CanHide="False">
+                                        <view:SourcesTab DataContext="{Binding SourcesTabViewModel}"></view:SourcesTab>
+                                    </LayoutAnchorable>
+                                </LayoutAnchorablePane>
+                                <LayoutAnchorablePane>
+                                    <LayoutAnchorable Title="VirtualSources" CanClose="False" CanHide="False">
+                                        <view:DerivedSourcesTab DataContext="{Binding SourcesTabViewModel}"></view:DerivedSourcesTab>
+                                    </LayoutAnchorable>
+                                </LayoutAnchorablePane>
+                            </LayoutAnchorablePaneGroup>
+                            <LayoutDocumentPaneGroup>
+                                <LayoutDocumentPane>
+                                </LayoutDocumentPane>
+                            </LayoutDocumentPaneGroup>
+                        </LayoutPanel>
+                    </LayoutRoot>
+                    <DockingManager.DocumentHeaderTemplate>
                         <DataTemplate>
-                            <view:TraceTab></view:TraceTab>
+                            <TextBlock Text="{Binding Content.Title}"/>
                         </DataTemplate>
-                    </viewutils:DocumentTemplateSelector.DocumentTemplate>
-                </viewutils:DocumentTemplateSelector>
-            </DockingManager.LayoutItemTemplateSelector>
-        </DockingManager>
+                    </DockingManager.DocumentHeaderTemplate>
+                    <DockingManager.LayoutItemTemplateSelector>
+                        <viewutils:DocumentTemplateSelector>
+                            <viewutils:DocumentTemplateSelector.DocumentTemplate>
+                                <DataTemplate>
+                                    <view:TraceTab></view:TraceTab>
+                                </DataTemplate>
+                            </viewutils:DocumentTemplateSelector.DocumentTemplate>
+                        </viewutils:DocumentTemplateSelector>
+                    </DockingManager.LayoutItemTemplateSelector>
+                </DockingManager>
+            </Grid>
+        </DockPanel>
     </Grid>
 </ContentControl>

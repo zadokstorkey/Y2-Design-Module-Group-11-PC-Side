@@ -19,6 +19,8 @@ namespace OscilloscopePCSide.ViewModel
 
         private ISourceConfigViewModelFactory _sourceConfigViewModelFactory;
 
+        private IDerivedSourceConfigViewModelFactory _derivedSourceConfigViewModelFactory;
+
         private ISerialPortListProviderService _serialPortListProviderService;
 
         public ISourceConfigViewModelFactory SourceConfigViewModelFactory
@@ -26,6 +28,14 @@ namespace OscilloscopePCSide.ViewModel
             get
             {
                 return _sourceConfigViewModelFactory;
+            }
+        }
+
+        public IDerivedSourceConfigViewModelFactory DerivedSourceConfigViewModelFactory
+        {
+            get
+            {
+                return _derivedSourceConfigViewModelFactory;
             }
         }
 
@@ -39,7 +49,9 @@ namespace OscilloscopePCSide.ViewModel
 
         public ObservableCollection<ISourceConfigViewModel> Sources { get; }
 
-        public SourcesTabViewModel(ISourceConfigViewModelFactory sourceConfigViewModelFactory, ISerialPortListProviderService serialPortListProviderService)
+        public ObservableCollection<IDerivedSourceConfigViewModel> DerivedSources { get; }
+
+        public SourcesTabViewModel(ISourceConfigViewModelFactory sourceConfigViewModelFactory, IDerivedSourceConfigViewModelFactory derivedSourceConfigViewModelFactory, ISerialPortListProviderService serialPortListProviderService)
         {
             this._sourceCount = 1;
             this._colorList = new List<string>()
@@ -52,8 +64,10 @@ namespace OscilloscopePCSide.ViewModel
                 "Yellow"
             };
             this._sourceConfigViewModelFactory = sourceConfigViewModelFactory;
+            this._derivedSourceConfigViewModelFactory = derivedSourceConfigViewModelFactory;
             this._serialPortListProviderService = serialPortListProviderService;
             this.Sources = new ObservableCollection<ISourceConfigViewModel>();
+            this.DerivedSources = new ObservableCollection<IDerivedSourceConfigViewModel>();
             foreach (SerialPortInfo spi in _serialPortListProviderService.GetSerialPortInfos())
             {
                 if (spi.Description == "STMicroelectronics STLink Virtual COM Port")
@@ -66,6 +80,12 @@ namespace OscilloscopePCSide.ViewModel
         public void AddNewSource(string comPort = "")
         {
             this.Sources.Add(_sourceConfigViewModelFactory.Create("Source " + this._sourceCount, this._colorList[(this._sourceCount-1) % this._colorList.Count], comPort));
+            this._sourceCount++;
+        }
+
+        public void AddNewDerivedSource()
+        {
+            this.DerivedSources.Add(_derivedSourceConfigViewModelFactory.Create(this, "Source " + this._sourceCount, this._colorList[(this._sourceCount - 1) % this._colorList.Count]));
             this._sourceCount++;
         }
     }

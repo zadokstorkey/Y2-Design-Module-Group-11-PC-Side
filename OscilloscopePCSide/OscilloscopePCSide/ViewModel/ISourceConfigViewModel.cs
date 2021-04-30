@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace OscilloscopePCSide.ViewModel
 {
-    public interface ISourceConfigViewModel : INotifyPropertyChanged
+    public interface ISourceConfigViewModel : ISourceConfigViewModelBase
     {
         IProbeDataReadingService ProbeDataReadingService { get; }
 
@@ -47,12 +47,6 @@ namespace OscilloscopePCSide.ViewModel
 
         string NewAFGWaveform { get; set; }
 
-        string Name { get; set; }
-
-        Color Color { get; }
-
-        string ColorString { get; set; }
-
         string COMPort { get; set; }
 
         int SampleTime { get; set; }
@@ -78,5 +72,7 @@ namespace OscilloscopePCSide.ViewModel
         string AFGWaveform { get; set; }
 
         void ApplyChanges();
+
+        void CancelChanges();
     }
 }
