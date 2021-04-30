@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 using OscilloscopePCSide.Services;
 using System;
 using System.Collections.Generic;
@@ -513,7 +514,8 @@ namespace OscilloscopePCSide.ViewModel
             _newName = name;
             _newColor = (Color)ColorConverter.ConvertFromString(colorName);
             _newColorString = colorName;
-            _newCOMPort = _serialPortListProviderService.GetSerialPortInfos().First(spi => spi.Name == comPort).NameAndDescription;
+            _newCOMPort = "";
+            _newCOMPort = comPort == "" ? "" : _serialPortListProviderService.GetSerialPortInfos().First(spi => spi.Name == comPort).NameAndDescription;
             _newSampleTime = 2;
             _newXResolution = 1920;
             _newYResolution = 1080;
@@ -535,7 +537,11 @@ namespace OscilloscopePCSide.ViewModel
             {
                 if (_newCOMPort != "")
                 {
-                    _probeDataReadingService.SetCOMPort(_serialPortListProviderService.GetSerialPortInfos().First(spi => spi.NameAndDescription == _newCOMPort).Name);
+                    new Task(() =>
+                    {
+                        var name = _serialPortListProviderService.GetSerialPortInfos().First(spi => spi.NameAndDescription == _newCOMPort).Name;
+                        DispatcherHelper.CheckBeginInvokeOnUI(() => _probeDataReadingService.SetCOMPort(name));
+                    });
                 }
                 else
                 {
