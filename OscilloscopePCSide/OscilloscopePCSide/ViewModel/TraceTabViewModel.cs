@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,8 @@ namespace OscilloscopePCSide.ViewModel
     public class TraceTabViewModel : ViewModelBase, ITraceTabViewModel
     {
         private readonly IMultiProbeDataViewModel _multiProbeDataViewModel;
+
+        private readonly ObservableCollection<ITraceSourceViewModel> _traceSourceViewModels;
 
         private string _title;
 
@@ -36,6 +40,14 @@ namespace OscilloscopePCSide.ViewModel
             get
             {
                 return this._multiProbeDataViewModel;
+            }
+        }
+
+        public ObservableCollection<ITraceSourceViewModel> TraceSourceViewModels
+        {
+            get
+            {
+                return _traceSourceViewModels;
             }
         }
 
@@ -193,65 +205,14 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
-        public bool Probe1Visible
+        public string AveragingMode
         {
-            get
-            {
-                return this._probe1Visible;
-            }
             set
             {
-                this._probe1Visible = value;
-                RaisePropertyChanged(nameof(Probe1Visible));
-                RaisePropertyChanged(nameof(Probe1VisibilityString));
-                RaisePropertyChanged(nameof(Probe1Color));
-            }
-        }
-
-        public bool Probe2Visible
-        {
-            get
-            {
-                return this._probe2Visible;
-            }
-            set
-            {
-                this._probe2Visible = value;
-                RaisePropertyChanged(nameof(Probe2Visible));
-                RaisePropertyChanged(nameof(Probe2VisibilityString));
-                RaisePropertyChanged(nameof(Probe2Color));
-            }
-        }
-
-        public string Probe1VisibilityString
-        {
-            get
-            {
-                return this._probe1Visible ? "Visible" : "Hidden";
-            }
-        }
-
-        public string Probe2VisibilityString
-        {
-            get
-            {
-                return this._probe2Visible ? "Visible" : "Hidden";
-            }
-        }
-
-        public string Probe1Color
-        {
-            get
-            {
-                return this._probe1Visible ? "Red" : "Gray";
-            }
-        }
-
-        public string Probe2Color
-        {
-            get
-            {
-                return this._probe2Visible ? "Blue" : "Gray";
+                foreach (var tsvm in this._traceSourceViewModels)
+                {
+                    tsvm.AveragingMode = value;
+                }
             }
         }
 
@@ -267,22 +228,31 @@ namespace OscilloscopePCSide.ViewModel
             this._voltageOffsetString = "0V";
             this._probe1Visible = true;
             this._probe2Visible = false;
+
+            this._traceSourceViewModels = new ObservableCollection<ITraceSourceViewModel>();
+
+            foreach (IProbeDataViewModel pdvm in this._multiProbeDataViewModel.ProbeDataViewModels)
+            {
+                this._traceSourceViewModels.Add(new TraceSourceViewModel(pdvm));
+            }
+
+            this._multiProbeDataViewModel.ProbeDataViewModels.CollectionChanged += ProbeDataViewModels_CollectionChanged;
         }
 
-        public void HandleProbe1Clicked()
+        private void ProbeDataViewModels_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            this._probe1Visible = !_probe1Visible;
-            RaisePropertyChanged(nameof(Probe1Visible));
-            RaisePropertyChanged(nameof(Probe1VisibilityString));
-            RaisePropertyChanged(nameof(Probe1Color));
-        }
-
-        public void HandleProbe2Clicked()
-        {
-            this._probe2Visible = !_probe2Visible;
-            RaisePropertyChanged(nameof(Probe2Visible));
-            RaisePropertyChanged(nameof(Probe2VisibilityString));
-            RaisePropertyChanged(nameof(Probe2Color));
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                this._traceSourceViewModels.Add(new TraceSourceViewModel((IProbeDataViewModel)e.NewItems[0]));
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                this._traceSourceViewModels.Remove(this._traceSourceViewModels.First(tsvm => tsvm.ProbeDataViewModel == e.OldItems[0]));
+            }
+            else
+            {
+                throw new NotImplementedException("CollectionChanged event handler not implemented for this change type as it should never occur.");
+            }
         }
     }
 }

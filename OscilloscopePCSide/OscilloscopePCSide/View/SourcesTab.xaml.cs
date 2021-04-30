@@ -1,4 +1,5 @@
 ﻿using AvalonDock.Layout;
+using OscilloscopePCSide.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,19 @@ namespace OscilloscopePCSide.View
         public SourcesTab()
         {
             InitializeComponent();
+        }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var channelConfigWindow = new ChannelConfigWindow();
+            channelConfigWindow.DataContext = ((ListViewItem)sender).DataContext;
+            channelConfigWindow.ShowDialog();
+        }
+
+        private void AddNewSourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((ListViewItem)sender).IsSelected = false;
+            (this.DataContext as ISourcesTabViewModel).AddNewSource();
         }
     }
 }

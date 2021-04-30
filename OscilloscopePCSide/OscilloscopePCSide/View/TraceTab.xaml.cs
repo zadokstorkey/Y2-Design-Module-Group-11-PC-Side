@@ -29,11 +29,11 @@ namespace OscilloscopePCSide.View
             InitializeComponent();
         }
 
-        private void Probe1Clicked(object sender, RoutedEventArgs e)
+        private void ProbeClicked(object sender, RoutedEventArgs e)
         {
             if ((sender as ListViewItem).IsSelected)
             {
-                (this.DataContext as ITraceTabViewModel).HandleProbe1Clicked();
+                ((ITraceSourceViewModel)((ListViewItem)sender).DataContext).HandleToggleVisibility();
 
                 // Wait for 50ms for the operation to finish and then unselect everything
                 //  this is really hacky and should be replaced with something better at some point
@@ -42,25 +42,7 @@ namespace OscilloscopePCSide.View
                 timer.Tick += (sender2, args) =>
                 {
                     timer.Stop();
-                    ((sender as ListViewItem).Parent as ListView).UnselectAll();
-                };
-            }
-        }
-
-        private void Probe2Clicked(object sender, RoutedEventArgs e)
-        {
-            if ((sender as ListViewItem).IsSelected)
-            {
-                (this.DataContext as ITraceTabViewModel).HandleProbe2Clicked();
-
-                // Wait for 50ms for the operation to finish and then unselect everything
-                //  this is really hacky and should be replaced with something better at some point
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
-                timer.Start();
-                timer.Tick += (sender2, args) =>
-                {
-                    timer.Stop();
-                    ((sender as ListViewItem).Parent as ListView).UnselectAll();
+                    visibilityListView.UnselectAll();
                 };
             }
         }

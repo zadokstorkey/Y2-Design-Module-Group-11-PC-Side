@@ -1,26 +1,34 @@
 ﻿<ContentControl x:Class="OscilloscopePCSide.View.TraceTab"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d">
-    <DockPanel>
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:converter="clr-namespace:OscilloscopePCSide.View.Converter"
+                mc:Ignorable="d">
+    <ContentControl.Resources>
+        <converter:MultiTransformConverter x:Key="MultiTransformConverter"/>
+    </ContentControl.Resources>
+    <DockPanel x:Name="mainDockPanel">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-            <ListView BorderThickness="0" DockPanel.Dock="Left">
+            <ListView x:Name="visibilityListView" BorderThickness="0" DockPanel.Dock="Left" ItemsSource="{Binding TraceSourceViewModels}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <ListViewItem Selected="Probe1Clicked">
-                    <Label Foreground="{Binding Probe1Color}">Probe 1</Label>
-                </ListViewItem>
-                <ListViewItem Selected="Probe2Clicked">
-                    <Label Foreground="{Binding Probe2Color}">Probe 2</Label>
-                </ListViewItem>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Foreground="{Binding Color}" Content="{Binding Name}"></Label>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="Selected" Handler="ProbeClicked"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Label Height="20" Padding="10, 2, 10, 0">Scale: </Label>
+                <Label Height="20" Padding="10, 2, 10, 0">Scale:</Label>
                 <TextBox Height="23" Width="40" Margin="10, 2, 0, 0" VerticalContentAlignment="Center" Text="{Binding VoltageScaleString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="TextBox_LostFocus"></TextBox>
                 <Grid Height="23" Width="20" Margin="0, 2, 10, 0">
                     <Grid.RowDefinitions>
@@ -43,6 +51,14 @@
                     <Button Padding="0" Grid.Row="1" Content="-" FontSize="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="DecreaseOffsetButton_Click"></Button>
                 </Grid>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <Label Height="20" Padding="10, 2, 10, 0">Averaging:</Label>
+                <ComboBox Height="23" Width="90" Margin="10, 2, 0, 0" VerticalContentAlignment="Center" Text="{Binding AveragingMode, Mode=OneWayToSource}">
+                    <ComboBoxItem IsSelected="True">None</ComboBoxItem>
+                    <ComboBoxItem>Average 10</ComboBoxItem>
+                    <ComboBoxItem>Average 50</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
         </DockPanel>
         <Border ClipToBounds="True" Background="WhiteSmoke" Loaded="Border_Loaded" SizeChanged="Border_SizeChanged">
             <Grid>
@@ -50,22 +66,25 @@
                     <Path Stretch="Fill" Data="M 0 0 H 1" Stroke="Black"></Path>
                     <Path Stretch="Fill" Data="M 0 -16 H 60 M 0 -15 H 60 M 0 -14 H 60 M 0 -13 H 60 M 0 -12 H 60 M 0 -11 H 60 M 0 -10 H 60 M 0 -9 H 60 M 0 -8 H 60 M 0 -7 H 60 M 0 -6 H 60 M 0 -5 H 60 M 0 -4 H 60 M 0 -3 H 60 M 0 -2 H 60 M 0 -1 H 60 M 0 1 H 60 M 0 2 H 60 M 0 3 H 60 M 0 4 H 60 M 0 5 H 60 M 0 6 H 60 M 0 7 H 60 M 0 8 H 60 M 0 9 H 60 M 0 10 H 60 M 0 11 H 60 M 0 12 H 60 M 0 13 H 60 M 0 14 H 60 M 0 15 H 60 M 0 16 H 60" Stroke="Gray" StrokeThickness="0.5"></Path>
                     <Path Stretch="Fill" Data="M 0 16 V -16 M 1 16 V -16 M 2 16 V -16 M 3 16 V -16 M 4 16 V -16 M 5 16 V -16 M 6 16 V -16 M 7 16 V -16 M 8 16 V -16 M 9 16 V -16 M 10 16 V -16 M 11 16 V -16 M 12 16 V -16 M 13 16 V -16 M 14 16 V -16 M 15 16 V -16 M 16 16 V -16 M 17 16 V -16 M 18 16 V -16 M 19 16 V -16 M 20 16 V -16 M 21 16 V -16 M 22 16 V -16 M 23 16 V -16 M 24 16 V -16 M 25 16 V -16 M 26 16 V -16 M 27 16 V -16 M 28 16 V -16 M 29 16 V -16 M 30 16 V -16 M 31 16 V -16 M 32 16 V -16 M 33 16 V -16 M 34 16 V -16 M 35 16 V -16 M 36 16 V -16 M 37 16 V -16 M 38 16 V -16 M 39 16 V -16 M 40 16 V -16 M 41 16 V -16 M 42 16 V -16 M 43 16 V -16 M 44 16 V -16 M 45 16 V -16 M 46 16 V -16 M 47 16 V -16 M 48 16 V -16 M 49 16 V -16 M 50 16 V -16 M 51 16 V -16 M 52 16 V -16 M 53 16 V -16 M 54 16 V -16 M 55 16 V -16 M 56 16 V -16 M 57 16 V -16 M 58 16 V -16 M 59 16 V -16 M 60 16 V -16" Stroke="Gray" StrokeThickness="0.5"></Path>
-                    <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding Probe1VisibilityString}" Data="{Binding MultiProbeDataViewModel.Probe1ProbeDataViewModel.TracePath}" Stroke="Red" StrokeThickness="0.75">
-                        <Path.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleY="{Binding Scale}"/>
-                                <TranslateTransform Y="{Binding ScaledOffset}"/>
-                            </TransformGroup>
-                        </Path.RenderTransform>
-                    </Path>
-                    <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding Probe2VisibilityString}" Data="{Binding MultiProbeDataViewModel.Probe2ProbeDataViewModel.TracePath}" Stroke="Blue" StrokeThickness="0.75">
-                        <Path.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleY="{Binding Scale}"/>
-                                <TranslateTransform Y="{Binding ScaledOffset}"/>
-                            </TransformGroup>
-                        </Path.RenderTransform>
-                    </Path>
+                    <ItemsControl ItemsSource="{Binding TraceSourceViewModels}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid></Grid>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding VisibilityString}" Data="{Binding TracePath}" Stroke="{Binding Color}" StrokeThickness="0.75">
+                                    <Path.RenderTransform>
+                                        <MultiBinding Converter="{StaticResource MultiTransformConverter}">
+                                            <Binding Path="DataContext.Scale" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}"/>
+                                            <Binding Path="DataContext.ScaledOffset" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}"/>
+                                        </MultiBinding>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </Grid>
         </Border>
