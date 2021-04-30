@@ -223,16 +223,8 @@ namespace OscilloscopePCSide.ViewModel
             var sourceConfigViewModel1 = _sourceConfig.SourceConfigViewModel1;
             var sourceConfigViewModel2 = _sourceConfig.SourceConfigViewModel2;
 
-            // simpler version with the same resolutions
-            if (_sourceConfig.XResolution == sourceConfigViewModel1.XResolution && _sourceConfig.XResolution == sourceConfigViewModel2.XResolution)
-            {
-                return source1Frame.Zip(source2Frame, (h1, h2) => h1 + h2).ToList();
-            }
-            else
-            {
-                //todo
-                throw new NotImplementedException();
-            }
+            // combine the resized frames
+            return Rescale(source1Frame, _sourceConfig.XResolution).Zip(Rescale(source2Frame, _sourceConfig.XResolution), (h1, h2) => h1 + h2).ToList();
         }
 
         private List<int> ProcessFrameSubtraction(List<int> source1Frame, List<int> source2Frame)
@@ -241,17 +233,9 @@ namespace OscilloscopePCSide.ViewModel
             var operation = _sourceConfig.Operation;
             var sourceConfigViewModel1 = _sourceConfig.SourceConfigViewModel1;
             var sourceConfigViewModel2 = _sourceConfig.SourceConfigViewModel2;
-
-            // simpler version with the same resolutions
-            if (_sourceConfig.XResolution == sourceConfigViewModel1.XResolution && _sourceConfig.XResolution == sourceConfigViewModel2.XResolution)
-            {
-                return source1Frame.Zip(source2Frame, (h1, h2) => h1 - h2).ToList();
-            }
-            else
-            {
-                //todo
-                throw new NotImplementedException();
-            }
+            
+            // combine the resized frames
+            return Rescale(source1Frame, _sourceConfig.XResolution).Zip(Rescale(source2Frame, _sourceConfig.XResolution), (h1, h2) => h1 - h2).ToList();
         }
 
         private List<int> ProcessFrameAveraging(List<int> source1Frame, List<int> source2Frame)
@@ -261,16 +245,8 @@ namespace OscilloscopePCSide.ViewModel
             var sourceConfigViewModel1 = _sourceConfig.SourceConfigViewModel1;
             var sourceConfigViewModel2 = _sourceConfig.SourceConfigViewModel2;
 
-            // simpler version with the same resolutions
-            if (_sourceConfig.XResolution == sourceConfigViewModel1.XResolution && _sourceConfig.XResolution == sourceConfigViewModel2.XResolution)
-            {
-                return source1Frame.Zip(source2Frame, (h1, h2) => (h1 + h2)/2).ToList();
-            }
-            else
-            {
-                //todo
-                throw new NotImplementedException();
-            }
+            // combine the resized frames
+            return Rescale(source1Frame, _sourceConfig.XResolution).Zip(Rescale(source2Frame, _sourceConfig.XResolution), (h1, h2) => (h1 + h2)/2).ToList();
         }
 
         private List<int> ProcessFrameInversion(List<int> source1Frame)
@@ -280,16 +256,56 @@ namespace OscilloscopePCSide.ViewModel
             var sourceConfigViewModel1 = _sourceConfig.SourceConfigViewModel1;
             var sourceConfigViewModel2 = _sourceConfig.SourceConfigViewModel2;
 
-            // simpler version with the same resolutions
-            if (_sourceConfig.XResolution == sourceConfigViewModel1.XResolution)
+            // invert the resized frame
+            return Rescale(source1Frame, _sourceConfig.XResolution).Select(h => -h).ToList();
+        }
+
+        private List<int> Rescale(List<int> original, int newXResolution)
+        {
+            // if already correct, return
+            if (newXResolution == original.Count)
             {
-                return source1Frame.Select(h => -h).ToList();
+                return original;
             }
+
+
+            // for downscaling, half the size and then call this again
+            if (newXResolution < original.Count)
+            {
+                var newHeights = new List<int>();
+                for (int i = 0; i < original.Count; i+=2)
+                {
+                    newHeights.Add((original[i] + original[i + 1]) / 2);
+                }
+                return Rescale(newHeights, newXResolution);
+            }
+
+            // for upscaling, interpolate the values
             else
             {
-                //todo
-                throw new NotImplementedException();
+                var newHeights = new List<int>();
+                for (int i = 0; i < newXResolution; i++)
+                {
+                    newHeights.Add(LinearFrameInterpolation(original, ((double)i) / ((double)newXResolution)));
+                }
+                return newHeights;
             }
+        }
+
+        private int LinearFrameInterpolation(List<int> heights, double proportion)
+        {
+            for (int i = 0; i < heights.Count - 1; i++)
+            {
+                if (((double)i + 1) / ((double)heights.Count) > proportion)
+                {
+                    var higherProportion = ((double)i + 1) / ((double)heights.Count);
+                    var lowerProportion = ((double)i) / ((double)heights.Count);
+                    var difference = higherProportion - lowerProportion;
+                    var differenceProportion = (proportion - lowerProportion) / difference;
+                    return (int)((differenceProportion * heights[i]) + ((1 - differenceProportion) * heights[i + 1]));
+                }
+            }
+            return heights.Last();
         }
 
         private string ConvertTracePathHeightsToTracePath(List<int> pathHeights)
