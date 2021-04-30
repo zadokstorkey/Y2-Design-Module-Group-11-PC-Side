@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace OscilloscopePCSide.ViewModel.ViewModelFactories
 {
-    interface IDerivedSourceConfigViewModelFactory
+    public interface IDerivedSourceConfigViewModelFactory
     {
+        IDerivedSourceConfigViewModel Create(ISourcesTabViewModel sourcesTabViewModel, string name, string colorName);
     }
 }

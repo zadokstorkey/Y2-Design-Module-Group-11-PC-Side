@@ -21,7 +21,8 @@ namespace OscilloscopePCSide.ViewModel.ViewModelFactories
             var loggingService = new LoggingService();
 
             var sourceConfigViewModelFactory = new SourceConfigViewModelFactory(serialPortListProviderService, loggingService);
-            var sourcesTabViewModel = new SourcesTabViewModel(sourceConfigViewModelFactory, serialPortListProviderService);
+            var derivedSourceConfigViewModelFactory = new DerivedSourceConfigViewModelFactory();
+            var sourcesTabViewModel = new SourcesTabViewModel(sourceConfigViewModelFactory, derivedSourceConfigViewModelFactory, serialPortListProviderService);
 
             var multiProbeDataViewModel = new MultiProbeDataViewModel(sourcesTabViewModel);
 

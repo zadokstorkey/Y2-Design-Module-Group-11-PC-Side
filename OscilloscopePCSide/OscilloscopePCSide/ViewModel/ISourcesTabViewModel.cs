@@ -13,5 +13,7 @@ namespace OscilloscopePCSide.ViewModel
         ObservableCollection<ISourceConfigViewModel> Sources { get; }
 
         void AddNewSource(string comPort = "");
+
+        void AddNewDerivedSource();
     }
 }

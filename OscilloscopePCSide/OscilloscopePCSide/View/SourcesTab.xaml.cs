@@ -27,17 +27,31 @@ namespace OscilloscopePCSide.View
             InitializeComponent();
         }
 
-        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        private void SourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var channelConfigWindow = new ChannelConfigWindow();
-            channelConfigWindow.DataContext = ((ListViewItem)sender).DataContext;
-            channelConfigWindow.ShowDialog();
+            var sourceConfigWindow = new SourceConfigWindow();
+            sourceConfigWindow.DataContext = ((ListViewItem)sender).DataContext;
+            sourceConfigWindow.ShowDialog();
+        }
+
+        private void DerivedSourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var derivedSourceConfigWindow = new DerivedSourceConfigWindow();
+            derivedSourceConfigWindow.DataContext = ((ListViewItem)sender).DataContext;
+            derivedSourceConfigWindow.ShowDialog();
         }
 
         private void AddNewSourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((ListViewItem)sender).IsSelected = false;
             (this.DataContext as ISourcesTabViewModel).AddNewSource();
+        }
+
+        private void AddNewDerivedSourceListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ((ListViewItem)sender).IsSelected = false;
+            (this.DataContext as ISourcesTabViewModel).AddNewDerivedSource();
         }
     }
 }

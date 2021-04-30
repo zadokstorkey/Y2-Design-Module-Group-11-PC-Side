@@ -18,9 +18,9 @@ namespace OscilloscopePCSide.View
     /// <summary>
     /// Interaction logic for ChannelConfigWindow.xaml
     /// </summary>
-    public partial class ChannelConfigWindow : Window
+    public partial class DerivedSourceConfigWindow : Window
     {
-        public ChannelConfigWindow()
+        public DerivedSourceConfigWindow()
         {
             InitializeComponent();
         }
@@ -29,7 +29,7 @@ namespace OscilloscopePCSide.View
         {
             try
             {
-                ((SourceConfigViewModel)DataContext).CancelChanges();
+                ((IDerivedSourceConfigViewModel)DataContext).CancelChanges();
             }
             catch (ApplicationException ex)
             {
@@ -41,7 +41,7 @@ namespace OscilloscopePCSide.View
         {
             try
             {
-                ((SourceConfigViewModel)DataContext).ApplyChanges();
+                ((IDerivedSourceConfigViewModel)DataContext).ApplyChanges();
                 this.Close();
             }
             catch (ApplicationException ex)

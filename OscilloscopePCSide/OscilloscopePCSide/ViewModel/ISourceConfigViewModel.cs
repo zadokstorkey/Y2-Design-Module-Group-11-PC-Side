@@ -78,5 +78,7 @@ namespace OscilloscopePCSide.ViewModel
         string AFGWaveform { get; set; }
 
         void ApplyChanges();
+
+        void CancelChanges();
     }
 }

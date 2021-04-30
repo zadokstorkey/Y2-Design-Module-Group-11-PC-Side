@@ -21,5 +21,9 @@ namespace OscilloscopePCSide.ViewModel
         ISourceConfigViewModel SourceConfigViewModel1 { get; set; }
 
         ISourceConfigViewModel SourceConfigViewModel2 { get; set; }
+
+        void ApplyChanges();
+
+        void CancelChanges();
     }
 }

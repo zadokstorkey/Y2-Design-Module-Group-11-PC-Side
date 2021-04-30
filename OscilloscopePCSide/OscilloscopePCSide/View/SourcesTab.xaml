@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d">
     <Grid>
-        <StackPanel>
-            <ListView BorderThickness="0" ItemsSource="{Binding Sources}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" CanHorizontallyScroll="False">
+            <ListView BorderThickness="0" ItemsSource="{Binding Sources}" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Label Content="{Binding Name}">
@@ -18,13 +23,37 @@
                 </ListView.ItemTemplate>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                        <EventSetter Event="MouseDoubleClick" Handler="SourceListViewItem_MouseDoubleClick"/>
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <ListView BorderThickness="0">
+            <ListView BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <ListViewItem MouseDoubleClick="AddNewSourceListViewItem_MouseDoubleClick">
-                    <Label>Add new Source</Label>
+                    <Label>Add New Source</Label>
+                </ListViewItem>
+            </ListView>
+        </StackPanel>
+        <Separator Grid.Row="1"/>
+        <StackPanel Grid.Row="2" CanHorizontallyScroll="False">
+            <ListView BorderThickness="0" ItemsSource="{Binding DerivedSources}" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Name}">
+                            <Label.Foreground>
+                                <SolidColorBrush Color="{Binding Color}"/>
+                            </Label.Foreground>
+                        </Label>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="DerivedSourceListViewItem_MouseDoubleClick"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <ListView BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListViewItem MouseDoubleClick="AddNewDerivedSourceListViewItem_MouseDoubleClick">
+                    <Label>Add New Virtual Source</Label>
                 </ListViewItem>
             </ListView>
         </StackPanel>

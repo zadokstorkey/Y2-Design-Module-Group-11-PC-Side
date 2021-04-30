@@ -18,6 +18,8 @@ namespace OscilloscopePCSide.ViewModel
 
         private string _newColorString;
 
+        private int _newXResolution;
+
         private string _newOperation;
 
         private ISourceConfigViewModel _newSourceConfigViewModel1;
@@ -29,6 +31,8 @@ namespace OscilloscopePCSide.ViewModel
         private Color _color;
 
         private string _colorString;
+
+        private int _xResolution;
 
         private string _operation;
 
@@ -80,6 +84,19 @@ namespace OscilloscopePCSide.ViewModel
             }
         }
 
+        public int NewXResolution
+        {
+            get
+            {
+                return _newXResolution;
+            }
+            set
+            {
+                _newXResolution = value;
+                RaisePropertyChanged(nameof(NewXResolution));
+            }
+        }
+
         public string NewOperation
         {
             get
@@ -90,6 +107,15 @@ namespace OscilloscopePCSide.ViewModel
             {
                 _newOperation = value;
                 RaisePropertyChanged(nameof(NewOperation));
+                RaisePropertyChanged(nameof(NewOperationRequiresTwoSources));
+            }
+        }
+
+        public bool NewOperationRequiresTwoSources
+        {
+            get
+            {
+                return _newOperation == "Add" || _newOperation == "Subtract" || _newOperation == "Average";
             }
         }
 
@@ -148,10 +174,23 @@ namespace OscilloscopePCSide.ViewModel
             }
             set
             {
-                _color = (Color)ColorConverter.ConvertFromString(value); ;
+                _color = (Color)ColorConverter.ConvertFromString(value);
                 RaisePropertyChanged(nameof(Color));
                 _colorString = value;
                 RaisePropertyChanged(nameof(ColorString));
+            }
+        }
+
+        public int XResolution
+        {
+            get
+            {
+                return _xResolution;
+            }
+            set
+            {
+                _xResolution = value;
+                RaisePropertyChanged(nameof(XResolution));
             }
         }
 
@@ -196,8 +235,59 @@ namespace OscilloscopePCSide.ViewModel
 
         public DerivedSourceConfigViewModel(ISourcesTabViewModel sourcesTabViewModel, string name, string colorName)
         {
+            this._sourcesTabViewModel = sourcesTabViewModel;
+
             this._name = name;
+            this._color = (Color)ColorConverter.ConvertFromString(colorName);
             this._colorString = colorName;
+            this._xResolution = 1920;
+            this._operation = "Invert";
+            this._sourceConfigViewModel1 = null;
+            this._sourceConfigViewModel2 = null;
+
+            this._newName = this._name;
+            this._newColor = this._color;
+            this._newColorString = this._colorString;
+            this._newXResolution = this._xResolution;
+            this._newOperation = this._operation;
+            this._newSourceConfigViewModel1 = this._sourceConfigViewModel1;
+            this._newSourceConfigViewModel2 = this._sourceConfigViewModel2;
+        }
+
+        public void ApplyChanges()
+        {
+            _name = _newName;
+            _color = _newColor;
+            _colorString = _newColorString;
+            _xResolution = _newXResolution;
+            _operation = _newOperation;
+            _sourceConfigViewModel1 = _newSourceConfigViewModel1;
+            _sourceConfigViewModel2 = _newSourceConfigViewModel2;
+            RaisePropertyChanged(nameof(Name));
+            RaisePropertyChanged(nameof(Color));
+            RaisePropertyChanged(nameof(ColorString));
+            RaisePropertyChanged(nameof(XResolution));
+            RaisePropertyChanged(nameof(Operation));
+            RaisePropertyChanged(nameof(SourceConfigViewModel1));
+            RaisePropertyChanged(nameof(SourceConfigViewModel2));
+        }
+
+        public void CancelChanges()
+        {
+            _newName = _name;
+            _newColor = _color;
+            _newColorString = _colorString;
+            _newXResolution = _xResolution;
+            _newOperation = _operation;
+            _newSourceConfigViewModel1 = _sourceConfigViewModel1;
+            _newSourceConfigViewModel2 = _sourceConfigViewModel2;
+            RaisePropertyChanged(nameof(NewName));
+            RaisePropertyChanged(nameof(NewColor));
+            RaisePropertyChanged(nameof(NewColorString));
+            RaisePropertyChanged(nameof(NewXResolution));
+            RaisePropertyChanged(nameof(NewOperation));
+            RaisePropertyChanged(nameof(NewSourceConfigViewModel1));
+            RaisePropertyChanged(nameof(NewSourceConfigViewModel2));
         }
     }
 }
