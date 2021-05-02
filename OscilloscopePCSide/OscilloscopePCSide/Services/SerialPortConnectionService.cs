@@ -60,9 +60,6 @@ namespace OscilloscopePCSide.Services
                 MessageBox.Show("Error when trying to open serial port with device. This means that the device was detected but the serial port didn't open successfully. This may be because something else, like a terminal, is already connected to the device's serial port.", "Error opening serial port with device", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw new ApplicationException("Error opening serial port with device.", e);
             }
-
-            // Clear any irrelevant previous messages
-            _serialPort.ReadExisting();
         }
 
         public void Disconnect()
@@ -99,7 +96,6 @@ namespace OscilloscopePCSide.Services
             {
                 var completeMessage = this._currentSerialPortMessage.Split('>')[0];
                 _loggingService.LogCommunication("Received: " + completeMessage);
-                Trace.WriteLine("Received: " + completeMessage);
                 this._currentSerialPortMessage = this._currentSerialPortMessage.Substring(completeMessage.Length+1);
                 MessageReceived.Invoke(this, new MessageReceivedEventArgs(completeMessage));
             }

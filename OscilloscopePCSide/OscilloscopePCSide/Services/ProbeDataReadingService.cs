@@ -11,6 +11,8 @@ namespace OscilloscopePCSide.Services
 {
     public class ProbeDataReadingService : IProbeDataReadingService
     {
+        private string _lastCOMPort;
+
         private bool _currentlyConnected;
 
         private bool _readTriggeredData;
@@ -27,8 +29,6 @@ namespace OscilloscopePCSide.Services
         
         private readonly ISerialPortConnectionService _serialPortConnectionService;
 
-        private readonly IMultiProbeDataViewModel _multiProbeDataViewModel;
-
         public IProbeDataParsingService ProbeDataParsingService
         {
             get
@@ -42,14 +42,6 @@ namespace OscilloscopePCSide.Services
             get
             {
                 return this._serialPortConnectionService;
-            }
-        }
-
-        public IMultiProbeDataViewModel MultiProbeDataViewModel
-        {
-            get
-            {
-                return this._multiProbeDataViewModel;
             }
         }
 
@@ -75,13 +67,18 @@ namespace OscilloscopePCSide.Services
         {
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
-            this._timer = new Timer(this.OnTimerTick, null, 0, 20000);
+            this._timer = new Timer(this.OnTimerTick, null, 0, 10000);
 
             SetCOMPort(comPort);
         }
 
         public void SetCOMPort(string comPort)
         {
+            if (comPort == _lastCOMPort)
+            {
+                return;
+            }
+
             if (_currentlyConnected)
             {
                 this._serialPortConnectionService.Disconnect();
@@ -94,6 +91,8 @@ namespace OscilloscopePCSide.Services
                 _successfullyReceivingData = true;
                 SendNextMessage();
             }
+
+            _lastCOMPort = comPort;
         }
 
         public void SetReadTriggeredData(bool readTriggeredData)
@@ -103,8 +102,8 @@ namespace OscilloscopePCSide.Services
 
         public void SetAFGSettings(int freq, int amplitude, string waveformType)
         {
-            SetValue("afg_freq", waveformType.ToString());
-            SetValue("afg_amplitude", waveformType.ToString());
+            SetValue("afg_freq", freq.ToString());
+            SetValue("afg_amplitude", amplitude.ToString());
             SetValue("afg_waveform", waveformType.ToString());
         }
 
@@ -174,7 +173,7 @@ namespace OscilloscopePCSide.Services
                 SendNextMessage();
             }
 
-            // reset the variable so that we can track if anything is received in the next 5 seconds
+            // reset the tracker which tracks if a response is received
             _successfullyReceivingData = false;
         }
 
