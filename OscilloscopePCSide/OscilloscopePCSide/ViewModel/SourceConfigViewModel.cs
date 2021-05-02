@@ -513,7 +513,7 @@ namespace OscilloscopePCSide.ViewModel
             _newName = name;
             _newColor = (Color)ColorConverter.ConvertFromString(colorName);
             _newColorString = colorName;
-            _newCOMPort = serialPortListProviderService.GetSerialPortInfos().First(spi => spi.Name == comPort).NameAndDescription;
+            _newCOMPort = comPort != "" ? serialPortListProviderService.GetSerialPortInfos().First(spi => spi.Name == comPort).NameAndDescription : "";
             _newSampleTime = 2;
             _newXResolution = 1920;
             _newYResolution = 1080;
