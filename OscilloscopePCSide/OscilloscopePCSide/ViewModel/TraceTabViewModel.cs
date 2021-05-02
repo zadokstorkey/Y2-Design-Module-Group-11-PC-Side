@@ -229,6 +229,10 @@ namespace OscilloscopePCSide.ViewModel
             {
                 this._traceSourceViewModels.Add(new TraceSourceViewModel(pdvm));
             }
+            foreach (IDerivedProbeDataViewModel pdvm in this._multiProbeDataViewModel.DerivedProbeDataViewModels)
+            {
+                this._traceSourceViewModels.Add(new TraceSourceViewModel(pdvm));
+            }
 
             this._multiProbeDataViewModel.ProbeDataViewModels.CollectionChanged += ProbeDataViewModels_CollectionChanged;
             this._multiProbeDataViewModel.DerivedProbeDataViewModels.CollectionChanged += DerivedProbeDataViewModels_CollectionChanged;
