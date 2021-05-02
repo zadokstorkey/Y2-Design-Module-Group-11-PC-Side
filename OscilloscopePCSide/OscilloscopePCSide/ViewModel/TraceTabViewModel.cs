@@ -144,7 +144,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 this._offset = value;
                 RaisePropertyChanged(nameof(Offset));
-                this._voltageOffset = value * 6.6;
+                this._voltageOffset = value * 6.6 * 2;
                 RaisePropertyChanged(nameof(VoltageOffset));
                 this._voltageOffsetString = _voltageOffset.ToString("0.#V");
                 RaisePropertyChanged(nameof(VoltageOffsetString));
@@ -163,7 +163,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 this._voltageOffset = value;
                 RaisePropertyChanged(nameof(VoltageOffset));
-                this._offset = value / 6.6;
+                this._offset = value / 6.6 / 2;
                 RaisePropertyChanged(nameof(Offset));
                 this._voltageOffsetString = value.ToString("0.#V");
                 RaisePropertyChanged(nameof(VoltageOffsetString));
@@ -185,7 +185,7 @@ namespace OscilloscopePCSide.ViewModel
                 if (double.TryParse(value.Replace("V", ""), out this._voltageOffset))
                 {
                     RaisePropertyChanged(nameof(VoltageOffset));
-                    this._offset = this._voltageOffset / 6.6;
+                    this._offset = this._voltageOffset / 6.6 / 2;
                     RaisePropertyChanged(nameof(Offset));
 
                     RaisePropertyChanged(nameof(ScaledOffset));

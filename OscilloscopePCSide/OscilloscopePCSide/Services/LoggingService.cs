@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,43 +12,70 @@ namespace OscilloscopePCSide.Services
 {
     public class LoggingService : ILoggingService
     {
-        private bool _currentlyWritingRawCommunicationLog;
-        private bool _currentlyWritingCommunicationLog;
+        private ConcurrentQueue<string> _rawCommunicationLogWriteQueue;
+        private ConcurrentQueue<string> _communicationLogWriteQueue;
 
         private StreamWriter _rawCommunicationLogStream;
         private StreamWriter _communicationLogStream;
 
         public LoggingService()
         {
+            _rawCommunicationLogWriteQueue = new ConcurrentQueue<string>();
+            _communicationLogWriteQueue = new ConcurrentQueue<string>();
             _rawCommunicationLogStream = new StreamWriter("rawcommunication.log", false);
             _communicationLogStream = new StreamWriter("communication.log", false);
+
+            LogRawCommunicationLoop();
+            LogCommunicationLoop();
         }
 
         public void LogRawCommunication(string rawCommunication)
         {
-            // prevents to processes trying to write to the log at the same time
-            while (_currentlyWritingRawCommunicationLog)
-            {
-                Thread.Yield();
-            }
-
-            _currentlyWritingRawCommunicationLog = true;
-            _rawCommunicationLogStream.Write(rawCommunication);
-            _currentlyWritingRawCommunicationLog = false;
+            _rawCommunicationLogWriteQueue.Enqueue(rawCommunication);
         }
 
         public void LogCommunication(string communication)
         {
-            // prevents to processes trying to write to the log at the same time
-            while (_currentlyWritingCommunicationLog)
-            {
-                Thread.Yield();
-            }
+            _communicationLogWriteQueue.Enqueue(communication);
+        }
 
-            _currentlyWritingCommunicationLog = true;
-            _communicationLogStream.WriteLine(communication);
-            Trace.WriteLine(communication);
-            _currentlyWritingCommunicationLog = false;
+        private void LogRawCommunicationLoop()
+        {
+            new Task(() =>
+            {
+                while (true)
+                {
+                    if (_rawCommunicationLogWriteQueue.Count > 0)
+                    {
+                        string currentRawCommunication;
+                        if (_rawCommunicationLogWriteQueue.TryDequeue(out currentRawCommunication))
+                        {
+                            _rawCommunicationLogStream.Write(currentRawCommunication);
+                        }
+                    }
+                    Thread.Yield();
+                }
+            }).Start();
+        }
+
+        private void LogCommunicationLoop()
+        {
+            new Task(() =>
+            {
+                while (true)
+                {
+                    if (_communicationLogWriteQueue.Count > 0)
+                    {
+                        string currentCommunication;
+                        if (_communicationLogWriteQueue.TryDequeue(out currentCommunication))
+                        {
+                            _communicationLogStream.WriteLine(currentCommunication);
+                            Trace.WriteLine(currentCommunication);
+                        }
+                    }
+                }
+                Thread.Yield();
+            }).Start();
         }
     }
 }
