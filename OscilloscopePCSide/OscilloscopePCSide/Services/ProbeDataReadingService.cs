@@ -103,8 +103,8 @@ namespace OscilloscopePCSide.Services
 
         public void SetAFGSettings(int freq, int amplitude, string waveformType)
         {
-            SetValue("afg_freq", waveformType.ToString());
-            SetValue("afg_amplitude", waveformType.ToString());
+            SetValue("afg_freq", freq.ToString());
+            SetValue("afg_amplitude", amplitude.ToString());
             SetValue("afg_waveform", waveformType.ToString());
         }
 
