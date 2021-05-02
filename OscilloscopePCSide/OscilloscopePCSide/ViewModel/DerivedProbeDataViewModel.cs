@@ -322,7 +322,7 @@ namespace OscilloscopePCSide.ViewModel
 
         private string ConvertTracePathHeightsToTracePath(List<int> pathHeights)
         {
-            var tracePath = "M 0 8192 M 0 -4096 ";
+            var tracePath = "M 0 8192 M 0 -8192 ";
             for (var i = 0; i < pathHeights.Count; i++)
             {
                 tracePath += i == 0 ? "M " : "L ";
