@@ -14,8 +14,6 @@ namespace OscilloscopePCSide.Services
 
         ISerialPortConnectionService SerialPortConnectionService { get; }
 
-        IMultiProbeDataViewModel MultiProbeDataViewModel { get; }
-
         
         ProbeData ProbeData { get; }
 
