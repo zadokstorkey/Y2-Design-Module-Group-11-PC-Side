@@ -562,7 +562,7 @@ namespace OscilloscopePCSide.ViewModel
             }
             if (_afgStatus != _newAFGStatus || _afgFrequency != _newAFGFrequency || _afgAmplitude != _newAFGAmplitude || _afgWaveform != _newAFGWaveform)
             {
-                _probeDataReadingService.SetAFGSettings(_newAFGStatus == "AFG On" ? _afgFrequency : 0, _afgAmplitude, _afgWaveform.Replace(" Wave", "").ToLower());
+                _probeDataReadingService.SetAFGSettings(_newAFGStatus == "AFG On" ? _newAFGFrequency : 0, _newAFGAmplitude, _newAFGWaveform.Replace(" Wave", "").ToLower());
             }
             if (_probeType != _newProbeType)
             {
