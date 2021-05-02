@@ -520,7 +520,7 @@ namespace OscilloscopePCSide.ViewModel
             _newProbeType = "x1";
             _newTriggerStatus = "Trigger Off";
             _newTriggerType = "Rising Edge";
-            _newTriggerLevel = 2048;
+            _newTriggerLevel = 1000;
             _newAFGStatus = "AFG Off";
             _newAFGFrequency = 800;
             _newAFGAmplitude = 3300;
@@ -574,7 +574,7 @@ namespace OscilloscopePCSide.ViewModel
                 }
                 if (_triggerLevel != _newTriggerLevel)
                 {
-                    _probeDataReadingService.SetTriggerLevel((int)Math.Round(_newTriggerLevel * 4096 / 3.3));
+                    _probeDataReadingService.SetTriggerLevel((int)Math.Round(_newTriggerLevel * 4096 / 3300.0));
                 }
             }
             catch (ApplicationException ex)

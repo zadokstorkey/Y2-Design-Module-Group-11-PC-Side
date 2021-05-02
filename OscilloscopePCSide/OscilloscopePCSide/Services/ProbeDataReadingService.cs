@@ -103,8 +103,8 @@ namespace OscilloscopePCSide.Services
         public void SetAFGSettings(int freq, int amplitude, string waveformType)
         {
             SetValue("afg_freq", freq.ToString());
-            SetValue("afg_amplitude", amplitude.ToString());
             SetValue("afg_waveform", waveformType.ToString());
+            SetValue("afg_amplitude", amplitude.ToString());
         }
 
         public void SetProbeSetting(bool x10)
@@ -190,8 +190,6 @@ namespace OscilloscopePCSide.Services
 
                 var temp = "";
                 probeDataFrame.Heights.ForEach(h => temp += h.ToString() + ", ");
-                Trace.Write(temp);
-                Trace.WriteLine("");
 
                 this.ProbeData.Frames.Add(new ProbeDataFrame(DateTime.Now, heights));
             }
