@@ -75,7 +75,7 @@ namespace OscilloscopePCSide.Services
         {
             this._serialPortConnectionService.MessageReceived += OnSerialPortMessageReceived;
 
-            this._timer = new Timer(this.OnTimerTick, null, 0, 20000);
+            this._timer = new Timer(this.OnTimerTick, null, 0, 10000);
 
             SetCOMPort(comPort);
         }
