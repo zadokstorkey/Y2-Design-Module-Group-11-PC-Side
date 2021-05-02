@@ -146,7 +146,7 @@ namespace OscilloscopePCSide.ViewModel
                         {
                             if (this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count - 1 - j].Heights.Count == this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.MostRecentFrame.Heights.Count)
                             {
-                                probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                                probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count - 1 - j].Heights[i];
                             }
                         }
                     }
