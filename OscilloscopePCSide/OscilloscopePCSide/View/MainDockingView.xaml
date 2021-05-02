@@ -24,7 +24,7 @@
                                     </LayoutAnchorable>
                                 </LayoutAnchorablePane>
                                 <LayoutAnchorablePane>
-                                    <LayoutAnchorable Title="VirtualSources" CanClose="False" CanHide="False">
+                                    <LayoutAnchorable Title="Virtual Sources" CanClose="False" CanHide="False">
                                         <view:DerivedSourcesTab DataContext="{Binding SourcesTabViewModel}"></view:DerivedSourcesTab>
                                     </LayoutAnchorable>
                                 </LayoutAnchorablePane>
