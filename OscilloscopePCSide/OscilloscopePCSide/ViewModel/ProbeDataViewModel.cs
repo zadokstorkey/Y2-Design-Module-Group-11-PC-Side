@@ -59,7 +59,10 @@ namespace OscilloscopePCSide.ViewModel
                     {
                         if (j < this._probeData.Frames.Count)
                         {
-                            averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            if (this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights.Count == this._probeData.MostRecentFrame.Heights.Count)
+                            {
+                                averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            }
                         }
                     }
                     averageHeight /= 10;
@@ -83,7 +86,10 @@ namespace OscilloscopePCSide.ViewModel
                     {
                         if (j < this._probeData.Frames.Count)
                         {
-                            averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            if (this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights.Count == this._probeData.MostRecentFrame.Heights.Count)
+                            {
+                                averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            }
                         }
                     }
                     averageHeight /= 50;
