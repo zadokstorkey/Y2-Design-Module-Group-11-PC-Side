@@ -99,6 +99,7 @@ namespace OscilloscopePCSide.ViewModel
         public TraceSourceViewModel(IProbeDataViewModelBase probeDataViewModel)
         {
             this._probeDataViewModel = probeDataViewModel;
+            this._visible = true;
             ProbeDataViewModel.PropertyChanged += ProbeDataViewModel_PropertyChanged;
             ProbeDataViewModel.SourceConfig.PropertyChanged += Source_PropertyChanged;
         }
