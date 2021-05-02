@@ -74,7 +74,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding VisibilityString}" Data="{Binding TracePath}" Stroke="{Binding Color}" StrokeThickness="0.75">
+                                <Path Stretch="Fill" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding VisibilityString}" Data="{Binding TracePath}" Stroke="{Binding Color}" StrokeThickness="0.5">
                                     <Path.RenderTransform>
                                         <MultiBinding Converter="{StaticResource MultiTransformConverter}">
                                             <Binding Path="DataContext.Scale" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}"/>

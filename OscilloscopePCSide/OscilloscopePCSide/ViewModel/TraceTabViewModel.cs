@@ -85,7 +85,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 this._scale = value;
                 RaisePropertyChanged(nameof(Scale));
-                this._voltageScale = 3.3 / value;
+                this._voltageScale = 3.3 / value / 2;
                 RaisePropertyChanged(nameof(VoltageScale));
                 this._voltageScaleString = this._voltageScale.ToString("0.#V");
                 RaisePropertyChanged(nameof(VoltageScaleString));
@@ -104,7 +104,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 this._voltageScale = value;
                 RaisePropertyChanged(nameof(VoltageScale));
-                this._scale = 3.3 / value;
+                this._scale = 3.3 / value * 2;
                 RaisePropertyChanged(nameof(Scale));
                 this._voltageScaleString = value.ToString("0.#V");
                 RaisePropertyChanged(nameof(VoltageScaleString));
@@ -126,7 +126,7 @@ namespace OscilloscopePCSide.ViewModel
                 if (double.TryParse(value.Replace("V", ""), out this._voltageScale))
                 {
                     RaisePropertyChanged(nameof(VoltageScale));
-                    this._scale =  3.3 / this._voltageScale;
+                    this._scale = 3.3 / this._voltageScale * 2;
                     RaisePropertyChanged(nameof(Scale));
 
                     RaisePropertyChanged(nameof(ScaledOffset));
@@ -216,7 +216,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             this._multiProbeDataViewModel = multiProbeDataViewModel;
             this._title = "Untitled Trace";
-            this._scale = 1;
+            this._scale = 2;
             this._voltageScale = 3.3;
             this._voltageScaleString = "3.3V";
             this._offset = 0;

@@ -34,7 +34,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                var tracePath = "M 0 4096 M 0 -4096 ";
+                var tracePath = "M 0 8192 M 0 -8192 ";
                 for (var i = 0; i < this._probeData.MostRecentFrame.Heights.Count; i++)
                 {
                     tracePath += i == 0 ? "M " : "L ";
@@ -49,7 +49,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                var tracePath = "M 0 4096 M 0 -4096 ";
+                var tracePath = "M 0 8192 M 0 -8192 ";
                 for (var i = 0; i < this._probeData.MostRecentFrame.Heights.Count; i++)
                 {
                     tracePath += i == 0 ? "M " : "L ";
@@ -73,7 +73,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                var tracePath = "M 0 4096 M 0 -4096 ";
+                var tracePath = "M 0 8192 M 0 -8192 ";
                 for (var i = 0; i < this._probeData.MostRecentFrame.Heights.Count; i++)
                 {
                     tracePath += i == 0 ? "M " : "L ";
