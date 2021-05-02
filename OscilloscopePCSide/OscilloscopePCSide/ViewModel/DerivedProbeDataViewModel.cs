@@ -34,7 +34,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 if (!CanProcessFrame())
                 {
-                    return "M 0 4096 M 0 -4096 ";
+                    return "M 0 8192 M 0 -8192 ";
                 }
                 List<int> tracePathHeights;
                 if (_sourceConfig.Operation == "Add")
@@ -67,7 +67,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 if (!CanProcessFrame())
                 {
-                    return "M 0 4096 M 0 -4096 ";
+                    return "M 0 8192 M 0 -8192 ";
                 }
                 List<int> tracePathHeights;
                 List<int> probeData1Heights = _sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.MostRecentFrame.Heights;
@@ -77,7 +77,10 @@ namespace OscilloscopePCSide.ViewModel
                     {
                         if (j < this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count)
                         {
-                            probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                            if (this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count - 1 - j].Heights.Count == this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.MostRecentFrame.Heights.Count)
+                            {
+                                probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                            }
                         }
                     }
                     probeData1Heights[i] /= 10;
@@ -96,7 +99,10 @@ namespace OscilloscopePCSide.ViewModel
                         {
                             if (j < this._sourceConfig.SourceConfigViewModel2.ProbeDataReadingService.ProbeData.Frames.Count)
                             {
-                                probeData2Heights[i] += this._sourceConfig.SourceConfigViewModel2.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                                if (this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count - 1 - j].Heights.Count == this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.MostRecentFrame.Heights.Count)
+                                {
+                                    probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                                }
                             }
                         }
                         probeData2Heights[i] /= 10;
@@ -128,7 +134,7 @@ namespace OscilloscopePCSide.ViewModel
             {
                 if (!CanProcessFrame())
                 {
-                    return "M 0 4096 M 0 -4096 ";
+                    return "M 0 8192 M 0 -8192 ";
                 }
                 List<int> tracePathHeights;
                 List<int> probeData1Heights = _sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.MostRecentFrame.Heights;
@@ -138,7 +144,10 @@ namespace OscilloscopePCSide.ViewModel
                     {
                         if (j < this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count)
                         {
-                            probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                            if (this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count - 1 - j].Heights.Count == this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.MostRecentFrame.Heights.Count)
+                            {
+                                probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                            }
                         }
                     }
                     probeData1Heights[i] /= 50;
@@ -157,7 +166,10 @@ namespace OscilloscopePCSide.ViewModel
                         {
                             if (j < this._sourceConfig.SourceConfigViewModel2.ProbeDataReadingService.ProbeData.Frames.Count)
                             {
-                                probeData2Heights[i] += this._sourceConfig.SourceConfigViewModel2.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                                if (this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames.Count - 1 - j].Heights.Count == this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.MostRecentFrame.Heights.Count)
+                                {
+                                    probeData1Heights[i] += this._sourceConfig.SourceConfigViewModel1.ProbeDataReadingService.ProbeData.Frames[j].Heights[i];
+                                }
                             }
                         }
                         probeData2Heights[i] /= 10;
@@ -310,7 +322,7 @@ namespace OscilloscopePCSide.ViewModel
 
         private string ConvertTracePathHeightsToTracePath(List<int> pathHeights)
         {
-            var tracePath = "M 0 4096 M 0 -4096 ";
+            var tracePath = "M 0 8192 M 0 -4096 ";
             for (var i = 0; i < pathHeights.Count; i++)
             {
                 tracePath += i == 0 ? "M " : "L ";

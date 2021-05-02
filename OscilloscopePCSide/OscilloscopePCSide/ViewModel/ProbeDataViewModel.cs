@@ -34,7 +34,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                var tracePath = "M 0 4096 M 0 -4096 ";
+                var tracePath = "M 0 8192 M 0 -8192 ";
                 for (var i = 0; i < this._probeData.MostRecentFrame.Heights.Count; i++)
                 {
                     tracePath += i == 0 ? "M " : "L ";
@@ -49,7 +49,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                var tracePath = "M 0 4096 M 0 -4096 ";
+                var tracePath = "M 0 8192 M 0 -8192 ";
                 for (var i = 0; i < this._probeData.MostRecentFrame.Heights.Count; i++)
                 {
                     tracePath += i == 0 ? "M " : "L ";
@@ -59,7 +59,10 @@ namespace OscilloscopePCSide.ViewModel
                     {
                         if (j < this._probeData.Frames.Count)
                         {
-                            averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            if (this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights.Count == this._probeData.MostRecentFrame.Heights.Count)
+                            {
+                                averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            }
                         }
                     }
                     averageHeight /= 10;
@@ -73,7 +76,7 @@ namespace OscilloscopePCSide.ViewModel
         {
             get
             {
-                var tracePath = "M 0 4096 M 0 -4096 ";
+                var tracePath = "M 0 8192 M 0 -8192 ";
                 for (var i = 0; i < this._probeData.MostRecentFrame.Heights.Count; i++)
                 {
                     tracePath += i == 0 ? "M " : "L ";
@@ -83,7 +86,10 @@ namespace OscilloscopePCSide.ViewModel
                     {
                         if (j < this._probeData.Frames.Count)
                         {
-                            averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            if (this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights.Count == this._probeData.MostRecentFrame.Heights.Count)
+                            {
+                                averageHeight += this._probeData.Frames[this._probeData.Frames.Count - 1 - j].Heights[i];
+                            }
                         }
                     }
                     averageHeight /= 50;

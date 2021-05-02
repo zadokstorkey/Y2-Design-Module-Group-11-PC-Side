@@ -9,6 +9,10 @@ namespace OscilloscopePCSide.Services
 {
     public class SerialPortListProviderService : ISerialPortListProviderService
     {
+        private bool _mostRecentSerialPortInfosAreUpToDate = false;
+
+        private IList<SerialPortInfo> _mostRecentSerialPortInfos;
+
         public event EventHandler<EventArgs> SerialPortListUpdated;
 
         public void Start()
@@ -21,18 +25,28 @@ namespace OscilloscopePCSide.Services
 
         public IList<SerialPortInfo> GetSerialPortInfos()
         {
-            var serialPortInfos = new List<SerialPortInfo>();
-            ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * From Win32_SerialPort");
-            ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
-            foreach (ManagementObject managementObject in managementObjectCollection)
+            if (_mostRecentSerialPortInfosAreUpToDate)
             {
-                serialPortInfos.Add(new SerialPortInfo((string)managementObject["DeviceID"], (string)managementObject["Description"]));
+                return _mostRecentSerialPortInfos;
             }
-            return serialPortInfos;
+            else
+            {
+                var serialPortInfos = new List<SerialPortInfo>();
+                ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * From Win32_SerialPort");
+                ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get();
+                foreach (ManagementObject managementObject in managementObjectCollection)
+                {
+                    serialPortInfos.Add(new SerialPortInfo((string)managementObject["DeviceID"], (string)managementObject["Description"]));
+                }
+                _mostRecentSerialPortInfos = serialPortInfos;
+                _mostRecentSerialPortInfosAreUpToDate = true;
+                return serialPortInfos;
+            }
         }
 
         private void ManagementEventWatcher_EventArrived(object sender, EventArrivedEventArgs e)
         {
+            _mostRecentSerialPortInfosAreUpToDate = false;
             SerialPortListUpdated.Invoke(this, new EventArgs());
         }
     }
