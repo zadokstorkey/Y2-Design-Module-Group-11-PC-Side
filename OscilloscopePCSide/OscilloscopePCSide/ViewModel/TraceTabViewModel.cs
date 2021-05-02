@@ -31,10 +31,6 @@ namespace OscilloscopePCSide.ViewModel
 
         private string _voltageOffsetString;
 
-        private bool _probe1Visible;
-
-        private bool _probe2Visible;
-
         public IMultiProbeDataViewModel MultiProbeDataViewModel
         {
             get
@@ -226,8 +222,6 @@ namespace OscilloscopePCSide.ViewModel
             this._offset = 0;
             this._voltageOffset = 0;
             this._voltageOffsetString = "0V";
-            this._probe1Visible = true;
-            this._probe2Visible = false;
 
             this._traceSourceViewModels = new ObservableCollection<ITraceSourceViewModel>();
 
